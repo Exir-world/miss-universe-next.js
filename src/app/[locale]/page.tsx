@@ -6,6 +6,7 @@ import BottomNavbar from "@/components/BottomNavbar";
 export default function HomePage() {
   const t = useTranslations("HomePage");
   const [useData, setUserData] = useState({});
+  
   useEffect(() => {
     // Dynamically import SDK after window is available
     import("@twa-dev/sdk").then((WebApp) => {

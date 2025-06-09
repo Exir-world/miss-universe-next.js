@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { routing } from "../../i18n/routing";
 import Script from "next/script";
 import PageWrapper from "@/components/PageWrapper";
-import useDir from "@/hooks/useDir";
+import { getCurrentTenant } from "@/lib/tenant";
 
 export const metadata = {
   title: "Dubaieid",
@@ -24,6 +24,9 @@ export default async function LocaleLayout({
   }
 
   const dir = locale === "fa" ? "rtl" : "ltr";
+  const tenant = (await getCurrentTenant()) || "Dubaieid";
+
+  console.log(tenant,'/*');
 
   return (
     <html lang={locale} dir={dir}>
