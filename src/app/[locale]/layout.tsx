@@ -37,7 +37,7 @@ export default async function LocaleLayout({
         ></Script>
       </head>
       <body>
-        <NextIntlClientProvider>
+        <NextIntlClientProvider locale={locale}>
           <PageWrapper>{children}</PageWrapper>
         </NextIntlClientProvider>
       </body>

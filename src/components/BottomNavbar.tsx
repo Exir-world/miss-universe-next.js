@@ -3,10 +3,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
 import dynamic from "next/dynamic";
 import { FaUser, FaListUl, FaUserFriends } from "react-icons/fa";
 import { IoGameControllerSharp } from "react-icons/io5";
+import { Link } from "@/i18n/navigation";
 
 const BackButton = dynamic(() => import("./BackButton"), { ssr: false });
 
@@ -82,9 +82,7 @@ export default function BottomNavbar({
             <Link
               key={item.link}
               href={item.link}
-              className={`flex flex-col items-center gap-1  ${
-                pathname === item.link ? "text-blue-400" : ""
-              }`}
+              className={`flex flex-col items-center gap-1 `}
             >
               <div className="size-6 flex justify-center">{item.icon}</div>
               <div className="text-sm capitalize">{item.label}</div>
