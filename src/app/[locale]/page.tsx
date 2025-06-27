@@ -2,24 +2,23 @@
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import BottomNavbar from "@/components/BottomNavbar";
+import { toast } from "react-toastify";
+import WebApp from "@twa-dev/sdk";
 
 export default function HomePage() {
-  const t = useTranslations("HomePage");
+  const t = useTranslations();
   const [useData, setUserData] = useState({});
-  
+
   useEffect(() => {
-    // Dynamically import SDK after window is available
-    import("@twa-dev/sdk").then((WebApp) => {
-      WebApp.default.ready(); // optional
-      const user = WebApp.default.initDataUnsafe?.user;
-      if (user) setUserData(user);
-    });
+    WebApp.ready();
+    
   }, []);
 
-  console.log(useData);
+  const notify = () => toast.error("Wow so easy!");
 
   return (
     <div>
+      <button onClick={notify}>Notify!</button>{" "}
       <BottomNavbar hasGameSecret></BottomNavbar>
     </div>
   );

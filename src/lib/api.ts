@@ -8,11 +8,11 @@ import { getCookie } from "cookies-next";
 // Create an Axios instance
 const token = process.env.NEXT_PUBLIC_API_TOKEN || "";
 
-const gameName = getCookie("tenant") || "Dubaieid";
+const gameName = (getCookie("tenant") as string) || "Dubaieid";
 
 const api: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "", // Set your API base URL in .env
-  timeout: 10000, // 10 seconds timeout
+  timeout: 1000000, // 100 seconds timeout
   headers: {
     Authorization: token,
     "Content-Type": "application/json",

@@ -4,6 +4,7 @@ import { routing } from "../../i18n/routing";
 import Script from "next/script";
 import PageWrapper from "@/components/PageWrapper";
 import { getCurrentTenant } from "@/lib/tenant";
+import Provider from "@/components/provider";
 
 export const metadata = {
   title: "Dubaieid",
@@ -26,8 +27,6 @@ export default async function LocaleLayout({
   const dir = locale === "fa" ? "rtl" : "ltr";
   const tenant = (await getCurrentTenant()) || "Dubaieid";
 
-  console.log(tenant,'/*');
-
   return (
     <html lang={locale} dir={dir}>
       <head>
@@ -38,7 +37,9 @@ export default async function LocaleLayout({
       </head>
       <body>
         <NextIntlClientProvider locale={locale}>
-          <PageWrapper>{children}</PageWrapper>
+          <Provider>
+            <PageWrapper>{children}</PageWrapper>
+          </Provider>
         </NextIntlClientProvider>
       </body>
     </html>
