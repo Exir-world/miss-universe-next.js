@@ -5,7 +5,13 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import WebApp from "@twa-dev/sdk";
 
-const ApiContext = createContext({});
+interface ApiContextType {
+  api: any;
+  photoUrl: string;
+  firstname: string;
+}
+
+const ApiContext = createContext<ApiContextType | undefined>(undefined);
 
 export function ApiProvider({ children }: any) {
   const [api, setApi] = useState<any>(null);
@@ -28,6 +34,11 @@ export function ApiProvider({ children }: any) {
 
     setPhotoUrl(photo);
     setFirstname(first);
+
+    if (!initData) {
+      toast.error("Missing Telegram initData. Please open in Telegram WebApp.");
+      return;
+    }
 
     const axiosInstance = axios.create({
       baseURL: process.env.NEXT_PUBLIC_BASE_URL,
@@ -65,5 +76,9 @@ export function ApiProvider({ children }: any) {
 }
 
 export function useApi() {
-  return useContext(ApiContext);
+  const context = useContext(ApiContext);
+  if (!context) {
+    throw new Error("useApi must be used within an ApiProvider");
+  }
+  return context;
 }

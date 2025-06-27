@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { FaUsers } from "react-icons/fa";
 import { MdTask } from "react-icons/md";
 import { BsReceipt } from "react-icons/bs";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 interface DoneTasksData {
   doneTasksCount: number;
@@ -46,27 +46,27 @@ export default function DoneTasks() {
     <div className="flex w-full flex-col justify-center items-center px-2 pt-7 gap-4 font-semibold text-sm tracking-wider">
       <div className="flex w-full justify-between items-center">
         <div className="flex items-center gap-2">
-          <FaUsers size={26} />
-          {t("friends")} {data?.referralsCount}
+          <FaUsers size={24} />
+          friends {data?.referralsCount}
         </div>
         <p>{data?.referralRewardsAmount} EX9630</p>
       </div>
 
       <div className="flex w-full justify-between items-center">
         <div className="flex items-center gap-2">
-          <MdTask size={26} />
-          {t("tasks")} {data?.doneTasksCount}/{data?.tasksCount}
+          <MdTask size={24} />
+          {data?.doneTasksCount}/{data?.tasksCount}
         </div>
         <p>{data?.taskRewardsAmount} EX9630</p>
       </div>
 
       <div className="flex w-full justify-between items-center">
         <div className="flex items-center gap-2">
-          <BsReceipt size={26} />
-          {t("withdrawal")} {data?.withdrawCount}
+          <BsReceipt size={24} />
+          {data?.withdrawCount}
         </div>
         <Link href="/transactionHistory" className="text-blue-600">
-          {t("history")}
+          history
         </Link>
       </div>
     </div>

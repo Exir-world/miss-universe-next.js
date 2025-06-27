@@ -5,16 +5,17 @@ import { useTranslations } from "next-intl";
 
 const page = () => {
   const t = useTranslations();
+  const nickname = "User"; // TODO: Replace with actual nickname from context or props
 
   return (
     <div>
       <div className="border border-[#C643A8E5] rounded-lg bg-[#7D7D7D4D]/30 px-4 pt-4 pb-6 w-full flex flex-col items-center">
         <div className="flex items-center justify-between w-full">
           <span>
-            {t("hello")},{"nickname"}
+            {t("", { nickname })}
           </span>
           <div className="flex items-center text-white gap-4 justify-between w-full p-2">
-            <Avatar />
+            <Avatar nickName={nickname} />
             <LanguageSwitcher />
           </div>
         </div>
