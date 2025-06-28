@@ -25,7 +25,7 @@ export default function Avatar({ photoUrl, nickName, id }: UserProfileProps) {
       )}
       <div className="flex flex-col">
         <p className="font-medium text-white">
-          {/* {t("hello")} {"nickName"} */}
+           {nickName}
         </p>
         <p className="text-white">{id}</p>
       </div>

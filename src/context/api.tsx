@@ -1,12 +1,21 @@
+// context/ApiProvider.tsx (updated)
 "use client";
-import axios from "axios";
-import { useLocale } from "next-intl";
-import { createContext, useContext, useEffect, useState } from "react";
-import { toast } from "react-toastify";
+
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+} from "react";
+import axios, { AxiosInstance } from "axios";
 import WebApp from "@twa-dev/sdk";
+import { useLocale } from "next-intl";
+import { createLoginStore } from "@/stores/login";
+import { AppStoreProvider } from "@/stores/context";
 
 interface ApiContextType {
-  api: any;
+  api: AxiosInstance;
   photoUrl: string;
   firstname: string;
 }
@@ -14,31 +23,25 @@ interface ApiContextType {
 const ApiContext = createContext<ApiContextType | undefined>(undefined);
 
 export function ApiProvider({ children }: any) {
-  const [api, setApi] = useState<any>(null);
+  const [apiInstance, setApiInstance] = useState<AxiosInstance | null>(null);
   const [photoUrl, setPhotoUrl] = useState("");
   const [firstname, setFirstname] = useState("");
+  const [loginStore, setLoginStore] = useState<ReturnType<typeof createLoginStore> | null>(null);
 
   const locale = useLocale();
 
   useEffect(() => {
     WebApp.ready();
 
-    // const initData = WebApp.initData;
-
-    const initData = `query_id=AAGYalJLAgAAAJhqUkv4tT_T&user=%7B%22id%22%3A5558659736%2C%22first_name%22%3A%22Hossein%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22about_hs99%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FSV2v4HB2SdXTlKLXg0HQqDoQ13fZmSKyH_kFuH7RnnhPRVzGjtL6BUZW8Do2BJd0.svg%22%7D&auth_date=1742299813&signature=u0nWaL3RXjTnIZu1crlx20XKZid_8kJ0k4UPmX0BuhJCN3q7K2tfboppfM3xlJop_G5UGBvaBRR4O8UDWy8mBQ&hash=d9922e2e409b7d4a98b70c9b0490d4e70add5274c7d372bd25c3827ae1d1b490`;
-
     const user = WebApp.initDataUnsafe?.user;
+    setPhotoUrl(user?.photo_url || "");
+    setFirstname(user?.first_name || "");
 
-    const photo = user?.photo_url || "";
-    const first = user?.first_name || "";
+    // const initData = WebApp.initData;
+    const initData =
+      "query_id=AAE-nkBjAwAAAD6eQGMDcqZR&user=%7B%22id%22%3A8107630142%2C%22first_name%22%3A%22Exirgec%22%2C%22last_name%22%3A%22Matik%22%2C%22username%22%3A%22matik1999%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FAQDD4nj43TOOafYj3NKKxtdCLkQkjGNODLgeLJucGUv9U3559dQKbVUVt3Jwb0R-.svg%22%7D&auth_date=1751092686&signature=QVDirkjxHhiHNllPthIxlKNPY8HzTRPTW2J1g4-uKWssbbWoGDd157oK1p8gNLLP4MlQrlfuGnxQRb4zL4TTBA&hash=a342b85c7c08f27e3884afe458ebbfc815f72073698aae12d08a191302d571fc";
 
-    setPhotoUrl(photo);
-    setFirstname(first);
-
-    if (!initData) {
-      toast.error("Missing Telegram initData. Please open in Telegram WebApp.");
-      return;
-    }
+    if (!initData) return;
 
     const axiosInstance = axios.create({
       baseURL: process.env.NEXT_PUBLIC_BASE_URL,
@@ -52,25 +55,34 @@ export function ApiProvider({ children }: any) {
     });
 
     axiosInstance.interceptors.response.use(
-      (response) => response,
-      (error) => {
-        if (error.response) {
-          const errorMessage =
-            error.response.data.message || "An error occurred";
-          toast.error(errorMessage);
-        } else {
-          toast.error("Network error. Please try again.");
-        }
-        return Promise.reject(error);
+      (res) => res,
+      (err) => {
+        const message = err?.response?.data?.message || "API error";
+        console.error(message);
+        return Promise.reject(err);
       }
     );
 
-    setApi(axiosInstance);
+    setApiInstance(axiosInstance);
+    const store = createLoginStore(axiosInstance);
+    setLoginStore(store);
   }, []);
 
+  if (!apiInstance || !loginStore) {
+    return null; // or loading indicator
+  }
+
   return (
-    <ApiContext.Provider value={{ api, photoUrl, firstname }}>
-      {children}
+    <ApiContext.Provider
+      value={{
+        api: apiInstance,
+        photoUrl,
+        firstname,
+      }}
+    >
+      <AppStoreProvider loginStore={loginStore}>
+        {children}
+      </AppStoreProvider>
     </ApiContext.Provider>
   );
 }

@@ -78,7 +78,7 @@ export default function BottomNavbar({
     <>
       {
         <div className="fixed bottom-4 left-4 right-4 z-30 h-20 flex items-center justify-evenly px-6 py-4 bg-black/40 text-white rounded-full backdrop-blur-sm transition-all duration-300">
-          {availablePages.map((item) => (
+          {pages.map((item) => (
             <Link
               key={item.link}
               href={item.link}

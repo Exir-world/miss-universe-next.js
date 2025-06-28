@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import BottomNavbar from "./BottomNavbar";
 import React from "react";
+import { useLoginStoreState } from "@/stores/context";
 
 export default function PageWrapper({
   children,
@@ -12,12 +13,12 @@ export default function PageWrapper({
 }) {
   const pathname = usePathname();
   const [loading, setLoading] = useState(true);
-
+  const { getMe, hasGameSecret } = useLoginStoreState();
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // await getMe(); // Mock your login store logic here
-        // await fetch("/test");
+        await getMe();
       } catch (err) {
         console.error(err);
       } finally {
@@ -58,7 +59,7 @@ export default function PageWrapper({
                   <stop offset="1" stopColor="#FF4ED3" stopOpacity="0" />
                 </radialGradient>
                 <circle
-                  transformOrigin="center"
+                  transform-origin="center"
                   fill="none"
                   stroke="url(#a12)"
                   strokeWidth="15"
@@ -81,7 +82,7 @@ export default function PageWrapper({
                   />
                 </circle>
                 <circle
-                  transformOrigin="center"
+                  transform-origin="center"
                   fill="none"
                   opacity=".2"
                   stroke="#FF4ED3"
@@ -105,7 +106,7 @@ export default function PageWrapper({
         </div>
       </div>
 
-      {!hideNav && <BottomNavbar hasGameSecret={true} />}
+      {!hideNav && <BottomNavbar hasGameSecret={hasGameSecret} />}
     </div>
   );
 }
