@@ -21,10 +21,9 @@ export function ApiProvider({ children }: any) {
   const locale = useLocale();
 
   useEffect(() => {
+    
     WebApp.ready();
-
     // const initData = WebApp.initData;
-
     const initData = `query_id=AAGYalJLAgAAAJhqUkv4tT_T&user=%7B%22id%22%3A5558659736%2C%22first_name%22%3A%22Hossein%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22about_hs99%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FSV2v4HB2SdXTlKLXg0HQqDoQ13fZmSKyH_kFuH7RnnhPRVzGjtL6BUZW8Do2BJd0.svg%22%7D&auth_date=1742299813&signature=u0nWaL3RXjTnIZu1crlx20XKZid_8kJ0k4UPmX0BuhJCN3q7K2tfboppfM3xlJop_G5UGBvaBRR4O8UDWy8mBQ&hash=d9922e2e409b7d4a98b70c9b0490d4e70add5274c7d372bd25c3827ae1d1b490`;
 
     const user = WebApp.initDataUnsafe?.user;
