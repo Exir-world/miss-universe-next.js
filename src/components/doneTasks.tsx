@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import { useApi } from "@/context/api";
 import { useTranslations } from "next-intl";
 import { FaUsers } from "react-icons/fa";
-import { MdTask } from "react-icons/md";
-import { BsReceipt } from "react-icons/bs";
+import { MdOutlineMeetingRoom, MdTask } from "react-icons/md";
 import { Link } from "@/i18n/navigation";
+import { LuRockingChair } from "react-icons/lu";
+import { IoReceiptOutline } from "react-icons/io5";
+import { BiTask } from "react-icons/bi";
 
 interface DoneTasksData {
   doneTasksCount: number;
@@ -43,7 +45,7 @@ export default function DoneTasks() {
   }, []);
 
   return (
-    <div className="flex w-full flex-col justify-center items-center px-2 pt-7 gap-4 font-semibold text-sm tracking-wider">
+    <div className="flex w-full flex-col justify-center items-center px-2 pt-7 gap-4  text-sm ">
       <div className="flex w-full justify-between items-center">
         <div className="flex items-center gap-2">
           <FaUsers size={24} />
@@ -54,7 +56,7 @@ export default function DoneTasks() {
 
       <div className="flex w-full justify-between items-center">
         <div className="flex items-center gap-2">
-          <MdTask size={24} />
+          <BiTask  size={24} />
           {data?.doneTasksCount}/{data?.tasksCount}
         </div>
         <p>{data?.taskRewardsAmount} EX9630</p>
@@ -62,12 +64,26 @@ export default function DoneTasks() {
 
       <div className="flex w-full justify-between items-center">
         <div className="flex items-center gap-2">
-          <BsReceipt size={24} />
+          <IoReceiptOutline  size={24} />
           {data?.withdrawCount}
         </div>
         <Link href="/transactionHistory" className="text-blue-600">
           history
         </Link>
+      </div>
+
+      <div className="flex w-full justify-between items-center">
+        <div className="flex items-center gap-2">
+          <LuRockingChair size={24} />
+          {/* {data?.} */}
+        </div>
+      </div>
+
+      <div className="flex w-full justify-between items-center">
+        <div className="flex items-center gap-2">
+          <MdOutlineMeetingRoom size={24} />
+          {/* {data?.} */}
+        </div>
       </div>
     </div>
   );

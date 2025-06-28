@@ -2,6 +2,8 @@ import Avatar from "@/components/avatar";
 import DoneTasks from "@/components/doneTasks";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
+import { LuCircleHelp } from "react-icons/lu";
 
 const page = () => {
   const t = useTranslations();
@@ -11,12 +13,14 @@ const page = () => {
     <div>
       <div className="border border-[#C643A8E5] rounded-lg bg-[#7D7D7D4D]/30 px-4 pt-4 pb-6 w-full flex flex-col items-center">
         <div className="flex items-center justify-between w-full">
-          <span>
-            {t("", { nickname })}
-          </span>
+          <span>{t("", { nickname })}</span>
           <div className="flex items-center text-white gap-4 justify-between w-full p-2">
             <Avatar nickName={nickname} />
             <LanguageSwitcher />
+
+            <Link href={"https://cicada1919.ex.pro"} target="_blank">
+              <LuCircleHelp size={24}></LuCircleHelp>
+            </Link>
           </div>
         </div>
         <div className="flex w-full flex-col justify-center items-center px-2 pt-7 gap-4 font-[600] text-[14px] tracking-wider">
