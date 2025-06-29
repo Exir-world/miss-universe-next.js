@@ -9,8 +9,16 @@ import { useApi } from "@/context/api";
 import { useLoginStoreState } from "@/stores/context";
 import { FaEnvelopeOpenText } from "react-icons/fa";
 
+interface Friend {
+  id: number;
+  nickname: string;
+  userId: number;
+  game: string;
+  createdAt: string;
+}
+
 export default function Referral() {
-  const [friends, setFriends] = useState([]);
+  const [friends, setFriends] = useState<Friend[]>([]);
   const [loading, setLoading] = useState(true);
   const [referralUrl, setReferralUrl] = useState("");
   const { api } = useApi();
@@ -78,13 +86,13 @@ Click the link and start earning with me today!
     }
   };
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-full">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="flex items-center justify-center h-full">
+  //       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="p-4 rounded-2xl mb-2 h-[calc(100vh-11rem)] font-semibold text-white border border-[#C643A8E5] w-full bg-[#7D7D7D4D]/30 bg-opacity-80 backdrop-blur-sm">
@@ -104,7 +112,7 @@ Click the link and start earning with me today!
             <p className="font-bold text-center"></p>
           </div>
         ) : (
-          friends.map((friend, index: number) => (
+          friends.map((friend: Friend, index: number) => (
             <li key={index} className="mt-4">
               {index + 1}. {friend.nickname}
               <p className="font-thin text-xs">10000 EX9630</p>
@@ -116,7 +124,7 @@ Click the link and start earning with me today!
       <div className="flex items-center w-full gap-4 py-1 justify-end">
         {canShare && (
           <div className="flex items-center gap-2 w-full">
-            <p className="p-2 border-[#C643A8E5] rounded-full border grow text-center truncate">
+            <p className="p-2 border-[#C643A8E5] rounded-full border grow text-center truncate text-sm">
               {fullShareLink}
             </p>
             <button

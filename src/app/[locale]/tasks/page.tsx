@@ -20,24 +20,24 @@ const TasksPage = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const response = await api.get("/mainuser/tasks");
-        if (response.status === 200) {
-          setTasks(response.data.data || []);
-        }
-      } catch (error) {
-        console.error("Error fetching tasks:", error);
-        // If API fails, show empty state instead of crashing
-        setTasks([]);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchTasks = async () => {
+  //     try {
+  //       const response = await api.get("/mainuser/tasks");
+  //       if (response.status === 200) {
+  //         setTasks(response.data.data || []);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching tasks:", error);
+  //       // If API fails, show empty state instead of crashing
+  //       setTasks([]);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchTasks();
-  }, [api]);
+  //   fetchTasks();
+  // }, [api]);
 
   const handleTaskComplete = async (taskId: number) => {
     try {
@@ -56,14 +56,6 @@ const TasksPage = () => {
       toast.error("Failed to complete task. Please try again.");
     }
   };
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-full">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
-      </div>
-    );
-  }
 
   return (
     <div className="p-4">

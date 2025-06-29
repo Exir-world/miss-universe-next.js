@@ -25,7 +25,9 @@ export default function TransactionHistory() {
   const router = useRouter();
   const t = useTranslations();
   const { api } = useApi();
-  const [transactionHistory, setTransactionHistory] = useState<Transaction[]>([]);
+  const [transactionHistory, setTransactionHistory] = useState<Transaction[]>(
+    []
+  );
   const [loading, setLoading] = useState(true);
 
   // Fetch transaction history
@@ -73,14 +75,6 @@ export default function TransactionHistory() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-full">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
-      </div>
-    );
-  }
-
   return (
     <div>
       <div className="w-6 h-6">
@@ -110,7 +104,9 @@ export default function TransactionHistory() {
                   {Number(transaction.amount).toFixed(2)} -{" "}
                   {new Date(transaction.createdAt).toLocaleDateString()}
                 </div>
-                <p className={`${getStatusColor(transaction.status)} capitalize`}>
+                <p
+                  className={`${getStatusColor(transaction.status)} capitalize`}
+                >
                   {transaction.status}
                 </p>
               </div>

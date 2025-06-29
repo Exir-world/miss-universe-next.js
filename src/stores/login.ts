@@ -158,9 +158,9 @@ export function createLoginStore(api: AxiosInstance): StoreApi<LoginStore> {
 
               console.log({ room, mysteryContent });
 
-              // Call joinGame after successful getMe
-              const { joinGame } = get();
-              await joinGame();
+              // Remove automatic joinGame call to prevent infinite loops
+              // const { joinGame } = get();
+              // await joinGame();
             } else {
               console.log("User not authenticated");
               set({ isAuth: false });
