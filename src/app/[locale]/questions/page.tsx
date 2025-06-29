@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import PhoneInput from "@/components/phoneNumberInput/PhoneInput";
 import React, { useState } from "react";
 import { useTranslations } from "next-intl";
@@ -12,18 +12,28 @@ const QuestionsPage = () => {
   const { loginData, setLoginData, login } = useLoginStoreState();
   const [loading, setLoading] = useState(false);
 
-  const handlePhoneSubmit = async (phoneNumber: string, countryCode: string) => {
+  const handlePhoneSubmit = async (
+    phoneNumber: string,
+    countryCode: string
+  ) => {
     setLoading(true);
+
     try {
-      const success = await login(countryCode, phoneNumber);
+      // Set the phone number in the store
+      setLoginData({ phoneNumber: phoneNumber });
+
+      // Attempt login with the country code
+      const success = await login(countryCode);
+
       if (success) {
-        toast.success(t("Login successful"));
+        toast.success("Login successful!");
         router.push("/");
       } else {
-        toast.error(t("Login failed"));
+        toast.error("Login failed. Please try again.");
       }
     } catch (error) {
-      toast.error(t("An error occurred"));
+      console.error("Login error:", error);
+      toast.error("An error occurred during login.");
     } finally {
       setLoading(false);
     }

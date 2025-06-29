@@ -16,9 +16,10 @@ const PhoneInput: React.FC<PhoneInputProps> = ({ onSubmit, loading = false }) =>
   const [error, setError] = useState("");
 
   const validatePhoneNumber = (number: string) => {
-    // Basic phone number validation (allows 7-15 digits, optional + at start)
-    const phoneRegex = /^\+?\d{7,15}$/;
-    return phoneRegex.test(number);
+    // Remove all non-digit characters
+    const cleaned = number.replace(/\D/g, '');
+    // Should have 7-15 digits
+    return cleaned.length >= 7 && cleaned.length <= 15;
   };
 
   const handlePhoneChange = (e: any) => {
@@ -56,7 +57,9 @@ const PhoneInput: React.FC<PhoneInputProps> = ({ onSubmit, loading = false }) =>
     }
     
     if (onSubmit) {
-      onSubmit(phoneNumber, selectedCountry.telephoneCode);
+      // Format the phone number with country code
+      const formattedPhone = selectedCountry.telephoneCode + phoneNumber.replace(/\D/g, '');
+      onSubmit(formattedPhone, selectedCountry.telephoneCode);
     }
   };
 

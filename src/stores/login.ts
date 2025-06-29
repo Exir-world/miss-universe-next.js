@@ -50,6 +50,7 @@ interface LoginStore {
   setLoginData: (data: Partial<LoginData>) => void;
   login: (countryCode?: string, referralCode?: string) => Promise<boolean>;
   getMe: () => Promise<void>;
+  joinGame: () => Promise<void>;
   normalizePhoneNumber: (input: string) => string | null;
 }
 
@@ -93,34 +94,44 @@ export function createLoginStore(api: AxiosInstance): StoreApi<LoginStore> {
 
         login: async (countryCode = "", referralCode = "") => {
           const { loginData, normalizePhoneNumber } = get();
-          const phone = normalizePhoneNumber(loginData.phoneNumber);
 
-          if (!phone) {
+          let phoneNumber = normalizePhoneNumber(loginData.phoneNumber);
+          if (phoneNumber === null) {
             console.log("Invalid phone number");
             return false;
           }
 
-          const fullPhone = countryCode + phone;
+          phoneNumber = countryCode.concat(phoneNumber);
 
           try {
             const res = await api.post("/mainuser/register", {
               nickname: "",
-              phoneNumber: fullPhone,
+              phoneNumber,
               email: loginData.email,
-              ...(referralCode ? { referralCode } : {}),
+              ...(referralCode !== "" ? { referralCode } : {}),
             });
 
-            const data = res.data;
+            console.log("Login response:", {
+              data: res.data,
+              status: res.status,
+            });
 
             if (res.status === 201) {
-              set({ accessToken: data.token });
+              console.log("Login successful:", res.data);
+              set({
+                accessToken: res.data.token,
+                isAuth: true,
+              });
               return true;
             } else {
-              console.log(data?.message?.[0] || "server error");
+              console.log(
+                "Login failed:",
+                res.data?.message?.[0] || "server error"
+              );
               return false;
             }
-          } catch (err) {
-            console.error("Login error", err);
+          } catch (err: any) {
+            console.log("Login error:", err);
             return false;
           }
         },
@@ -128,7 +139,6 @@ export function createLoginStore(api: AxiosInstance): StoreApi<LoginStore> {
         getMe: async () => {
           try {
             const res = await api.get("/mainuser/me");
-
             const data = res.data;
 
             if (res.status === 200) {
@@ -140,11 +150,37 @@ export function createLoginStore(api: AxiosInstance): StoreApi<LoginStore> {
                 isAuth: true,
                 hasGameSecret: hasSecret,
               });
+
+
+              const room = data.data?.mystery?.room;
+              const mysteryContent = data.data?.mystery?.mysteryContent;
+
+              console.log({ room, mysteryContent });
+
+              // Call joinGame after successful getMe
+              const { joinGame } = get();
+              await joinGame();
             } else {
               console.log("User not authenticated");
+              set({ isAuth: false });
             }
-          } catch (err) {
-            console.error(err);
+          } catch (err: any) {
+            console.log("getMe error:", err?.response?.status);
+            set({ isAuth: false });
+          }
+        },
+
+        joinGame: async () => {
+          try {
+            // Get referral code from URL if available
+            const urlParams = new URLSearchParams(window.location.search);
+            const referralCode = urlParams.get("r");
+
+            await api.post("/mainuser/join", {
+              ...(referralCode ? { referralCode } : {}),
+            });
+          } catch (err: any) {
+            console.log("joinGame error:", err);
           }
         },
       }),
@@ -154,6 +190,7 @@ export function createLoginStore(api: AxiosInstance): StoreApi<LoginStore> {
           accessToken: state.accessToken,
           loginData: state.loginData,
           userData: state.userData,
+          isAuth: state.isAuth,
         }),
       }
     )

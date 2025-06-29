@@ -54,6 +54,7 @@ export function useLoginStoreState() {
     setLoginData: state.setLoginData,
     login: state.login,
     getMe: state.getMe,
+    joinGame: state.joinGame,
     normalizePhoneNumber: state.normalizePhoneNumber,
   };
 }

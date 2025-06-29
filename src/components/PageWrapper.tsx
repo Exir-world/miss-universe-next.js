@@ -20,13 +20,13 @@ export default function PageWrapper({
       try {
         await getMe();
       } catch (err) {
-        console.error(err);
+        console.error("Error in PageWrapper:", err);
       } finally {
         setLoading(false);
       }
     };
     fetchData();
-  }, []);
+  }, [getMe]);
 
   const hideNav =
     ["/login"].includes(pathname || "") || (pathname || "").includes("intro");

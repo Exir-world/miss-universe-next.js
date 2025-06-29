@@ -137,8 +137,8 @@ export default function HomePage() {
             </button>
           </>
         ) : (
-          <button className="text-primary font-bold text-3xl mt-6">
-            {t("presidentjoker.presidentjoker-Home.click")}
+          <button className="text-primary font-bold text-2xl mt-6">
+            {/* {t("presidentjoker.presidentjoker-Home.click")} */}Tap on me
           </button>
         )}
 

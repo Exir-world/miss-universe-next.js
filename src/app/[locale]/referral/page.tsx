@@ -8,6 +8,7 @@ import { PiTelegramLogo } from "react-icons/pi";
 import { IoCopyOutline } from "react-icons/io5";
 import { useApi } from "@/context/api";
 import { useLoginStoreState } from "@/stores/context";
+import { FaEnvelopeOpenText } from "react-icons/fa";
 
 export default function Referral() {
   const [friends, setFriends] = useState<any[]>([]);
@@ -94,9 +95,11 @@ Click the link and start earning with me today!
     <div className="p-4 rounded-2xl mb-2 h-[calc(100vh-11rem)] font-semibold text-white border border-[#C643A8E5] w-full bg-[#7D7D7D4D]/30 bg-opacity-80 backdrop-blur-sm">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="w-6 h-6">��</span>
+          <span className="w-6 h-6">
+            <FaEnvelopeOpenText size={20} />
+          </span>
           <p className="font-semibold text-sm">
-            {/* {t("presidentjoker.presidentjoker-tasks.button")} */}
+            {/* {t("presidentjoker.presidentjoker-tasks.button")} */}Friends
           </p>
         </div>
         <p className="font-thin text-xs">
@@ -156,4 +159,3 @@ Click the link and start earning with me today!
     </div>
   );
 }
-

@@ -6,7 +6,6 @@ import React, {
   useContext,
   useEffect,
   useState,
-  useRef,
 } from "react";
 import axios, { AxiosInstance } from "axios";
 import WebApp from "@twa-dev/sdk";
@@ -45,27 +44,28 @@ export function ApiProvider({ children }: any) {
       const params = new URLSearchParams(data);
       const userJson = params.get('user');
       if (!userJson) {
-      return { photoUrl: '', firstname: '' };
+        return { photoUrl: '', firstname: '' };
       }
       const userData = JSON.parse(userJson);
       return {
-      photoUrl: userData.photo_url
-        ? userData.photo_url.replace(/\\/g, '/')
-        : '',
-      firstname: userData.first_name,
+        photoUrl: userData.photo_url
+          ? userData.photo_url.replace(/\\/g, '/')
+          : '',
+        firstname: userData.first_name,
       };
     };
 
-    const { photoUrl: parsedPhotoUrl, firstname: parsedFirstname } = parseInitData(initData);
-    setPhotoUrl(parsedPhotoUrl);
-    setFirstname(parsedFirstname);
+    if (initData) {
+      const { photoUrl: parsedPhotoUrl, firstname: parsedFirstname } = parseInitData(initData);
+      setPhotoUrl(parsedPhotoUrl);
+      setFirstname(parsedFirstname);
+    }
 
-    if (!initData) return;
-
+    // Create API instance
     const axiosInstance = axios.create({
-      baseURL: process.env.NEXT_PUBLIC_BASE_URL || "https://api.cicada1919.ex.pro",
+      baseURL: process.env.NEXT_PUBLIC_BASE_URL || "https://token.ex.pro/api",
       headers: {
-        Authorization: initData,
+        ...(initData ? { Authorization: initData } : {}),
         "Content-Type": "application/json",
         "x-game": process.env.NEXT_PUBLIC_GAME_NAME || "Dubaieid",
         "Accept-Language": locale,
@@ -73,27 +73,15 @@ export function ApiProvider({ children }: any) {
       },
     });
 
+    // Add response interceptor
     axiosInstance.interceptors.response.use(
       (res) => res,
       (err) => {
-        const message = err?.response?.data?.message || "API error";
-        
-        // Log detailed error information for debugging
         console.error("API Error:", {
           url: err?.config?.url,
           status: err?.response?.status,
-          message: message,
-          baseURL: err?.config?.baseURL,
-          method: err?.config?.method,
+          message: err?.response?.data?.message || "API error",
         });
-
-        // Don't throw errors for 404s, just log them
-        if (err?.response?.status === 404) {
-          console.warn("API endpoint not found:", err?.config?.url);
-          return Promise.reject(err);
-        }
-
-        // For other errors, still reject but with better logging
         return Promise.reject(err);
       }
     );
@@ -101,10 +89,10 @@ export function ApiProvider({ children }: any) {
     setApiInstance(axiosInstance);
     const store = createLoginStore(axiosInstance);
     setLoginStore(store);
-  }, []);
+  }, [locale]);
 
   if (!apiInstance || !loginStore) {
-    return null; // or loading indicator
+    return null;
   }
 
   return (
