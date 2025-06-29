@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import { useApi } from "@/context/api";
 import { FaUsers } from "react-icons/fa";
 import { Link } from "@/i18n/navigation";
-import { LuRockingChair } from "react-icons/lu";
 import { IoReceiptOutline } from "react-icons/io5";
 import { BiTask } from "react-icons/bi";
+import { MdOutlineMeetingRoom } from "react-icons/md";
+import { GiWoodenChair } from "react-icons/gi";
+import { useLoginStoreState } from "@/stores/context";
 
 interface DoneTasksData {
   doneTasksCount: number;
@@ -19,6 +21,8 @@ interface DoneTasksData {
 
 export default function DoneTasks() {
   const { api } = useApi();
+  const { userData } = useLoginStoreState();
+
   const [data, setData] = useState<DoneTasksData | null>(null);
 
   const fetchDoneTasks = async () => {
@@ -61,7 +65,8 @@ export default function DoneTasks() {
 
       <div className="flex w-full justify-between items-center">
         <div className="flex items-center gap-2">
-          <BiTask  size={24} />
+          <BiTask size={24} />
+          Tasks
           {data?.doneTasksCount}/{data?.tasksCount}
         </div>
         <p>{data?.taskRewardsAmount} EX9630</p>
@@ -69,7 +74,8 @@ export default function DoneTasks() {
 
       <div className="flex w-full justify-between items-center">
         <div className="flex items-center gap-2">
-          <IoReceiptOutline  size={24} />
+          <IoReceiptOutline size={24} />
+          Withdrawal
           {data?.withdrawCount}
         </div>
         <Link href="/transactionHistory" className="text-blue-600">
@@ -79,8 +85,17 @@ export default function DoneTasks() {
 
       <div className="flex w-full justify-between items-center">
         <div className="flex items-center gap-2">
-          <LuRockingChair size={24} />
+          <MdOutlineMeetingRoom size={24} /> Room
         </div>
+        <p>{userData.mystery.room ?? "-"}</p>
+      </div>
+
+      <div className="flex w-full justify-between items-center">
+        <div className="flex items-center gap-2">
+          <GiWoodenChair size={24} />
+          Chair
+        </div>
+        <p>{userData.mystery.session ?? "-"}</p>
       </div>
     </div>
   );

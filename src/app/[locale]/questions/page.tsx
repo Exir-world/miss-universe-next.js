@@ -5,6 +5,8 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { useLoginStoreState } from "@/stores/context";
 import { toast } from "react-toastify";
+import AnswerItem from "@/components/answerItem";
+import WinnerButton from "@/components/winnerButton";
 
 const QuestionsPage = () => {
   const t = useTranslations();
@@ -38,9 +40,17 @@ const QuestionsPage = () => {
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
       <div className="w-full max-w-md">
         <h1 className="text-2xl font-bold text-white text-center mb-8">
-          {t("Enter your phone number")}
+          {/* {t("Enter your phone number")} */}
         </h1>
-        <PhoneInput onSubmit={handlePhoneSubmit} loading={loading} />
+
+        <div className="flex flex-col gap-2 justify-center ">
+          <AnswerItem></AnswerItem>
+          <AnswerItem></AnswerItem>
+          <AnswerItem></AnswerItem>
+          <AnswerItem></AnswerItem>
+        </div>
+        {/* <PhoneInput onSubmit={handlePhoneSubmit} loading={loading} /> */}
+        <WinnerButton></WinnerButton>
       </div>
     </div>
   );
