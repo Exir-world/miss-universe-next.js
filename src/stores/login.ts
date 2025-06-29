@@ -1,4 +1,4 @@
-import { StateCreator, createStore, StoreApi } from "zustand";
+import { createStore, StoreApi } from "zustand";
 import { persist } from "zustand/middleware";
 import { AxiosInstance } from "axios";
 

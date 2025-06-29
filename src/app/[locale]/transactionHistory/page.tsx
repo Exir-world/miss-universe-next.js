@@ -3,7 +3,8 @@
 import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { useState, useEffect } from "react";
-import { FaArrowLeft, FaReceipt, FaChevronDown } from "react-icons/fa";
+import { FaArrowLeft, FaReceipt } from "react-icons/fa";
+import { useApi } from "@/context/api";
 
 // Define the Transaction interface
 interface Transaction {
@@ -23,39 +24,35 @@ interface Transaction {
 export default function TransactionHistory() {
   const router = useRouter();
   const t = useTranslations();
-  const [transactionHistory, setTransactionHistory] = useState<Transaction[]>(
-    []
-  );
-
-  // Simulate runtime config for gameName (replace with actual Next.js env variable)
-  const gameName = process.env.NEXT_PUBLIC_GAME_NAME || "Dubaieid";
+  const { api } = useApi();
+  const [transactionHistory, setTransactionHistory] = useState<Transaction[]>([]);
+  const [loading, setLoading] = useState(true);
 
   // Fetch transaction history
   const fetchTransactionHistory = async () => {
     try {
-      const res = await fetch("/api/withdraw-requests", {
-        headers: {
-          "Content-Type": "application/json",
-          "X-Game": gameName,
-        },
-      });
+      // Try the correct API endpoint first
+      const res = await api.get("/mainuser/withdraw-requests");
       if (res.status === 200) {
-        const data = await res.json();
-        setTransactionHistory(data?.data || []);
+        setTransactionHistory(res.data?.data || []);
       }
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching transaction history:", error);
+      // If the API fails, show empty state instead of crashing
+      setTransactionHistory([]);
+    } finally {
+      setLoading(false);
     }
   };
 
   // Fetch data on mount
   useEffect(() => {
     fetchTransactionHistory();
-  }, []);
+  }, [api]);
 
-  // Navigate to profile
-  const goToQuestions = () => {
-    router.back()
+  // Navigate back
+  const goBack = () => {
+    router.back();
   };
 
   // Compute status colors
@@ -72,16 +69,24 @@ export default function TransactionHistory() {
       case "waiting":
         return "text-white";
       default:
-        return "";
+        return "text-white";
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+      </div>
+    );
+  }
 
   return (
     <div>
       <div className="w-6 h-6">
         <button
           className="rounded-full text-white border border-[#FF4ED3] flex items-center p-2 bg-white/20 hover:bg-white/30 transition-colors"
-          onClick={goToQuestions}
+          onClick={goBack}
         >
           <FaArrowLeft className="w-4 h-4" />
         </button>
@@ -91,7 +96,7 @@ export default function TransactionHistory() {
         <div className="w-full flex items-center justify-start gap-2">
           <FaReceipt className="w-[22px] h-[22px] text-white" />
           <span className="font-semibold text-[14px] text-white">
-            {"Transaction History"}
+            {t("Transaction History")}
           </span>
         </div>
         <div className="w-full flex flex-col items-center gap-2 text-[14px] font-normal max-h-[60vh] overflow-auto">
@@ -99,13 +104,13 @@ export default function TransactionHistory() {
             transactionHistory.map((transaction) => (
               <div
                 key={transaction.id}
-                className="flex w-full justify-between items-center gap-2"
+                className="flex w-full justify-between items-center gap-2 p-2 border-b border-white/10"
               >
                 <div className="text-white">
                   {Number(transaction.amount).toFixed(2)} -{" "}
                   {new Date(transaction.createdAt).toLocaleDateString()}
                 </div>
-                <p className={getStatusColor(transaction.status)}>
+                <p className={`${getStatusColor(transaction.status)} capitalize`}>
                   {transaction.status}
                 </p>
               </div>
@@ -114,10 +119,6 @@ export default function TransactionHistory() {
             <p className="text-white">No transactions found.</p>
           )}
         </div>
-        {/* Uncomment if you want to include the arrow down icon */}
-        {/* <div className="w-full flex items-center justify-center">
-          <FaChevronDown className="w-[22px] h-[22px] text-white" />
-        </div> */}
       </div>
     </div>
   );

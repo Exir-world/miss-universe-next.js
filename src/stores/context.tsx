@@ -41,17 +41,19 @@ export function useLoginStore() {
 // Convenience hook that provides direct access to store state and actions
 export function useLoginStoreState() {
   const loginStore = useLoginStore();
+  const state = loginStore.getState();
+  
   return {
     // State
-    loginData: loginStore.getState().loginData,
-    userData: loginStore.getState().userData,
-    isAuth: loginStore.getState().isAuth,
-    accessToken: loginStore.getState().accessToken,
-    hasGameSecret: loginStore.getState().hasGameSecret,
+    loginData: state.loginData,
+    userData: state.userData,
+    isAuth: state.isAuth,
+    accessToken: state.accessToken,
+    hasGameSecret: state.hasGameSecret,
     // Actions
-    setLoginData: loginStore.getState().setLoginData,
-    login: loginStore.getState().login,
-    getMe: loginStore.getState().getMe,
-    normalizePhoneNumber: loginStore.getState().normalizePhoneNumber,
+    setLoginData: state.setLoginData,
+    login: state.login,
+    getMe: state.getMe,
+    normalizePhoneNumber: state.normalizePhoneNumber,
   };
 }

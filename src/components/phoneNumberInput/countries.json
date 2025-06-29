@@ -1,0 +1,1070 @@
+[
+  {
+    "code": "AD",
+    "name": "Andorra",
+    "flagClass": "fi fi-ad",
+    "telephoneCode": "+376"
+  },
+  {
+    "code": "AE",
+    "name": "United Arab Emirates",
+    "flagClass": "fi fi-ae",
+    "telephoneCode": "+971"
+  },
+  {
+    "code": "AF",
+    "name": "Afghanistan",
+    "flagClass": "fi fi-af",
+    "telephoneCode": "+93"
+  },
+  {
+    "code": "AG",
+    "name": "Antigua and Barbuda",
+    "flagClass": "fi fi-ag",
+    "telephoneCode": "+1-268"
+  },
+  {
+    "code": "AI",
+    "name": "Anguilla",
+    "flagClass": "fi fi-ai",
+    "telephoneCode": "+1-264"
+  },
+  {
+    "code": "AL",
+    "name": "Albania",
+    "flagClass": "fi fi-al",
+    "telephoneCode": "+355"
+  },
+  {
+    "code": "AM",
+    "name": "Armenia",
+    "flagClass": "fi fi-am",
+    "telephoneCode": "+374"
+  },
+  {
+    "code": "AO",
+    "name": "Angola",
+    "flagClass": "fi fi-ao",
+    "telephoneCode": "+244"
+  },
+  {
+    "code": "AQ",
+    "name": "Antarctica",
+    "flagClass": "fi fi-aq",
+    "telephoneCode": "+672"
+  },
+  {
+    "code": "AR",
+    "name": "Argentina",
+    "flagClass": "fi fi-ar",
+    "telephoneCode": "+54"
+  },
+  {
+    "code": "AS",
+    "name": "American Samoa",
+    "flagClass": "fi fi-as",
+    "telephoneCode": "+1-684"
+  },
+  {
+    "code": "AT",
+    "name": "Austria",
+    "flagClass": "fi fi-at",
+    "telephoneCode": "+43"
+  },
+  {
+    "code": "AU",
+    "name": "Australia",
+    "flagClass": "fi fi-au",
+    "telephoneCode": "+61"
+  },
+  {
+    "code": "AW",
+    "name": "Aruba",
+    "flagClass": "fi fi-aw",
+    "telephoneCode": "+297"
+  },
+  {
+    "code": "AX",
+    "name": "Åland Islands",
+    "flagClass": "fi fi-ax",
+    "telephoneCode": "+358"
+  },
+  {
+    "code": "AZ",
+    "name": "Azerbaijan",
+    "flagClass": "fi fi-az",
+    "telephoneCode": "+994"
+  },
+  {
+    "code": "BA",
+    "name": "Bosnia and Herzegovina",
+    "flagClass": "fi fi-ba",
+    "telephoneCode": "+387"
+  },
+  {
+    "code": "BB",
+    "name": "Barbados",
+    "flagClass": "fi fi-bb",
+    "telephoneCode": "+1-246"
+  },
+  {
+    "code": "BD",
+    "name": "Bangladesh",
+    "flagClass": "fi fi-bd",
+    "telephoneCode": "+880"
+  },
+  {
+    "code": "BE",
+    "name": "Belgium",
+    "flagClass": "fi fi-be",
+    "telephoneCode": "+32"
+  },
+  {
+    "code": "BF",
+    "name": "Burkina Faso",
+    "flagClass": "fi fi-bf",
+    "telephoneCode": "+226"
+  },
+  {
+    "code": "BG",
+    "name": "Bulgaria",
+    "flagClass": "fi fi-bg",
+    "telephoneCode": "+359"
+  },
+  {
+    "code": "BH",
+    "name": "Bahrain",
+    "flagClass": "fi fi-bh",
+    "telephoneCode": "+973"
+  },
+  {
+    "code": "BI",
+    "name": "Burundi",
+    "flagClass": "fi fi-bi",
+    "telephoneCode": "+257"
+  },
+  {
+    "code": "BJ",
+    "name": "Benin",
+    "flagClass": "fi fi-bj",
+    "telephoneCode": "+229"
+  },
+  {
+    "code": "BL",
+    "name": "Saint Barthélemy",
+    "flagClass": "fi fi-bl",
+    "telephoneCode": "+590"
+  },
+  {
+    "code": "BM",
+    "name": "Bermuda",
+    "flagClass": "fi fi-bm",
+    "telephoneCode": "+1-441"
+  },
+  {
+    "code": "BN",
+    "name": "Brunei Darussalam",
+    "flagClass": "fi fi-bn",
+    "telephoneCode": "+673"
+  },
+  {
+    "code": "BO",
+    "name": "Bolivia",
+    "flagClass": "fi fi-bo",
+    "telephoneCode": "+591"
+  },
+  {
+    "code": "BQ",
+    "name": "Bonaire, Sint Eustatius and Saba",
+    "flagClass": "fi fi-bq",
+    "telephoneCode": "+599"
+  },
+  {
+    "code": "BR",
+    "name": "Brazil",
+    "flagClass": "fi fi-br",
+    "telephoneCode": "+55"
+  },
+  {
+    "code": "BS",
+    "name": "Bahamas",
+    "flagClass": "fi fi-bs",
+    "telephoneCode": "+1-242"
+  },
+  {
+    "code": "BT",
+    "name": "Bhutan",
+    "flagClass": "fi fi-bt",
+    "telephoneCode": "+975"
+  },
+  {
+    "code": "BV",
+    "name": "Bouvet Island",
+    "flagClass": "fi fi-bv",
+    "telephoneCode": "+47"
+  },
+  {
+    "code": "BW",
+    "name": "Botswana",
+    "flagClass": "fi fi-bw",
+    "telephoneCode": "+267"
+  },
+  {
+    "code": "BY",
+    "name": "Belarus",
+    "flagClass": "fi fi-by",
+    "telephoneCode": "+375"
+  },
+  {
+    "code": "BZ",
+    "name": "Belize",
+    "flagClass": "fi fi-bz",
+    "telephoneCode": "+501"
+  },
+  {
+    "code": "CA",
+    "name": "Canada",
+    "flagClass": "fi fi-ca",
+    "telephoneCode": "+1"
+  },
+  {
+    "code": "CC",
+    "name": "Cocos (Keeling) Islands",
+    "flagClass": "fi fi-cc",
+    "telephoneCode": "+61"
+  },
+  {
+    "code": "CD",
+    "name": "Congo, Democratic Republic of the",
+    "flagClass": "fi fi-cd",
+    "telephoneCode": "+243"
+  },
+  {
+    "code": "CF",
+    "name": "Central African Republic",
+    "flagClass": "fi fi-cf",
+    "telephoneCode": "+236"
+  },
+  {
+    "code": "CG",
+    "name": "Congo",
+    "flagClass": "fi fi-cg",
+    "telephoneCode": "+242"
+  },
+  {
+    "code": "CH",
+    "name": "Switzerland",
+    "flagClass": "fi fi-ch",
+    "telephoneCode": "+41"
+  },
+  {
+    "code": "CI",
+    "name": "Côte d'Ivoire",
+    "flagClass": "fi fi-ci",
+    "telephoneCode": "+225"
+  },
+  {
+    "code": "CK",
+    "name": "Cook Islands",
+    "flagClass": "fi fi-ck",
+    "telephoneCode": "+682"
+  },
+  {
+    "code": "CL",
+    "name": "Chile",
+    "flagClass": "fi fi-cl",
+    "telephoneCode": "+56"
+  },
+  {
+    "code": "CM",
+    "name": "Cameroon",
+    "flagClass": "fi fi-cm",
+    "telephoneCode": "+237"
+  },
+  {
+    "code": "CN",
+    "name": "China",
+    "flagClass": "fi fi-cn",
+    "telephoneCode": "+86"
+  },
+  {
+    "code": "CO",
+    "name": "Colombia",
+    "flagClass": "fi fi-co",
+    "telephoneCode": "+57"
+  },
+  {
+    "code": "CR",
+    "name": "Costa Rica",
+    "flagClass": "fi fi-cr",
+    "telephoneCode": "+506"
+  },
+  {
+    "code": "CU",
+    "name": "Cuba",
+    "flagClass": "fi fi-cu",
+    "telephoneCode": "+53"
+  },
+  {
+    "code": "CV",
+    "name": "Cabo Verde",
+    "flagClass": "fi fi-cv",
+    "telephoneCode": "+238"
+  },
+  {
+    "code": "CW",
+    "name": "Curaçao",
+    "flagClass": "fi fi-cw",
+    "telephoneCode": "+599"
+  },
+  {
+    "code": "CX",
+    "name": "Christmas Island",
+    "flagClass": "fi fi-cx",
+    "telephoneCode": "+61"
+  },
+  {
+    "code": "CY",
+    "name": "Cyprus",
+    "flagClass": "fi fi-cy",
+    "telephoneCode": "+357"
+  },
+  {
+    "code": "CZ",
+    "name": "Czechia",
+    "flagClass": "fi fi-cz",
+    "telephoneCode": "+420"
+  },
+  {
+    "code": "DE",
+    "name": "Germany",
+    "flagClass": "fi fi-de",
+    "telephoneCode": "+49"
+  },
+  {
+    "code": "DJ",
+    "name": "Djibouti",
+    "flagClass": "fi fi-dj",
+    "telephoneCode": "+253"
+  },
+  {
+    "code": "DK",
+    "name": "Denmark",
+    "flagClass": "fi fi-dk",
+    "telephoneCode": "+45"
+  },
+  {
+    "code": "DM",
+    "name": "Dominica",
+    "flagClass": "fi fi-dm",
+    "telephoneCode": "+1-767"
+  },
+  {
+    "code": "DO",
+    "name": "Dominican Republic",
+    "flagClass": "fi fi-do",
+    "telephoneCode": "+1-809"
+  },
+  {
+    "code": "DZ",
+    "name": "Algeria",
+    "flagClass": "fi fi-dz",
+    "telephoneCode": "+213"
+  },
+  {
+    "code": "EC",
+    "name": "Ecuador",
+    "flagClass": "fi fi-ec",
+    "telephoneCode": "+593"
+  },
+  {
+    "code": "EE",
+    "name": "Estonia",
+    "flagClass": "fi fi-ee",
+    "telephoneCode": "+372"
+  },
+  {
+    "code": "EG",
+    "name": "Egypt",
+    "flagClass": "fi fi-eg",
+    "telephoneCode": "+20"
+  },
+  {
+    "code": "EH",
+    "name": "Western Sahara",
+    "flagClass": "fi fi-eh",
+    "telephoneCode": "+212"
+  },
+  {
+    "code": "ER",
+    "name": "Eritrea",
+    "flagClass": "fi fi-er",
+    "telephoneCode": "+291"
+  },
+  {
+    "code": "ES",
+    "name": "Spain",
+    "flagClass": "fi fi-es",
+    "telephoneCode": "+34"
+  },
+  {
+    "code": "ET",
+    "name": "Ethiopia",
+    "flagClass": "fi fi-et",
+    "telephoneCode": "+251"
+  },
+  {
+    "code": "FI",
+    "name": "Finland",
+    "flagClass": "fi fi-fi",
+    "telephoneCode": "+358"
+  },
+  {
+    "code": "FJ",
+    "name": "Fiji",
+    "flagClass": "fi fi-fj",
+    "telephoneCode": "+679"
+  },
+  {
+    "code": "FK",
+    "name": "Falkland Islands",
+    "flagClass": "fi fi-fk",
+    "telephoneCode": "+500"
+  },
+  {
+    "code": "FM",
+    "name": "Micronesia",
+    "flagClass": "fi fi-fm",
+    "telephoneCode": "+691"
+  },
+  {
+    "code": "FO",
+    "name": "Faroe Islands",
+    "flagClass": "fi fi-fo",
+    "telephoneCode": "+298"
+  },
+  {
+    "code": "FR",
+    "name": "France",
+    "flagClass": "fi fi-fr",
+    "telephoneCode": "+33"
+  },
+  {
+    "code": "GA",
+    "name": "Gabon",
+    "flagClass": "fi fi-ga",
+    "telephoneCode": "+241"
+  },
+  {
+    "code": "GB",
+    "name": "United Kingdom",
+    "flagClass": "fi fi-gb",
+    "telephoneCode": "+44"
+  },
+  {
+    "code": "GD",
+    "name": "Grenada",
+    "flagClass": "fi fi-gd",
+    "telephoneCode": "+1-473"
+  },
+  {
+    "code": "GE",
+    "name": "Georgia",
+    "flagClass": "fi fi-ge",
+    "telephoneCode": "+995"
+  },
+  {
+    "code": "GF",
+    "name": "French Guiana",
+    "flagClass": "fi fi-gf",
+    "telephoneCode": "+594"
+  },
+  {
+    "code": "GG",
+    "name": "Guernsey",
+    "flagClass": "fi fi-gg",
+    "telephoneCode": "+44-1481"
+  },
+  {
+    "code": "GH",
+    "name": "Ghana",
+    "flagClass": "fi fi-gh",
+    "telephoneCode": "+233"
+  },
+  {
+    "code": "GI",
+    "name": "Gibraltar",
+    "flagClass": "fi fi-gi",
+    "telephoneCode": "+350"
+  },
+  {
+    "code": "GL",
+    "name": "Greenland",
+    "flagClass": "fi fi-gl",
+    "telephoneCode": "+299"
+  },
+  {
+    "code": "GM",
+    "name": "Gambia",
+    "flagClass": "fi fi-gm",
+    "telephoneCode": "+220"
+  },
+  {
+    "code": "GN",
+    "name": "Guinea",
+    "flagClass": "fi fi-gn",
+    "telephoneCode": "+224"
+  },
+  {
+    "code": "GP",
+    "name": "Guadeloupe",
+    "flagClass": "fi fi-gp",
+    "telephoneCode": "+590"
+  },
+  {
+    "code": "GQ",
+    "name": "Equatorial Guinea",
+    "flagClass": "fi fi-gq",
+    "telephoneCode": "+240"
+  },
+  {
+    "code": "GR",
+    "name": "Greece",
+    "flagClass": "fi fi-gr",
+    "telephoneCode": "+30"
+  },
+  {
+    "code": "GS",
+    "name": "South Georgia and the South Sandwich Islands",
+    "flagClass": "fi fi-gs",
+    "telephoneCode": "+500"
+  },
+  {
+    "code": "GT",
+    "name": "Guatemala",
+    "flagClass": "fi fi-gt",
+    "telephoneCode": "+502"
+  },
+  {
+    "code": "GU",
+    "name": "Guam",
+    "flagClass": "fi fi-gu",
+    "telephoneCode": "+1-671"
+  },
+  {
+    "code": "GW",
+    "name": "Guinea-Bissau",
+    "flagClass": "fi fi-gw",
+    "telephoneCode": "+245"
+  },
+  {
+    "code": "GY",
+    "name": "Guyana",
+    "flagClass": "fi fi-gy",
+    "telephoneCode": "+592"
+  },
+  {
+    "code": "HK",
+    "name": "Hong Kong",
+    "flagClass": "fi fi-hk",
+    "telephoneCode": "+852"
+  },
+  {
+    "code": "HM",
+    "name": "Heard Island and McDonald Islands",
+    "flagClass": "fi fi-hm",
+    "telephoneCode": "+672"
+  },
+  {
+    "code": "HN",
+    "name": "Honduras",
+    "flagClass": "fi fi-hn",
+    "telephoneCode": "+504"
+  },
+  {
+    "code": "HR",
+    "name": "Croatia",
+    "flagClass": "fi fi-hr",
+    "telephoneCode": "+385"
+  },
+  {
+    "code": "HT",
+    "name": "Haiti",
+    "flagClass": "fi fi-ht",
+    "telephoneCode": "+509"
+  },
+  {
+    "code": "HU",
+    "name": "Hungary",
+    "flagClass": "fi fi-hu",
+    "telephoneCode": "+36"
+  },
+  {
+    "code": "ID",
+    "name": "Indonesia",
+    "flagClass": "fi fi-id",
+    "telephoneCode": "+62"
+  },
+  {
+    "code": "IE",
+    "name": "Ireland",
+    "flagClass": "fi fi-ie",
+    "telephoneCode": "+353"
+  },
+  {
+    "code": "IL",
+    "name": "Israel",
+    "flagClass": "fi fi-il",
+    "telephoneCode": "+972"
+  },
+  {
+    "code": "IM",
+    "name": "Isle of Man",
+    "flagClass": "fi fi-im",
+    "telephoneCode": "+44-1624"
+  },
+  {
+    "code": "IN",
+    "name": "India",
+    "flagClass": "fi fi-in",
+    "telephoneCode": "+91"
+  },
+  {
+    "code": "IO",
+    "name": "British Indian Ocean Territory",
+    "flagClass": "fi fi-io",
+    "telephoneCode": "+246"
+  },
+  {
+    "code": "IQ",
+    "name": "Iraq",
+    "flagClass": "fi fi-iq",
+    "telephoneCode": "+964"
+  },
+  {
+    "code": "IR",
+    "name": "Iran",
+    "flagClass": "fi fi-ir",
+    "telephoneCode": "+98"
+  },
+  {
+    "code": "IS",
+    "name": "Iceland",
+    "flagClass": "fi fi-is",
+    "telephoneCode": "+354"
+  },
+  {
+    "code": "IT",
+    "name": "Italy",
+    "flagClass": "fi fi-it",
+    "telephoneCode": "+39"
+  },
+  {
+    "code": "JE",
+    "name": "Jersey",
+    "flagClass": "fi fi-je",
+    "telephoneCode": "+44-1534"
+  },
+  {
+    "code": "JM",
+    "name": "Jamaica",
+    "flagClass": "fi fi-jm",
+    "telephoneCode": "+1-876"
+  },
+  {
+    "code": "JO",
+    "name": "Jordan",
+    "flagClass": "fi fi-jo",
+    "telephoneCode": "+962"
+  },
+  {
+    "code": "JP",
+    "name": "Japan",
+    "flagClass": "fi fi-jp",
+    "telephoneCode": "+81"
+  },
+  {
+    "code": "KE",
+    "name": "Kenya",
+    "flagClass": "fi fi-ke",
+    "telephoneCode": "+254"
+  },
+  {
+    "code": "KG",
+    "name": "Kyrgyzstan",
+    "flagClass": "fi fi-kg",
+    "telephoneCode": "+996"
+  },
+  {
+    "code": "KH",
+    "name": "Cambodia",
+    "flagClass": "fi fi-kh",
+    "telephoneCode": "+855"
+  },
+  {
+    "code": "KI",
+    "name": "Kiribati",
+    "flagClass": "fi fi-ki",
+    "telephoneCode": "+686"
+  },
+  {
+    "code": "KM",
+    "name": "Comoros",
+    "flagClass": "fi fi-km",
+    "telephoneCode": "+269"
+  },
+  {
+    "code": "KN",
+    "name": "Saint Kitts and Nevis",
+    "flagClass": "fi fi-kn",
+    "telephoneCode": "+1-869"
+  },
+  {
+    "code": "KP",
+    "name": "North Korea",
+    "flagClass": "fi fi-kp",
+    "telephoneCode": "+850"
+  },
+  {
+    "code": "KR",
+    "name": "South Korea",
+    "flagClass": "fi fi-kr",
+    "telephoneCode": "+82"
+  },
+  {
+    "code": "KW",
+    "name": "Kuwait",
+    "flagClass": "fi fi-kw",
+    "telephoneCode": "+965"
+  },
+  {
+    "code": "KY",
+    "name": "Cayman Islands",
+    "flagClass": "fi fi-ky",
+    "telephoneCode": "+1-345"
+  },
+  {
+    "code": "KZ",
+    "name": "Kazakhstan",
+    "flagClass": "fi fi-kz",
+    "telephoneCode": "+7"
+  },
+  {
+    "code": "LA",
+    "name": "Lao People's Democratic Republic",
+    "flagClass": "fi fi-la",
+    "telephoneCode": "+856"
+  },
+  {
+    "code": "LB",
+    "name": "Lebanon",
+    "flagClass": "fi fi-lb",
+    "telephoneCode": "+961"
+  },
+  {
+    "code": "LC",
+    "name": "Saint Lucia",
+    "flagClass": "fi fi-lc",
+    "telephoneCode": "+1-758"
+  },
+  {
+    "code": "LI",
+    "name": "Liechtenstein",
+    "flagClass": "fi fi-li",
+    "telephoneCode": "+423"
+  },
+  {
+    "code": "LK",
+    "name": "Sri Lanka",
+    "flagClass": "fi fi-lk",
+    "telephoneCode": "+94"
+  },
+  {
+    "code": "LR",
+    "name": "Liberia",
+    "flagClass": "fi fi-lr",
+    "telephoneCode": "+231"
+  },
+  {
+    "code": "LS",
+    "name": "Lesotho",
+    "flagClass": "fi fi-ls",
+    "telephoneCode": "+266"
+  },
+  {
+    "code": "LT",
+    "name": "Lithuania",
+    "flagClass": "fi fi-lt",
+    "telephoneCode": "+370"
+  },
+  {
+    "code": "LU",
+    "name": "Luxembourg",
+    "flagClass": "fi fi-lu",
+    "telephoneCode": "+352"
+  },
+  {
+    "code": "LV",
+    "name": "Latvia",
+    "flagClass": "fi fi-lv",
+    "telephoneCode": "+371"
+  },
+  {
+    "code": "LY",
+    "name": "Libya",
+    "flagClass": "fi fi-ly",
+    "telephoneCode": "+218"
+  },
+  {
+    "code": "MA",
+    "name": "Morocco",
+    "flagClass": "fi fi-ma",
+    "telephoneCode": "+212"
+  },
+  {
+    "code": "MC",
+    "name": "Monaco",
+    "flagClass": "fi fi-mc",
+    "telephoneCode": "+377"
+  },
+  {
+    "code": "MD",
+    "name": "Moldova",
+    "flagClass": "fi fi-md",
+    "telephoneCode": "+373"
+  },
+  {
+    "code": "ME",
+    "name": "Montenegro",
+    "flagClass": "fi fi-me",
+    "telephoneCode": "+382"
+  },
+  {
+    "code": "MF",
+    "name": "Saint Martin",
+    "flagClass": "fi fi-mf",
+    "telephoneCode": "+590"
+  },
+  {
+    "code": "MG",
+    "name": "Madagascar",
+    "flagClass": "fi fi-mg",
+    "telephoneCode": "+261"
+  },
+  {
+    "code": "MH",
+    "name": "Marshall Islands",
+    "flagClass": "fi fi-mh",
+    "telephoneCode": "+692"
+  },
+  {
+    "code": "MK",
+    "name": "North Macedonia",
+    "flagClass": "fi fi-mk",
+    "telephoneCode": "+389"
+  },
+  {
+    "code": "ML",
+    "name": "Mali",
+    "flagClass": "fi fi-ml",
+    "telephoneCode": "+223"
+  },
+  {
+    "code": "MM",
+    "name": "Myanmar",
+    "flagClass": "fi fi-mm",
+    "telephoneCode": "+95"
+  },
+  {
+    "code": "MN",
+    "name": "Mongolia",
+    "flagClass": "fi fi-mn",
+    "telephoneCode": "+976"
+  },
+  {
+    "code": "MO",
+    "name": "Macao",
+    "flagClass": "fi fi-mo",
+    "telephoneCode": "+853"
+  },
+  {
+    "code": "MP",
+    "name": "Northern Mariana Islands",
+    "flagClass": "fi fi-mp",
+    "telephoneCode": "+1-670"
+  },
+  {
+    "code": "MQ",
+    "name": "Martinique",
+    "flagClass": "fi fi-mq",
+    "telephoneCode": "+596"
+  },
+  {
+    "code": "MR",
+    "name": "Mauritania",
+    "flagClass": "fi fi-mr",
+    "telephoneCode": "+222"
+  },
+  {
+    "code": "MS",
+    "name": "Montserrat",
+    "flagClass": "fi fi-ms",
+    "telephoneCode": "+1-664"
+  },
+  {
+    "code": "MT",
+    "name": "Malta",
+    "flagClass": "fi fi-mt",
+    "telephoneCode": "+356"
+  },
+  {
+    "code": "MU",
+    "name": "Mauritius",
+    "flagClass": "fi fi-mu",
+    "telephoneCode": "+230"
+  },
+  {
+    "code": "MV",
+    "name": "Maldives",
+    "flagClass": "fi fi-mv",
+    "telephoneCode": "+960"
+  },
+  {
+    "code": "MW",
+    "name": "Malawi",
+    "flagClass": "fi fi-mw",
+    "telephoneCode": "+265"
+  },
+  {
+    "code": "MX",
+    "name": "Mexico",
+    "flagClass": "fi fi-mx",
+    "telephoneCode": "+52"
+  },
+  {
+    "code": "MY",
+    "name": "Malaysia",
+    "flagClass": "fi fi-my",
+    "telephoneCode": "+60"
+  },
+  {
+    "code": "MZ",
+    "name": "Mozambique",
+    "flagClass": "fi fi-mz",
+    "telephoneCode": "+258"
+  },
+  {
+    "code": "NA",
+    "name": "Namibia",
+    "flagClass": "fi fi-na",
+    "telephoneCode": "+264"
+  },
+  {
+    "code": "NC",
+    "name": "New Caledonia",
+    "flagClass": "fi fi-nc",
+    "telephoneCode": "+687"
+  },
+  {
+    "code": "NE",
+    "name": "Niger",
+    "flagClass": "fi fi-ne",
+    "telephoneCode": "+227"
+  },
+  {
+    "code": "NF",
+    "name": "Norfolk Island",
+    "flagClass": "fi fi-nf",
+    "telephoneCode": "+672"
+  },
+  {
+    "code": "NG",
+    "name": "Nigeria",
+    "flagClass": "fi fi-ng",
+    "telephoneCode": "+234"
+  },
+  {
+    "code": "NI",
+    "name": "Nicaragua",
+    "flagClass": "fi fi-ni",
+    "telephoneCode": "+505"
+  },
+  {
+    "code": "NL",
+    "name": "Netherlands",
+    "flagClass": "fi fi-nl",
+    "telephoneCode": "+31"
+  },
+  {
+    "code": "NO",
+    "name": "Norway",
+    "flagClass": "fi fi-no",
+    "telephoneCode": "+47"
+  },
+  {
+    "code": "NP",
+    "name": "Nepal",
+    "flagClass": "fi fi-np",
+    "telephoneCode": "+977"
+  },
+  {
+    "code": "NR",
+    "name": "Nauru",
+    "flagClass": "fi fi-nr",
+    "telephoneCode": "+674"
+  },
+  {
+    "code": "NU",
+    "name": "Niue",
+    "flagClass": "fi fi-nu",
+    "telephoneCode": "+683"
+  },
+  {
+    "code": "NZ",
+    "name": "New Zealand",
+    "flagClass": "fi fi-nz",
+    "telephoneCode": "+64"
+  },
+  {
+    "code": "OM",
+    "name": "Oman",
+    "flagClass": "fi fi-om",
+    "telephoneCode": "+968"
+  },
+  {
+    "code": "PA",
+    "name": "Panama",
+    "flagClass": "fi fi-pa",
+    "telephoneCode": "+507"
+  },
+  {
+    "code": "PE",
+    "name": "Peru",
+    "flagClass": "fi fi-pe",
+    "telephoneCode": "+51"
+  },
+  {
+    "code": "PF",
+    "name": "French Polynesia",
+    "flagClass": "fi fi-pf",
+    "telephoneCode": "+689"
+  },
+  {
+    "code": "PG",
+    "name": "Papua New Guinea",
+    "flagClass": "fi fi-pg",
+    "telephoneCode": "+675"
+  },
+  {
+    "code": "PH",
+    "name": "Philippines",
+    "flagClass": "fi fi-ph",
+    "telephoneCode": "+63"
+  },
+  {
+    "code": "PK",
+    "name": "Pakistan",
+    "flagClass": "fi fi-pk",
+    "telephoneCode": "+92"
+  }
+]

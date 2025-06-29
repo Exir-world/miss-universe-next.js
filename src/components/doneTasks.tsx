@@ -37,6 +37,15 @@ export default function DoneTasks() {
       }
     } catch (error) {
       console.error("Error fetching rewards:", error);
+      // If API fails, show empty state instead of crashing
+      setData({
+        doneTasksCount: 0,
+        referralRewardsAmount: 0,
+        referralsCount: 0,
+        taskRewardsAmount: "0",
+        tasksCount: 0,
+        withdrawCount: 0,
+      });
     }
   };
 
