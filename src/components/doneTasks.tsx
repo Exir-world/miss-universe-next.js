@@ -2,9 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useApi } from "@/context/api";
-import { useTranslations } from "next-intl";
 import { FaUsers } from "react-icons/fa";
-import { MdOutlineMeetingRoom, MdTask } from "react-icons/md";
 import { Link } from "@/i18n/navigation";
 import { LuRockingChair } from "react-icons/lu";
 import { IoReceiptOutline } from "react-icons/io5";
@@ -21,9 +19,7 @@ interface DoneTasksData {
 
 export default function DoneTasks() {
   const { api } = useApi();
-
   const [data, setData] = useState<DoneTasksData | null>(null);
-  const t = useTranslations();
 
   const fetchDoneTasks = async () => {
     try {
@@ -37,7 +33,6 @@ export default function DoneTasks() {
       }
     } catch (error) {
       console.error("Error fetching rewards:", error);
-      // If API fails, show empty state instead of crashing
       setData({
         doneTasksCount: 0,
         referralRewardsAmount: 0,
@@ -51,6 +46,7 @@ export default function DoneTasks() {
 
   useEffect(() => {
     fetchDoneTasks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -84,14 +80,6 @@ export default function DoneTasks() {
       <div className="flex w-full justify-between items-center">
         <div className="flex items-center gap-2">
           <LuRockingChair size={24} />
-          {/* {data?.} */}
-        </div>
-      </div>
-
-      <div className="flex w-full justify-between items-center">
-        <div className="flex items-center gap-2">
-          <MdOutlineMeetingRoom size={24} />
-          {/* {data?.} */}
         </div>
       </div>
     </div>

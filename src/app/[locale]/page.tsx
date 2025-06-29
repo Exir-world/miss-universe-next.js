@@ -37,7 +37,7 @@ export default function HomePage() {
     try {
       await navigator.clipboard.writeText(secretToken);
       toast.success(t("presidentjoker.presidentjoker-success.code"));
-    } catch (err) {
+    } catch {
       toast.error(t("presidentjoker.presidentjoker-wrong.button"));
     }
   };
@@ -48,8 +48,8 @@ export default function HomePage() {
       setNotRegisteredModal(true);
     } else {
       const url = `https://token.ex.pro/en/salon?mystery=${secretToken}`;
-      if ((window as any).Telegram?.WebApp) {
-        (window as any).Telegram.WebApp.openLink(url);
+      if ((window as unknown as { Telegram?: { WebApp?: { openLink: (url: string) => void } } }).Telegram?.WebApp) {
+        ((window as unknown as { Telegram: { WebApp: { openLink: (url: string) => void } } }).Telegram.WebApp.openLink(url));
       } else {
         window.open(url, "_blank");
       }
@@ -105,7 +105,7 @@ export default function HomePage() {
 
         {/* Logo + Interactions */}
         <Image
-          src={`${gameName}/${gameName}.svg`}
+          src={`/${gameName}/${gameName}.svg`}
           width={220}
           height={220}
           alt="Logo"
@@ -137,8 +137,8 @@ export default function HomePage() {
             </button>
           </>
         ) : (
-          <button className="text-primary font-bold text-2xl mt-6">
-            {/* {t("presidentjoker.presidentjoker-Home.click")} */}Tap on me
+          <button className="text-primary font-bold text-3xl mt-6">
+            {t("presidentjoker.presidentjoker-Home.click")}
           </button>
         )}
 
@@ -150,7 +150,7 @@ export default function HomePage() {
                 <span className="text-yellow-400 text-4xl">✨</span>
               </div>
               <h2 className="text-2xl font-bold text-green-400 mb-2">
-                🎉 {t("presidentjoker.presidentjoker-success.title")}!
+                🎉 {t("presidentjoker.presidentjoker-success.title")}
               </h2>
               <p className="text-lg text-white mb-4">
                 {t("presidentjoker.presidentjoker-success.winnerDes")}

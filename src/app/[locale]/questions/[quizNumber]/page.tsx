@@ -1,11 +1,9 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useTranslations } from "next-intl";
 
-const page = () => {
+function Page() {
   const params = useParams();
-  const t = useTranslations();
   const quizNumber = params.quizNumber;
 
   return (
@@ -20,6 +18,6 @@ const page = () => {
       </div>
     </div>
   );
-};
+}
 
-export default page;
+export default Page;

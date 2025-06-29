@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { useApi } from "@/context/api";
 
 interface UserProfileProps {
@@ -10,15 +10,16 @@ interface UserProfileProps {
 }
 
 export default function Avatar({ nickName, id }: UserProfileProps) {
-  const t = useTranslations();
   const { photoUrl, firstname } = useApi();
 
   return (
     <div className="w-full flex items-center gap-4">
       {photoUrl ? (
-        <img
+        <Image
           src={photoUrl}
           alt="avatar"
+          width={72}
+          height={72}
           className="w-[72px] h-[72px] rounded-full object-cover"
         />
       ) : (

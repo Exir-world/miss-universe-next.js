@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
-import { useTranslations } from "next-intl";
 import { IoMdShare } from "react-icons/io";
 import { PiTelegramLogo } from "react-icons/pi";
 import { IoCopyOutline } from "react-icons/io5";
@@ -11,13 +10,11 @@ import { useLoginStoreState } from "@/stores/context";
 import { FaEnvelopeOpenText } from "react-icons/fa";
 
 export default function Referral() {
-  const [friends, setFriends] = useState<any[]>([]);
+  const [friends, setFriends] = useState([]);
   const [loading, setLoading] = useState(true);
   const [referralUrl, setReferralUrl] = useState("");
-  const t = useTranslations();
   const { api } = useApi();
   const { userData } = useLoginStoreState();
-  const user = userData.user;
   const referralCode = userData.referral?.code ?? "";
   const config = { gameName: process.env.NEXT_PUBLIC_GAME_NAME || "Dubaieid" };
 
@@ -41,13 +38,11 @@ Click the link and start earning with me today!
         setFriends(response.data.data || []);
       } catch (err) {
         console.error("Error fetching referrals:", err);
-        // If API fails, show empty state instead of crashing
         setFriends([]);
       } finally {
         setLoading(false);
       }
     };
-
     fetchData();
   }, [api]);
 
@@ -77,7 +72,7 @@ Click the link and start earning with me today!
           url: fullShareLink,
         })
         .then(() => console.log("Shared successfully"))
-        .catch((error) => console.error("Error sharing:", error));
+        .catch((error: unknown) => console.error("Error sharing:", error));
     } else {
       handleShareLink();
     }
@@ -98,25 +93,18 @@ Click the link and start earning with me today!
           <span className="w-6 h-6">
             <FaEnvelopeOpenText size={20} />
           </span>
-          <p className="font-semibold text-sm">
-            {/* {t("presidentjoker.presidentjoker-tasks.button")} */}Friends
-          </p>
+          <p className="font-semibold text-sm">Friends</p>
         </div>
-        <p className="font-thin text-xs">
-          ({friends.length}){" "}
-          {/* {t("presidentjoker.presidentjoker-tasks.invite-des")} */}
-        </p>
+        <p className="font-thin text-xs">({friends.length})</p>
       </div>
 
       <ul className="overflow-auto h-full">
         {friends.length === 0 ? (
           <div className="flex flex-col items-center h-full w-full justify-center py-3">
-            <p className="font-bold text-center">
-              {/* {t("presidentjoker.presidentjoker-tasks.noinvited-friends")} */}
-            </p>
+            <p className="font-bold text-center"></p>
           </div>
         ) : (
-          friends.map((friend, index) => (
+          friends.map((friend, index: number) => (
             <li key={index} className="mt-4">
               {index + 1}. {friend.nickname}
               <p className="font-thin text-xs">10000 EX9630</p>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 import { useState } from "react";
 import { GrLanguage } from "react-icons/gr";
 import { motion, AnimatePresence } from "framer-motion";
@@ -26,7 +26,6 @@ const availableLocales = [
 
 export default function LanguageSwitcher() {
   const locale = useLocale();
-  const t = useTranslations();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -74,7 +73,7 @@ export default function LanguageSwitcher() {
                 </button>
               </div>
               <h3 className="text-lg font-semibold text-gray-800 mb-4 text-center">
-                {/* {t("Select Language") || "Select Language"} */}
+                {/* Select Language */}
               </h3>
               <div className="grid gap-2">
                 {filteredLocales.map((l) => (

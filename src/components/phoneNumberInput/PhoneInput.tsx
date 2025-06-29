@@ -3,14 +3,21 @@ import countrieCodes from "./countries.json";
 import { motion } from "framer-motion";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 
+interface Country {
+  code: string;
+  name: string;
+  flagClass: string;
+  telephoneCode: string;
+}
+
 interface PhoneInputProps {
   onSubmit?: (phoneNumber: string, countryCode: string) => void;
   loading?: boolean;
 }
 
 const PhoneInput: React.FC<PhoneInputProps> = ({ onSubmit, loading = false }) => {
-  const [countries, setCountries] = useState<any>(countrieCodes);
-  const [selectedCountry, setSelectedCountry] = useState(countries[0]);
+  const [countries, setCountries] = useState<Country[]>(countrieCodes as Country[]);
+  const [selectedCountry, setSelectedCountry] = useState<Country>(countries[0]);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState("");
@@ -22,7 +29,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({ onSubmit, loading = false }) =>
     return cleaned.length >= 7 && cleaned.length <= 15;
   };
 
-  const handlePhoneChange = (e: any) => {
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setPhoneNumber(value);
 
@@ -33,7 +40,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({ onSubmit, loading = false }) =>
     }
   };
 
-  const handleCountrySelect = (country: any) => {
+  const handleCountrySelect = (country: Country) => {
     setSelectedCountry(country);
     setIsOpen(false);
   };
@@ -41,10 +48,10 @@ const PhoneInput: React.FC<PhoneInputProps> = ({ onSubmit, loading = false }) =>
   const handleSearchCountry = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = e.target.value.toLowerCase().trim();
     if (!searchTerm) {
-      setCountries(countrieCodes);
+      setCountries(countrieCodes as Country[]);
       return;
     }
-    const filteredCountries = countrieCodes.filter((country: any) =>
+    const filteredCountries = (countrieCodes as Country[]).filter((country) =>
       country.name.toLowerCase().startsWith(searchTerm)
     );
     setCountries(filteredCountries);
@@ -104,12 +111,12 @@ const PhoneInput: React.FC<PhoneInputProps> = ({ onSubmit, loading = false }) =>
                   <input
                     placeholder="Search country"
                     type="text"
-                    onChange={(e) => handleSearchCountry(e)}
+                    onChange={handleSearchCountry}
                     className="bg-gray-100 border-b border-gray-400 p-1 w-full"
                   />
                 </div>
 
-                {countries.map((country: any) => (
+                {countries.map((country) => (
                   <div
                     key={country.code}
                     className="flex items-center px-2 py-1 hover:bg-gray-100 cursor-pointer"

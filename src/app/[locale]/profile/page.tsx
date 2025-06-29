@@ -7,9 +7,9 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { LuCircleHelp } from "react-icons/lu";
 
-const page = () => {
+function Page() {
   const t = useTranslations();
-  const { firstname, photoUrl } = useApi();
+  const { firstname } = useApi();
 
   return (
     <div>
@@ -19,7 +19,6 @@ const page = () => {
           <div className="flex items-center text-white gap-4 justify-between w-full p-2">
             <Avatar nickName={firstname || "User"} />
             <LanguageSwitcher />
-
             <Link href={"https://cicada1919.ex.pro"} target="_blank">
               <LuCircleHelp size={24} />
             </Link>
@@ -31,5 +30,5 @@ const page = () => {
       </div>
     </div>
   );
-};
-export default page;
+}
+export default Page;

@@ -21,7 +21,7 @@ interface ApiContextType {
 
 const ApiContext = createContext<ApiContextType | undefined>(undefined);
 
-export function ApiProvider({ children }: any) {
+export function ApiProvider({ children }: { children: React.ReactNode }) {
   const [apiInstance, setApiInstance] = useState<AxiosInstance | null>(null);
   const [photoUrl, setPhotoUrl] = useState("");
   const [firstname, setFirstname] = useState("");
@@ -36,9 +36,8 @@ export function ApiProvider({ children }: any) {
     setPhotoUrl(user?.photo_url || "");
     setFirstname(user?.first_name || "");
 
-    // const initData = WebApp.initData;
-    const initData =
-      "query_id=AAE-nkBjAwAAAD6eQGMDcqZR&user=%7B%22id%22%3A8107630142%2C%22first_name%22%3A%22Exirgec%22%2C%22last_name%22%3A%22Matik%22%2C%22username%22%3A%22matik1999%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FAQDD4nj43TOOafYj3NKKxtdCLkQkjGNODLgeLJucGUv9U3559dQKbVUVt3Jwb0R-.svg%22%7D&auth_date=1751092686&signature=QVDirkjxHhiHNllPthIxlKNPY8HzTRPTW2J1g4-uKWssbbWoGDd157oK1p8gNLLP4MlQrlfuGnxQRb4zL4TTBA&hash=a342b85c7c08f27e3884afe458ebbfc815f72073698aae12d08a191302d571fc";
+    // Use the actual initData from WebApp
+    const initData = WebApp.initData;
 
     const parseInitData = (data: string) => {
       const params = new URLSearchParams(data);
@@ -63,7 +62,7 @@ export function ApiProvider({ children }: any) {
 
     // Create API instance
     const axiosInstance = axios.create({
-      baseURL: process.env.NEXT_PUBLIC_BASE_URL || "https://token.ex.pro/api",
+      baseURL: process.env.NEXT_PUBLIC_BASE_URL || "https://api.cicada1919.ex.pro",
       headers: {
         ...(initData ? { Authorization: initData } : {}),
         "Content-Type": "application/json",
@@ -76,12 +75,16 @@ export function ApiProvider({ children }: any) {
     // Add response interceptor
     axiosInstance.interceptors.response.use(
       (res) => res,
-      (err) => {
-        console.error("API Error:", {
-          url: err?.config?.url,
-          status: err?.response?.status,
-          message: err?.response?.data?.message || "API error",
-        });
+      (err: unknown) => {
+        if (axios.isAxiosError(err)) {
+          console.error("API Error:", {
+            url: err?.config?.url,
+            status: err?.response?.status,
+            message: err?.response?.data?.message || "API error",
+          });
+        } else {
+          console.error("API Error:", err);
+        }
         return Promise.reject(err);
       }
     );

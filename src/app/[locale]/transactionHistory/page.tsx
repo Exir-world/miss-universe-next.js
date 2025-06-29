@@ -2,7 +2,7 @@
 
 import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { FaArrowLeft, FaReceipt } from "react-icons/fa";
 import { useApi } from "@/context/api";
 
@@ -29,7 +29,7 @@ export default function TransactionHistory() {
   const [loading, setLoading] = useState(true);
 
   // Fetch transaction history
-  const fetchTransactionHistory = async () => {
+  const fetchTransactionHistory = useCallback(async () => {
     try {
       // Try the correct API endpoint first
       const res = await api.get("/mainuser/withdraw-requests");
@@ -43,12 +43,12 @@ export default function TransactionHistory() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [api]);
 
   // Fetch data on mount
   useEffect(() => {
     fetchTransactionHistory();
-  }, [api]);
+  }, [fetchTransactionHistory]);
 
   // Navigate back
   const goBack = () => {

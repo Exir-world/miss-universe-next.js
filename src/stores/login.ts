@@ -1,6 +1,6 @@
 import { createStore, StoreApi } from "zustand";
 import { persist } from "zustand/middleware";
-import { AxiosInstance } from "axios";
+import { AxiosInstance, AxiosError } from "axios";
 
 interface User {
   id: number;
@@ -94,6 +94,7 @@ export function createLoginStore(api: AxiosInstance): StoreApi<LoginStore> {
 
         login: async (countryCode = "", referralCode = "") => {
           const { loginData, normalizePhoneNumber } = get();
+          console.log("Login data:", loginData);
 
           let phoneNumber = normalizePhoneNumber(loginData.phoneNumber);
           if (phoneNumber === null) {
@@ -101,7 +102,8 @@ export function createLoginStore(api: AxiosInstance): StoreApi<LoginStore> {
             return false;
           }
 
-          phoneNumber = countryCode.concat(phoneNumber);
+          phoneNumber = countryCode + phoneNumber;
+          console.log("Phone number:", phoneNumber);
 
           try {
             const res = await api.post("/mainuser/register", {
@@ -111,27 +113,25 @@ export function createLoginStore(api: AxiosInstance): StoreApi<LoginStore> {
               ...(referralCode !== "" ? { referralCode } : {}),
             });
 
-            console.log("Login response:", {
-              data: res.data,
-              status: res.status,
-            });
+            console.log("Login response:", { data: res.data, status: res.status });
 
             if (res.status === 201) {
               console.log("Login successful:", res.data);
-              set({
+              set({ 
                 accessToken: res.data.token,
-                isAuth: true,
+                isAuth: true 
               });
               return true;
             } else {
-              console.log(
-                "Login failed:",
-                res.data?.message?.[0] || "server error"
-              );
+              console.log("Login failed:", res.data?.message?.[0] || "server error");
               return false;
             }
-          } catch (err: any) {
-            console.log("Login error:", err);
+          } catch (err: unknown) {
+            if ((err as AxiosError).isAxiosError) {
+              console.log("Login error:", (err as AxiosError).message);
+            } else {
+              console.log("Login error:", err);
+            }
             return false;
           }
         },
@@ -151,6 +151,7 @@ export function createLoginStore(api: AxiosInstance): StoreApi<LoginStore> {
                 hasGameSecret: hasSecret,
               });
 
+              console.log("User data:", userData);
 
               const room = data.data?.mystery?.room;
               const mysteryContent = data.data?.mystery?.mysteryContent;
@@ -164,8 +165,12 @@ export function createLoginStore(api: AxiosInstance): StoreApi<LoginStore> {
               console.log("User not authenticated");
               set({ isAuth: false });
             }
-          } catch (err: any) {
-            console.log("getMe error:", err?.response?.status);
+          } catch (err: unknown) {
+            if ((err as AxiosError).isAxiosError) {
+              console.log("getMe error:", (err as AxiosError).message);
+            } else {
+              console.log("getMe error:", err);
+            }
             set({ isAuth: false });
           }
         },
@@ -174,13 +179,17 @@ export function createLoginStore(api: AxiosInstance): StoreApi<LoginStore> {
           try {
             // Get referral code from URL if available
             const urlParams = new URLSearchParams(window.location.search);
-            const referralCode = urlParams.get("r");
+            const referralCode = urlParams.get('r');
 
             await api.post("/mainuser/join", {
               ...(referralCode ? { referralCode } : {}),
             });
-          } catch (err: any) {
-            console.log("joinGame error:", err);
+          } catch (err: unknown) {
+            if ((err as AxiosError).isAxiosError) {
+              console.log("joinGame error:", (err as AxiosError).message);
+            } else {
+              console.log("joinGame error:", err);
+            }
           }
         },
       }),

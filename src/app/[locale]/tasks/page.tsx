@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useApi } from "@/context/api";
-import { useLoginStoreState } from "@/stores/context";
 import { FaCheck, FaLock } from "react-icons/fa";
 import { toast } from "react-toastify";
 
@@ -18,7 +17,6 @@ interface Task {
 const TasksPage = () => {
   const t = useTranslations();
   const { api } = useApi();
-  const { userData } = useLoginStoreState();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -46,9 +44,11 @@ const TasksPage = () => {
       const response = await api.post(`/mainuser/tasks/${taskId}/complete`);
       if (response.status === 200) {
         // Update the task as completed
-        setTasks(prev => prev.map(task => 
-          task.id === taskId ? { ...task, completed: true } : task
-        ));
+        setTasks((prev) =>
+          prev.map((task) =>
+            task.id === taskId ? { ...task, completed: true } : task
+          )
+        );
       }
     } catch (error) {
       console.error("Error completing task:", error);
@@ -71,27 +71,33 @@ const TasksPage = () => {
         <h1 className="text-2xl font-bold text-white text-center mb-6">
           {t("Tasks")}
         </h1>
-        
+
         <div className="space-y-4">
           {tasks.length > 0 ? (
             tasks.map((task) => (
               <div
                 key={task.id}
                 className={`p-4 rounded-lg border ${
-                  task.completed 
-                    ? "bg-green-500/20 border-green-500" 
-                    : task.locked 
-                    ? "bg-gray-500/20 border-gray-500" 
+                  task.completed
+                    ? "bg-green-500/20 border-green-500"
+                    : task.locked
+                    ? "bg-gray-500/20 border-gray-500"
                     : "bg-white/10 border-[#FF4ED3]"
                 }`}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
-                    <h3 className="text-white font-semibold mb-2">{task.title}</h3>
-                    <p className="text-gray-300 text-sm mb-2">{task.description}</p>
-                    <p className="text-[#FF4ED3] font-bold">{task.reward} EX9630</p>
+                    <h3 className="text-white font-semibold mb-2">
+                      {task.title}
+                    </h3>
+                    <p className="text-gray-300 text-sm mb-2">
+                      {task.description}
+                    </p>
+                    <p className="text-[#FF4ED3] font-bold">
+                      {task.reward} EX9630
+                    </p>
                   </div>
-                  
+
                   <div className="ml-4">
                     {task.completed ? (
                       <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">

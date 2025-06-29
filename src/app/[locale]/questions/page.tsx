@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 const QuestionsPage = () => {
   const t = useTranslations();
   const router = useRouter();
-  const { loginData, setLoginData, login } = useLoginStoreState();
+  const { setLoginData, login } = useLoginStoreState();
   const [loading, setLoading] = useState(false);
 
   const handlePhoneSubmit = async (
@@ -17,14 +17,9 @@ const QuestionsPage = () => {
     countryCode: string
   ) => {
     setLoading(true);
-
     try {
-      // Set the phone number in the store
       setLoginData({ phoneNumber: phoneNumber });
-
-      // Attempt login with the country code
       const success = await login(countryCode);
-
       if (success) {
         toast.success("Login successful!");
         router.push("/");
