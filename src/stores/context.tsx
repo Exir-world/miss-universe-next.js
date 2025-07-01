@@ -50,6 +50,7 @@ export function useLoginStoreState() {
     isAuth: state.isAuth,
     accessToken: state.accessToken,
     hasGameSecret: state.hasGameSecret,
+    referralCode: state.userData.user.referralCode,
     // Actions
     setLoginData: state.setLoginData,
     login: state.login,

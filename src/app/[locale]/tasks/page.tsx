@@ -1,122 +1,166 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
-import { useApi } from "@/context/api";
-import { FaCheck, FaLock } from "react-icons/fa";
-import { toast } from "react-toastify";
+import { FaCheckSquare, FaClock, FaUsers, FaTasks } from "react-icons/fa";
+import { MdTask } from "react-icons/md";
+import { TaskCard } from "@/components/taskCard";
+import { TaskModal } from "@/components/taskModal";
+import { TaskSkeleton } from "@/components/taskSkeleton";
+import { useTaskStore } from "@/stores/tasks";
 
-interface Task {
-  id: number;
-  title: string;
-  description: string;
-  reward: number;
-  completed: boolean;
-  locked: boolean;
-}
+const TasksPage: React.FC = () => {
+  const {
+    loading,
+    error,
+    fetchTasks,
+    doTask,
+    hugTask,
+    getToDoTasks,
+    getDoneTasks,
+  } = useTaskStore();
 
-const TasksPage = () => {
-  const t = useTranslations();
-  const { api } = useApi();
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
+  const [isComplete, setIsComplete] = useState(false);
 
-  // useEffect(() => {
-  //   const fetchTasks = async () => {
-  //     try {
-  //       const response = await api.get("/mainuser/tasks");
-  //       if (response.status === 200) {
-  //         setTasks(response.data.data || []);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching tasks:", error);
-  //       // If API fails, show empty state instead of crashing
-  //       setTasks([]);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
+  const todoTasks = getToDoTasks();
+  const doneTasks = getDoneTasks();
 
-  //   fetchTasks();
-  // }, [api]);
+  useEffect(() => {
+    fetchTasks();
+  }, [fetchTasks]);
 
-  const handleTaskComplete = async (taskId: number) => {
-    try {
-      const response = await api.post(`/mainuser/tasks/${taskId}/complete`);
-      if (response.status === 200) {
-        // Update the task as completed
-        setTasks((prev) =>
-          prev.map((task) =>
-            task.id === taskId ? { ...task, completed: true } : task
-          )
-        );
-      }
-    } catch (error) {
-      console.error("Error completing task:", error);
-      // Show user-friendly error message
-      toast.error("Failed to complete task. Please try again.");
+  const handleDoTask = (taskId: number, url: string) => {
+    doTask(taskId);
+
+    // Open external link (simulating Telegram WebApp behavior)
+    if (typeof window !== "undefined") {
+      window.open(url, "_blank", "noopener,noreferrer");
     }
   };
 
+  const handleTaskDone = (taskId: number, userName: string) => {
+    setSelectedTaskId(taskId);
+    setIsModalOpen(true);
+    handleHugTask(userName, taskId.toString());
+  };
+
+  const handleHugTask = async (userName: string, taskId: string) => {
+    if (!userName.trim()) {
+      return;
+    }
+
+    try {
+      await hugTask(userName, taskId);
+      setIsComplete(true);
+    } catch (error) {
+      console.error("Error completing task:", error);
+    }
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setSelectedTaskId(null);
+    setIsComplete(false);
+  };
+
   return (
-    <div className="p-4">
-      <div className="bg-[#7D7D7D]/30 backdrop-blur-md border border-[#C643A8E5] rounded-xl p-6">
-        <h1 className="text-2xl font-bold text-white text-center mb-6">
-          {t("Tasks")}
-        </h1>
-
-        <div className="space-y-4">
-          {tasks.length > 0 ? (
-            tasks.map((task) => (
-              <div
-                key={task.id}
-                className={`p-4 rounded-lg border ${
-                  task.completed
-                    ? "bg-green-500/20 border-green-500"
-                    : task.locked
-                    ? "bg-gray-500/20 border-gray-500"
-                    : "bg-white/10 border-[#FF4ED3]"
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <h3 className="text-white font-semibold mb-2">
-                      {task.title}
-                    </h3>
-                    <p className="text-gray-300 text-sm mb-2">
-                      {task.description}
-                    </p>
-                    <p className="text-[#FF4ED3] font-bold">
-                      {task.reward} EX9630
-                    </p>
-                  </div>
-
-                  <div className="ml-4">
-                    {task.completed ? (
-                      <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                        <FaCheck className="text-white text-sm" />
-                      </div>
-                    ) : task.locked ? (
-                      <div className="w-8 h-8 bg-gray-500 rounded-full flex items-center justify-center">
-                        <FaLock className="text-white text-sm" />
-                      </div>
-                    ) : (
-                      <button
-                        onClick={() => handleTaskComplete(task.id)}
-                        className="w-8 h-8 bg-[#FF4ED3] rounded-full flex items-center justify-center hover:bg-[#FF4ED3]/80 transition-colors"
-                      >
-                        <FaCheck className="text-white text-sm" />
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))
-          ) : (
-            <div className="text-center text-white py-8">
-              <p>{t("No tasks available at the moment")}</p>
+    <div className="min-h-screen ">
+      <div className="container mx-auto px-4 py-8 pb-32">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="p-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl">
+              <FaTasks className="size-3 text-white" />
             </div>
-          )}
+            <h1 className="text-xl font-bold text-white">Task Center</h1>
+          </div>
+          <p className="text-gray-300">Complete tasks to earn rewards</p>
         </div>
+
+        {/* Error Display */}
+        {error && (
+          <div className="mb-6 p-4 bg-red-500/20 border border-red-500/30 rounded-lg backdrop-blur-sm">
+            <p className="text-red-300 text-center">{error}</p>
+          </div>
+        )}
+
+        {/* Daily Tasks Section */}
+        <div className="mb-8">
+          <h2 className="text-white text-sm  mb-4 flex items-center">
+            <MdTask className="w-6 h-6 mr-2 text-purple-400" />
+            Active Tasks ({todoTasks.length})
+          </h2>
+
+          <div className="space-y-4">
+            {loading && todoTasks.length === 0
+              ? // Loading skeletons
+                Array.from({ length: 3 }).map((_, index) => (
+                  <TaskSkeleton key={`loading-${index}`} />
+                ))
+              : // Actual tasks
+                todoTasks.map((task) => (
+                  <TaskCard
+                    key={task.id}
+                    task={task}
+                    onDoTask={handleDoTask}
+                    onTaskDone={handleTaskDone}
+                    loading={loading}
+                  />
+                ))}
+
+            {!loading && todoTasks.length === 0 && (
+              <div className="text-center py-12">
+                <FaClock className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                <p className="text-gray-400 text-lg">
+                  No active tasks available
+                </p>
+                <p className="text-gray-500 text-sm">
+                  Check back later for new tasks
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Completed Tasks Section */}
+        <div>
+          <h2 className="text-white text-md font-semibold mb-4 flex items-center">
+            <FaCheckSquare className="w-6 h-6 mr-2 text-green-400" />
+            Completed Tasks ({doneTasks.length})
+          </h2>
+
+          <div className="space-y-4">
+            {loading && doneTasks.length === 0
+              ? // Loading skeletons
+                Array.from({ length: 2 }).map((_, index) => (
+                  <TaskSkeleton key={`loading-done-${index}`} />
+                ))
+              : // Completed tasks
+                doneTasks.map((task) => (
+                  <TaskCard key={task.id} task={task} loading={loading} />
+                ))}
+
+            {!loading && doneTasks.length === 0 && (
+              <div className="text-center py-8">
+                <div className="w-12 h-12 bg-gray-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <FaCheckSquare className="w-6 h-6 text-gray-400" />
+                </div>
+                <p className="text-gray-400">No completed tasks yet</p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Task Completion Modal */}
+        <TaskModal
+          isOpen={isModalOpen}
+          onClose={handleModalClose}
+          onSubmit={(userName) =>
+            selectedTaskId && handleHugTask(userName, selectedTaskId.toString())
+          }
+          loading={loading}
+          isComplete={isComplete}
+        />
       </div>
     </div>
   );

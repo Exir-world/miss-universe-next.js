@@ -23,10 +23,10 @@ export default function Referral() {
   const [referralUrl, setReferralUrl] = useState("");
   const { api } = useApi();
   const { userData } = useLoginStoreState();
-  const referralCode = userData.referral?.code ?? "";
+  const referralCode = userData.user.referralCode || "";
   const config = { gameName: process.env.NEXT_PUBLIC_GAME_NAME || "Dubaieid" };
 
-  const fullShareLink = `${referralUrl}${referralCode}`;
+  const fullShareLink = `${referralUrl}`;
   const canShare = typeof window !== "undefined" && !!navigator?.share;
 
   const shareText = useMemo(
@@ -42,7 +42,11 @@ Click the link and start earning with me today!
     const fetchData = async () => {
       try {
         const response = await api.get("/mainuser/referrals");
-        setReferralUrl("https://cicada1919.ex.pro/");
+        setReferralUrl(`${process.env.NEXT_REFERRAL_URL}${referralCode}`);
+        console.log(
+          `${process.env.NEXT_REFERRAL_URL}${referralCode} 4544545///`
+        );
+
         setFriends(response.data.data || []);
       } catch (err) {
         console.error("Error fetching referrals:", err);
@@ -55,8 +59,10 @@ Click the link and start earning with me today!
   }, [api]);
 
   const handleLinkCopy = async () => {
+    const fullShareLinkCopy = `${process.env.NEXT_REFERRAL_URL + referralCode}`;
+
     try {
-      await navigator.clipboard.writeText(fullShareLink);
+      await navigator.clipboard.writeText(fullShareLinkCopy);
       toast.success("code copied to clipboard! 🎉");
     } catch {
       toast.error("Failed to copy code to clipboard. Please try again. ");

@@ -1,6 +1,8 @@
 import { createStore, StoreApi } from "zustand";
 import { persist } from "zustand/middleware";
 import { AxiosInstance, AxiosError } from "axios";
+import { createAxiosInstance } from "@/lib/axiosInstance";
+import { useLocale } from "next-intl";
 
 interface User {
   id: number;
@@ -9,6 +11,7 @@ interface User {
   phoneNumber: string;
   nickname: string;
   pid: number;
+  referralCode?: string;
 }
 
 interface Referral {
@@ -56,7 +59,10 @@ interface LoginStore {
 
 export type { LoginStore };
 
-export function createLoginStore(api: AxiosInstance): StoreApi<LoginStore> {
+export function createLoginStore(api?: AxiosInstance): StoreApi<LoginStore> {
+  // If api is not provided, create one with default locale
+  const locale = typeof window !== 'undefined' ? (navigator.language || 'en') : 'en';
+  const axiosInstance = api || createAxiosInstance(locale);
   return createStore<LoginStore>()(
     persist(
       (set, get) => ({
@@ -69,6 +75,7 @@ export function createLoginStore(api: AxiosInstance): StoreApi<LoginStore> {
             phoneNumber: "",
             nickname: "",
             pid: 0,
+            referralCode: "",
           },
           isWinner: null,
         },
@@ -106,7 +113,7 @@ export function createLoginStore(api: AxiosInstance): StoreApi<LoginStore> {
           console.log("Phone number:", phoneNumber);
 
           try {
-            const res = await api.post("/mainuser/register", {
+            const res = await axiosInstance.post("/mainuser/register", {
               nickname: "",
               phoneNumber,
               email: loginData.email,
@@ -138,7 +145,7 @@ export function createLoginStore(api: AxiosInstance): StoreApi<LoginStore> {
 
         getMe: async () => {
           try {
-            const res = await api.get("/mainuser/me");
+            const res = await axiosInstance.get("/mainuser/me");
             const data = res.data;
 
             if (res.status === 200) {
@@ -181,7 +188,7 @@ export function createLoginStore(api: AxiosInstance): StoreApi<LoginStore> {
             const urlParams = new URLSearchParams(window.location.search);
             const referralCode = urlParams.get('r');
 
-            await api.post("/mainuser/join", {
+            await axiosInstance.post("/mainuser/join", {
               ...(referralCode ? { referralCode } : {}),
             });
           } catch (err: unknown) {
