@@ -142,14 +142,6 @@ const PhoneInput: React.FC<PhoneInputProps> = ({ onSubmit, loading = false }) =>
         </div>
       </div>
       {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
-      
-      <button
-        onClick={handleSubmit}
-        disabled={loading || !phoneNumber || !!error}
-        className="w-full mt-4 bg-[#FF4ED3] text-white py-2 px-4 rounded-full hover:bg-[#FF4ED3]/80 disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {loading ? "Loading..." : "Submit"}
-      </button>
     </>
   );
 };

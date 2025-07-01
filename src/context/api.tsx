@@ -1,7 +1,13 @@
 // context/ApiProvider.tsx (updated)
 "use client";
 
-import React, { createContext, useContext, useEffect, useState, useMemo } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useMemo,
+} from "react";
 import WebApp from "@twa-dev/sdk";
 import { useLocale } from "next-intl";
 import { createLoginStore } from "@/stores/login";
@@ -28,10 +34,13 @@ export function ApiProvider({ children }: { children: React.ReactNode }) {
 
   // You may want to get initData from a more dynamic source in production
   const initData =
-    "query_id=AAE-nkBjAwAAAD6eQGOAbph8&user=%7B%22id%22%3A8107630142%2C%22first_name%22%3A%22Exirgec%22%2C%22last_name%22%3A%22Matik%22%2C%22username%22%3A%22matik1999%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FAQDD4nj43TOOafYj3NKKxtdCLkQkjGNODLgeLJucGUv9U3559dQKbVUVt3Jwb0R-.svg%22%7D&auth_date=1751198553&signature=71ziCNFe16o4H3FTVx4gNA79cCJ_ZyL-rT0fP9RJydQQhF-E0je5MJ--I0YHVxyCAjSn_mZgyQsxUVm7mOs2Cg&hash=f496e0f18631e0daab33f97d4caed50985403a5ff80e448e7b53c308b162f9c0";
+    "query_id=AAE-nkBjAwAAAD6eQGMScSUG&user=%7B%22id%22%3A8107630142%2C%22first_name%22%3A%22Exirgec%22%2C%22last_name%22%3A%22Matik%22%2C%22username%22%3A%22matik1999%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FAQDD4nj43TOOafYj3NKKxtdCLkQkjGNODLgeLJucGUv9U3559dQKbVUVt3Jwb0R-.svg%22%7D&auth_date=1751347874&signature=2FwAypWVjneJet8IL-_XkHIkyd7qor5hSvxyFw3fj2mqE9VTEESl68-wuCi8fBs6wfppWHVkH61bZeSQAitYBw&hash=482403cdef4ce142588435112f2bd33db7899ba81a741ec6e29ce6dc5b399e73";
 
   // Use the shared axios instance
-  const apiInstance = useMemo(() => createAxiosInstance(locale, initData), [locale, initData]);
+  const apiInstance = useMemo(
+    () => createAxiosInstance(locale, initData),
+    [locale, initData]
+  );
 
   useEffect(() => {
     WebApp.ready();

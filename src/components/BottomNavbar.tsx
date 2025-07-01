@@ -3,6 +3,7 @@
 import { FaUser, FaListUl, FaUserFriends } from "react-icons/fa";
 import { IoGameControllerSharp } from "react-icons/io5";
 import { Link, usePathname } from "@/i18n/navigation";
+import { IoIosPersonAdd } from "react-icons/io";
 
 export default function BottomNavbar({
   hasGameSecret,
@@ -22,8 +23,8 @@ export default function BottomNavbar({
     },
     {
       link: "/referral",
-      label: "referral",
-      icon: <FaUserFriends />,
+      label: "Friends",
+      icon: <IoIosPersonAdd />,
     },
     {
       link: "/profile",
@@ -31,7 +32,12 @@ export default function BottomNavbar({
       icon: <FaUser />,
     },
   ];
+  
   const pathname = usePathname();
+  
+  if (pathname.startsWith("/questions")) {
+    return null;
+  }
 
   return (
     <div className="fixed bottom-4 left-4 right-4 z-30 h-20 flex items-center justify-evenly px-6 py-4 bg-black/80 text-white rounded-full  transition-all duration-300">

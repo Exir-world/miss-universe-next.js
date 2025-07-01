@@ -9,7 +9,6 @@ import {
   FaFacebook,
   FaTiktok,
   FaGlobe,
-  FaCheckCircle,
   FaExternalLinkAlt,
   FaCoins,
   FaClock,

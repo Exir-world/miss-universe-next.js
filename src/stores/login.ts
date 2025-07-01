@@ -2,7 +2,6 @@ import { createStore, StoreApi } from "zustand";
 import { persist } from "zustand/middleware";
 import { AxiosInstance, AxiosError } from "axios";
 import { createAxiosInstance } from "@/lib/axiosInstance";
-import { useLocale } from "next-intl";
 
 interface User {
   id: number;

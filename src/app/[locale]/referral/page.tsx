@@ -20,13 +20,20 @@ interface Friend {
 export default function Referral() {
   const [friends, setFriends] = useState<Friend[]>([]);
   const [loading, setLoading] = useState(true);
-  const [referralUrl, setReferralUrl] = useState("");
   const { api } = useApi();
   const { userData } = useLoginStoreState();
   const referralCode = userData.user.referralCode || "";
   const config = { gameName: process.env.NEXT_PUBLIC_GAME_NAME || "Dubaieid" };
 
-  const fullShareLink = `${referralUrl}`;
+  // Build the referral link robustly
+  const getReferralUrl = () => {
+    const base =
+      process.env.NEXT_REFERRAL_URL ||
+      (typeof window !== "undefined" ? window.location.origin + "/?r=" : "");
+    return `${base}${referralCode}`;
+  };
+  const referralUrl = getReferralUrl();
+  const fullShareLink = referralUrl;
   const canShare = typeof window !== "undefined" && !!navigator?.share;
 
   const shareText = useMemo(
@@ -42,7 +49,6 @@ Click the link and start earning with me today!
     const fetchData = async () => {
       try {
         const response = await api.get("/mainuser/referrals");
-        setReferralUrl(`${process.env.NEXT_REFERRAL_URL}${referralCode}`);
         console.log(
           `${process.env.NEXT_REFERRAL_URL}${referralCode} 4544545///`
         );
@@ -59,10 +65,9 @@ Click the link and start earning with me today!
   }, [api]);
 
   const handleLinkCopy = async () => {
-    const fullShareLinkCopy = `${process.env.NEXT_REFERRAL_URL + referralCode}`;
-
+    const linkToCopy = getReferralUrl();
     try {
-      await navigator.clipboard.writeText(fullShareLinkCopy);
+      await navigator.clipboard.writeText(linkToCopy);
       toast.success("code copied to clipboard! 🎉");
     } catch {
       toast.error("Failed to copy code to clipboard. Please try again. ");
@@ -72,7 +77,7 @@ Click the link and start earning with me today!
   const handleShareLink = () => {
     const imageLink = `https://token.ex.pro/cdn/logo/${config.gameName}`;
     const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(
-      fullShareLink
+      getReferralUrl()
     )}&text=${encodeURIComponent(`${shareText}\n\n${imageLink}`)}`;
     window.open(telegramUrl, "_blank");
   };
@@ -83,7 +88,7 @@ Click the link and start earning with me today!
         .share({
           title: "Join the airdrop",
           text: shareText,
-          url: fullShareLink,
+          url: getReferralUrl(),
         })
         .then(() => console.log("Shared successfully"))
         .catch((error: unknown) => console.error("Error sharing:", error));
@@ -127,36 +132,36 @@ Click the link and start earning with me today!
         )}
       </ul>
 
-      <div className="flex items-center w-full gap-4 py-1 justify-end">
-        {canShare && (
-          <div className="flex items-center gap-2 w-full">
-            <p className="p-2 border-[#C643A8E5] rounded-full border grow text-center truncate text-sm">
+      <div className="grid grid-cols-2 gap-4 py-1 w-full">
+        <div className="flex items-center w-full">
+          {canShare && (
+            <p className="p-2 border-[#C643A8E5] rounded-full border w-full text-center truncate text-sm">
               {fullShareLink}
             </p>
-            <button
-              onClick={handleLinkWithShareApi}
-              className="flex justify-center items-center size-10 border border-[#C643A8E5] rounded-full text-white"
-            >
-              <IoMdShare size={18} />
-            </button>
-          </div>
-        )}
-
-        <button
-          style={{ aspectRatio: "1 / 1" }}
-          onClick={handleShareLink}
-          className="flex justify-center items-center size-10 border border-[#C643A8E5] rounded-full text-white"
-        >
-          <PiTelegramLogo size={18} />
-        </button>
-
-        <button
-          onClick={handleLinkCopy}
-          className="flex justify-center items-center w-10 h-10 border border-[#C643A8E5] rounded-full text-white"
-          style={{ aspectRatio: "1 / 1" }}
-        >
-          <IoCopyOutline size={18} />
-        </button>
+          )}
+        </div>
+        <div className="flex items-center justify-end gap-2 w-full">
+          <button
+            onClick={handleLinkWithShareApi}
+            className="flex justify-center items-center size-10 border border-[#C643A8E5] rounded-full text-white"
+          >
+            <IoMdShare size={18} />
+          </button>
+          <button
+            style={{ aspectRatio: "1 / 1" }}
+            onClick={handleShareLink}
+            className="flex justify-center items-center size-10 border border-[#C643A8E5] rounded-full text-white"
+          >
+            <PiTelegramLogo size={18} />
+          </button>
+          <button
+            onClick={handleLinkCopy}
+            className="flex justify-center items-center w-10 h-10 border border-[#C643A8E5] rounded-full text-white"
+            style={{ aspectRatio: "1 / 1" }}
+          >
+            <IoCopyOutline size={18} />
+          </button>
+        </div>
       </div>
     </div>
   );

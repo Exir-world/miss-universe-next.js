@@ -1,0 +1,334 @@
+import React, { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useApi } from "@/context/api";
+import { RiCloseLargeFill } from "react-icons/ri";
+import Ton from "../../public/Ton.svg";
+import Image from "next/image";
+import { useLoginStoreState } from "@/stores/context";
+import PhoneInput from "@/components/phoneNumberInput/PhoneInput";
+import { toast } from "react-toastify";
+
+const WithdrawButton = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [amount, setAmount] = useState("");
+  const [wallet, setWallet] = useState("");
+  const [otp, setOtp] = useState("");
+  const [otpResponse, setOtpResponse] = useState("");
+  const [otpTimer, setOtpTimer] = useState(0);
+  const [otpLoading, setOtpLoading] = useState(false);
+  const { api } = useApi();
+  const [errors, setErrors] = useState<{
+    amount?: string;
+    wallet?: string;
+    otp?: string;
+  }>({});
+
+  const { userData } = useLoginStoreState();
+  const hasRegisterPId = userData.user.pid;
+  //   console.log(userData.user.pid, "userData.user.pid**");
+
+  // const hasRegisterPId = false;
+
+  const [registerStep, setRegisterStep] = useState<"register" | "withdraw">(
+    hasRegisterPId ? "withdraw" : "register"
+  );
+  const [registerPhone, setRegisterPhone] = useState("");
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerLoading, setRegisterLoading] = useState(false);
+  const [registerError, setRegisterError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setRegisterStep(hasRegisterPId ? "withdraw" : "register");
+  }, [hasRegisterPId]);
+
+  // Validators
+  const validateAmount = (value: string) => {
+    if (!value) return "Amount is required.";
+    const num = Number(value);
+    if (isNaN(num) || num <= 0) return "Enter a valid positive number.";
+    return "";
+  };
+
+  const validateWallet = (value: string) => {
+    if (!value) return "Wallet address is required.";
+    // Simple Solana address check (base58, 32-44 chars)
+    if (!/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(value))
+      return "Enter a valid Solana address.";
+    return "";
+  };
+
+  const validateOtp = (value: string) => {
+    if (!value) return "OTP code is required.";
+    return "OTP must be at least 3 digits.";
+  };
+
+  // Validate on change
+  useEffect(() => {
+    setErrors((prev) => ({
+      ...prev,
+      amount: amount ? validateAmount(amount) : undefined,
+    }));
+  }, [amount]);
+
+  useEffect(() => {
+    setErrors((prev) => ({
+      ...prev,
+      wallet: wallet ? validateWallet(wallet) : undefined,
+    }));
+  }, [wallet]);
+
+  useEffect(() => {
+    setErrors((prev) => ({
+      ...prev,
+      otp: otp ? validateOtp(otp) : undefined,
+    }));
+  }, [otp]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const amountError = validateAmount(amount);
+    const walletError = validateWallet(wallet);
+    const otpError = validateOtp(otp);
+
+    setErrors({
+      amount: amountError,
+      wallet: walletError,
+      otp: otpError,
+    });
+
+    if (amountError || walletError || otpError) {
+      return;
+    }
+    // handle submission
+    setShowModal(false);
+  };
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (otpTimer > 0) {
+      timer = setTimeout(() => setOtpTimer(otpTimer - 1), 1000);
+    }
+    return () => clearTimeout(timer);
+  }, [otpTimer]);
+
+  const handleOtpClick = useCallback(async () => {
+    setOtpLoading(true);
+    try {
+      const res = await api.post("/otp/generate");
+      setOtpResponse(res.data);
+      setOtpTimer(60);
+    } catch (e) {
+      console.log(e);
+      setErrors((prev) => ({
+        ...prev,
+        otp: "Failed to send OTP. Please try again.",
+      }));
+    }
+    setOtpLoading(false);
+  }, []);
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setRegisterError(null);
+    if (!registerPhone) {
+      setRegisterError("Phone number is required.");
+      toast.error("Phone number is required.");
+      return;
+    }
+    if (!registerEmail) {
+      setRegisterError("Email is required.");
+      toast.error("Email is required.");
+      return;
+    }
+    setRegisterLoading(true);
+    try {
+      await api.post("/mainuser/register", {
+        phoneNumber: registerPhone,
+        email: registerEmail,
+      });
+      setRegisterStep("withdraw");
+      toast.success("Registration successful!");
+    } catch (err: any) {
+      const errorMsg = err?.response?.data?.message || "Registration failed.";
+      setRegisterError(errorMsg);
+      toast.error(errorMsg);
+    }
+    setRegisterLoading(false);
+  };
+
+  return (
+    <>
+      <button
+        onClick={() => {
+          setShowModal(true);
+          setErrors({});
+        }}
+        className="px-5 py-2 w-full bg-transparent rounded-full shadow-md border-2 border-[#FF4ED3] text-white"
+      >
+        Withdraw
+      </button>
+
+      <AnimatePresence>
+        {showModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center mx-auto bg-transparent bg-opacity-70"
+            onClick={() => setShowModal(false)}
+          >
+            <motion.div
+              initial={{ y: 40, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 40, opacity: 0 }}
+              className="bg-[#7D7D7D4D] backdrop-blur-2xl rounded-md shadow-xl w-full mx-4 p-5 max-w-sm border border-[#FF4ED3] pb-8"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="w-full flex justify-end text-pink-400">
+                <RiCloseLargeFill
+                  onClick={() => setShowModal(false)}
+                  className="cursor-pointer"
+                  size={24}
+                />
+              </div>
+              <h2 className="text-lg font-bold mb-4 text-center">Withdraw</h2>
+              {registerStep === "register" ? (
+                <form
+                  onSubmit={(e) => e.preventDefault()}
+                  className="space-y-4"
+                  autoComplete="off"
+                >
+                  <div>
+                    <label className="block text-sm font-medium mb-1">
+                      Phone Number <span className="text-red-500">*</span>
+                    </label>
+                    <PhoneInput
+                      onSubmit={(phone) => setRegisterPhone(phone)}
+                      loading={registerLoading}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1">
+                      Email <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      placeholder="Enter your email"
+                      value={registerEmail}
+                      onChange={(e) => setRegisterEmail(e.target.value)}
+                      className="w-full border border-gray-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4ED3]"
+                      disabled={registerLoading}
+                    />
+                  </div>
+                  {registerError && (
+                    <p className="text-red-500 text-xs mt-1">{registerError}</p>
+                  )}
+                  <div className="flex justify-between mt-6">
+                    <button
+                      type="button"
+                      className="w-full gap-1 py-3 text-sm rounded-full bg-[#50A7EA] text-white flex items-center justify-center"
+                      disabled={
+                        registerLoading || !registerPhone || !registerEmail
+                      }
+                      onClick={handleRegister}
+                    >
+                      {registerLoading ? "Registering..." : "Register"}
+                    </button>
+                  </div>
+                </form>
+              ) : (
+                <form
+                  onSubmit={handleSubmit}
+                  className="space-y-4"
+                  autoComplete="off"
+                >
+                  <div>
+                    <label className="block text-sm font-medium mb-1">
+                      Amount <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      value={amount}
+                      onChange={(e) => setAmount(e.target.value)}
+                      className={`w-full border ${
+                        errors.amount ? "border-red-500" : "border-gray-300"
+                      } rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4ED3]`}
+                    />
+                    {errors.amount && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.amount}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1">
+                      Solana Wallet Address{" "}
+                      <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={wallet}
+                      onChange={(e) => setWallet(e.target.value)}
+                      className={`w-full border ${
+                        errors.wallet ? "border-red-500" : "border-gray-300"
+                      } rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4ED3]`}
+                    />
+                    {errors.wallet && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.wallet}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1">
+                      OTP Code <span className="text-red-500">*</span>
+                    </label>
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        value={otp}
+                        onChange={(e) => setOtp(e.target.value)}
+                        className={`flex-1 border ${
+                          errors.otp ? "border-red-500" : "border-gray-300"
+                        } rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4ED3]`}
+                      />
+                      <button
+                        type="button"
+                        onClick={handleOtpClick}
+                        disabled={otpTimer > 0 || otpLoading}
+                        className={`text-xs rounded-full ${
+                          otpTimer > 0 || otpLoading
+                            ? "text-[#FF4ED3] cursor-not-allowed"
+                            : "bg-transparent text-[#FF4ED3]"
+                        }`}
+                      >
+                        {otpLoading
+                          ? "Sending..."
+                          : otpTimer > 0
+                          ? `${otpTimer}`
+                          : "Send"}
+                      </button>
+                    </div>
+                    {errors.otp && (
+                      <p className="text-red-500 text-xs mt-1">{errors.otp}</p>
+                    )}
+                  </div>
+                  <div className="flex justify-between mt-6">
+                    <button
+                      type="submit"
+                      className="w-full gap-1 py-3 text-sm rounded-full bg-[#50A7EA] text-white flex items-center justify-center"
+                    >
+                      <span>Pay with Ton</span>
+                      <Image src={Ton} alt="ton" width={17} height={17}></Image>
+                    </button>
+                  </div>
+                </form>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
+
+export default WithdrawButton;
