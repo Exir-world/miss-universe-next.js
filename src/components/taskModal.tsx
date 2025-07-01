@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaCheckCircle, FaTimes } from 'react-icons/fa';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { useTranslations } from "next-intl";
 
 interface TaskModalProps {
   isOpen: boolean;
@@ -18,6 +19,7 @@ export const TaskModal: React.FC<TaskModalProps> = ({
   isComplete
 }) => {
   const [userName, setUserName] = useState('');
+  const t = useTranslations();
 
   useEffect(() => {
     if (isComplete) {
@@ -47,7 +49,7 @@ export const TaskModal: React.FC<TaskModalProps> = ({
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <div className="bg-gradient-to-br from-purple-900/90 to-pink-900/90 backdrop-blur-md rounded-2xl p-6 w-full max-w-md mx-auto border border-white/20">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-white">Complete Task</h2>
+          <h2 className="text-2xl font-bold text-white">{t('taskModal.completeTask')}</h2>
           <button
             onClick={onClose}
             className="text-gray-400 hover:text-white transition-colors"
@@ -72,7 +74,7 @@ export const TaskModal: React.FC<TaskModalProps> = ({
           {!isComplete && (
             <>
               <p className="text-gray-300 text-center">
-                Enter your username to complete this task
+                {t('taskModal.enterUsernameToComplete')}
               </p>
               
               <input
@@ -80,7 +82,7 @@ export const TaskModal: React.FC<TaskModalProps> = ({
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Your username"
+                placeholder={t('taskModal.yourUsername')}
                 className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200"
                 disabled={loading}
                 autoFocus

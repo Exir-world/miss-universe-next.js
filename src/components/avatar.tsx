@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { useApi } from "@/context/api";
+import { useTranslations } from "next-intl";
 
 interface UserProfileProps {
   nickName?: string;
@@ -11,6 +12,7 @@ interface UserProfileProps {
 
 export default function Avatar({ nickName, id }: UserProfileProps) {
   const { photoUrl, firstname } = useApi();
+  const t = useTranslations();
 
   return (
     <div className="w-full flex items-center gap-4">
@@ -31,7 +33,7 @@ export default function Avatar({ nickName, id }: UserProfileProps) {
       )}
       <div className="flex flex-col">
         <p className="font-medium text-white">
-          Hey {nickName || firstname || "User"}
+          {t('common.hey')} {nickName || firstname || t('common.user')}
         </p>
         <p className="text-white">{id}</p>
       </div>

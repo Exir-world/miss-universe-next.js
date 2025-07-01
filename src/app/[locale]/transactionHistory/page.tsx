@@ -90,7 +90,7 @@ export default function TransactionHistory() {
         <div className="w-full flex items-center justify-start gap-2">
           <FaReceipt className="w-[22px] h-[22px] text-white" />
           <span className="font-semibold text-[14px] text-white">
-            {t("Transaction History")}
+            {t("transaction.history")}
           </span>
         </div>
         <div className="w-full flex flex-col items-center gap-2 text-[14px] font-normal max-h-[60vh] overflow-auto">
@@ -112,7 +112,7 @@ export default function TransactionHistory() {
               </div>
             ))
           ) : (
-            <p className="text-white">No transactions found.</p>
+            <p className="text-white">{t("transaction.noTransactions")}</p>
           )}
         </div>
       </div>

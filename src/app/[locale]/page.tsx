@@ -19,6 +19,7 @@ export default function HomePage() {
 
   useEffect(() => {
     const mystery = userData.mystery?.mysteryContent;
+
     if (mystery) {
       setSecretToken(mystery);
     }
@@ -48,8 +49,18 @@ export default function HomePage() {
       setNotRegisteredModal(true);
     } else {
       const url = `https://token.ex.pro/en/salon?mystery=${secretToken}`;
-      if ((window as unknown as { Telegram?: { WebApp?: { openLink: (url: string) => void } } }).Telegram?.WebApp) {
-        ((window as unknown as { Telegram: { WebApp: { openLink: (url: string) => void } } }).Telegram.WebApp.openLink(url));
+      if (
+        (
+          window as unknown as {
+            Telegram?: { WebApp?: { openLink: (url: string) => void } };
+          }
+        ).Telegram?.WebApp
+      ) {
+        (
+          window as unknown as {
+            Telegram: { WebApp: { openLink: (url: string) => void } };
+          }
+        ).Telegram.WebApp.openLink(url);
       } else {
         window.open(url, "_blank");
       }
@@ -114,16 +125,21 @@ export default function HomePage() {
           }`}
           onClick={goToGame}
         />
+        {!secretToken && (
+          <h3 className="text-[30px] font-bold bg-gradient-to-r from-[#F68E00] via-[#FFEA94] to-[#FFBD00] bg-clip-text text-transparent">
+            {t("global.tapOnMe")}
+          </h3>
+        )}
 
         {secretToken ? (
           <>
             <span className="text-green-400 text-2xl font-bold mt-2">
-              {/* {t("presidentjoker.presidentjoker-success.title")} */}
+              {t("global.home.success")}
             </span>
             <p className="mt-4">
               {/* {t("presidentjoker.presidentjoker-success.des")} */}
             </p>
-
+          
             <div className="flex p-4 mt-6 bg-white/20 border border-primary rounded-lg backdrop-blur-sm w-full max-w-md justify-between items-center">
               <span className="truncate">{secretToken}</span>
               <button onClick={copyToClipboard}>📋</button>
