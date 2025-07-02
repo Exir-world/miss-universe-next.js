@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 import { useState } from "react";
 import { GrLanguage } from "react-icons/gr";
 import { motion, AnimatePresence } from "framer-motion";
@@ -26,7 +26,6 @@ const availableLocales = [
 
 export default function LanguageSwitcher() {
   const locale = useLocale();
-  const t = useTranslations();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -59,7 +58,7 @@ export default function LanguageSwitcher() {
               onClick={() => setIsOpen(false)}
             />
             <motion.div
-              className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-xl p-6 w-80 max-h-[80vh] overflow-y-auto z-50"
+              className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#242424]  rounded-xl shadow-xl p-6 w-80 max-h-[80vh] overflow-y-auto z-50"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
@@ -74,20 +73,20 @@ export default function LanguageSwitcher() {
                 </button>
               </div>
               <h3 className="text-lg font-semibold text-gray-800 mb-4 text-center">
-                {/* {t("Select Language") || "Select Language"} */}
+                {/* Select Language */}
               </h3>
-              <div className="grid gap-2">
+              <div className="grid gap-2 ">
                 {filteredLocales.map((l) => (
                   <button
                     key={l.code}
-                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors duration-200 text-white"
                     onClick={() => switchLocale(l.code)}
                   >
                     <span
                       className={`fi fi-${l.icon} fis`}
                       style={{ width: 24, height: 24 }}
                     ></span>
-                    <span className="font-medium text-gray-700">{l.name}</span>
+                    <span className="font-medium text-white">{l.name}</span>
                   </button>
                 ))}
               </div>

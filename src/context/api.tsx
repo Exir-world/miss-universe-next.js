@@ -6,13 +6,14 @@ import React, {
   useContext,
   useEffect,
   useState,
-  useRef,
+  useMemo,
 } from "react";
-import axios, { AxiosInstance } from "axios";
 import WebApp from "@twa-dev/sdk";
 import { useLocale } from "next-intl";
 import { createLoginStore } from "@/stores/login";
 import { AppStoreProvider } from "@/stores/context";
+import { createAxiosInstance, setInitData } from "@/lib/axiosInstance";
+import { AxiosInstance } from "axios";
 
 interface ApiContextType {
   api: AxiosInstance;
@@ -22,13 +23,24 @@ interface ApiContextType {
 
 const ApiContext = createContext<ApiContextType | undefined>(undefined);
 
-export function ApiProvider({ children }: any) {
-  const [apiInstance, setApiInstance] = useState<AxiosInstance | null>(null);
+export function ApiProvider({ children }: { children: React.ReactNode }) {
   const [photoUrl, setPhotoUrl] = useState("");
   const [firstname, setFirstname] = useState("");
-  const [loginStore, setLoginStore] = useState<ReturnType<typeof createLoginStore> | null>(null);
+  const [loginStore, setLoginStore] = useState<ReturnType<
+    typeof createLoginStore
+  > | null>(null);
 
   const locale = useLocale();
+
+  // You may want to get initData from a more dynamic source in production
+  const initData =
+    "query_id=AAE-nkBjAwAAAD6eQGMScSUG&user=%7B%22id%22%3A8107630142%2C%22first_name%22%3A%22Exirgec%22%2C%22last_name%22%3A%22Matik%22%2C%22username%22%3A%22matik1999%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FAQDD4nj43TOOafYj3NKKxtdCLkQkjGNODLgeLJucGUv9U3559dQKbVUVt3Jwb0R-.svg%22%7D&auth_date=1751347874&signature=2FwAypWVjneJet8IL-_XkHIkyd7qor5hSvxyFw3fj2mqE9VTEESl68-wuCi8fBs6wfppWHVkH61bZeSQAitYBw&hash=482403cdef4ce142588435112f2bd33db7899ba81a741ec6e29ce6dc5b399e73";
+
+  // Use the shared axios instance
+  const apiInstance = useMemo(
+    () => createAxiosInstance(locale, initData),
+    [locale, initData]
+  );
 
   useEffect(() => {
     WebApp.ready();
@@ -37,39 +49,35 @@ export function ApiProvider({ children }: any) {
     setPhotoUrl(user?.photo_url || "");
     setFirstname(user?.first_name || "");
 
-    // const initData = WebApp.initData;
-    const initData =
-      "query_id=AAE-nkBjAwAAAD6eQGMDcqZR&user=%7B%22id%22%3A8107630142%2C%22first_name%22%3A%22Exirgec%22%2C%22last_name%22%3A%22Matik%22%2C%22username%22%3A%22matik1999%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FAQDD4nj43TOOafYj3NKKxtdCLkQkjGNODLgeLJucGUv9U3559dQKbVUVt3Jwb0R-.svg%22%7D&auth_date=1751092686&signature=QVDirkjxHhiHNllPthIxlKNPY8HzTRPTW2J1g4-uKWssbbWoGDd157oK1p8gNLLP4MlQrlfuGnxQRb4zL4TTBA&hash=a342b85c7c08f27e3884afe458ebbfc815f72073698aae12d08a191302d571fc";
-
-    if (!initData) return;
-
-    const axiosInstance = axios.create({
-      baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-      headers: {
-        Authorization: initData,
-        "Content-Type": "application/json",
-        "x-game": process.env.NEXT_PUBLIC_GAME_NAME,
-        "Accept-Language": locale,
-        "x-lang": locale,
-      },
-    });
-
-    axiosInstance.interceptors.response.use(
-      (res) => res,
-      (err) => {
-        const message = err?.response?.data?.message || "API error";
-        console.error(message);
-        return Promise.reject(err);
+    const parseInitData = (data: string) => {
+      const params = new URLSearchParams(data);
+      const userJson = params.get("user");
+      if (!userJson) {
+        return { photoUrl: "", firstname: "" };
       }
-    );
+      const userData = JSON.parse(userJson);
+      return {
+        photoUrl: userData.photo_url
+          ? userData.photo_url.replace(/\\/g, "/")
+          : "",
+        firstname: userData.first_name,
+      };
+    };
 
-    setApiInstance(axiosInstance);
-    const store = createLoginStore(axiosInstance);
+    if (initData) {
+      setInitData(initData); // Set global initData for all axios instances
+      const { photoUrl: parsedPhotoUrl, firstname: parsedFirstname } =
+        parseInitData(initData);
+      setPhotoUrl(parsedPhotoUrl);
+      setFirstname(parsedFirstname);
+    }
+
+    const store = createLoginStore(apiInstance);
     setLoginStore(store);
-  }, []);
+  }, [apiInstance]); // Only depend on apiInstance
 
   if (!apiInstance || !loginStore) {
-    return null; // or loading indicator
+    return null;
   }
 
   return (
@@ -80,9 +88,7 @@ export function ApiProvider({ children }: any) {
         firstname,
       }}
     >
-      <AppStoreProvider loginStore={loginStore}>
-        {children}
-      </AppStoreProvider>
+      <AppStoreProvider loginStore={loginStore}>{children}</AppStoreProvider>
     </ApiContext.Provider>
   );
 }

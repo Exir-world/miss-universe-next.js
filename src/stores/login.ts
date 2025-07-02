@@ -1,6 +1,7 @@
-import { StateCreator, createStore, StoreApi } from "zustand";
+import { createStore, StoreApi } from "zustand";
 import { persist } from "zustand/middleware";
-import { AxiosInstance } from "axios";
+import { AxiosInstance, AxiosError } from "axios";
+import { createAxiosInstance } from "@/lib/axiosInstance";
 
 interface User {
   id: number;
@@ -9,6 +10,7 @@ interface User {
   phoneNumber: string;
   nickname: string;
   pid: number;
+  referralCode?: string;
 }
 
 interface Referral {
@@ -50,12 +52,16 @@ interface LoginStore {
   setLoginData: (data: Partial<LoginData>) => void;
   login: (countryCode?: string, referralCode?: string) => Promise<boolean>;
   getMe: () => Promise<void>;
+  joinGame: () => Promise<void>;
   normalizePhoneNumber: (input: string) => string | null;
 }
 
 export type { LoginStore };
 
-export function createLoginStore(api: AxiosInstance): StoreApi<LoginStore> {
+export function createLoginStore(api?: AxiosInstance): StoreApi<LoginStore> {
+  // If api is not provided, create one with default locale
+  const locale = typeof window !== 'undefined' ? (navigator.language || 'en') : 'en';
+  const axiosInstance = api || createAxiosInstance(locale);
   return createStore<LoginStore>()(
     persist(
       (set, get) => ({
@@ -68,6 +74,7 @@ export function createLoginStore(api: AxiosInstance): StoreApi<LoginStore> {
             phoneNumber: "",
             nickname: "",
             pid: 0,
+            referralCode: "",
           },
           isWinner: null,
         },
@@ -93,42 +100,51 @@ export function createLoginStore(api: AxiosInstance): StoreApi<LoginStore> {
 
         login: async (countryCode = "", referralCode = "") => {
           const { loginData, normalizePhoneNumber } = get();
-          const phone = normalizePhoneNumber(loginData.phoneNumber);
+          console.log("Login data:", loginData);
 
-          if (!phone) {
+          let phoneNumber = normalizePhoneNumber(loginData.phoneNumber);
+          if (phoneNumber === null) {
             console.log("Invalid phone number");
             return false;
           }
 
-          const fullPhone = countryCode + phone;
+          phoneNumber = countryCode + phoneNumber;
+          console.log("Phone number:", phoneNumber);
 
           try {
-            const res = await api.post("/mainuser/register", {
+            const res = await axiosInstance.post("/mainuser/register", {
               nickname: "",
-              phoneNumber: fullPhone,
+              phoneNumber,
               email: loginData.email,
-              ...(referralCode ? { referralCode } : {}),
+              ...(referralCode !== "" ? { referralCode } : {}),
             });
 
-            const data = res.data;
+            console.log("Login response:", { data: res.data, status: res.status });
 
             if (res.status === 201) {
-              set({ accessToken: data.token });
+              console.log("Login successful:", res.data);
+              set({ 
+                accessToken: res.data.token,
+                isAuth: true 
+              });
               return true;
             } else {
-              console.log(data?.message?.[0] || "server error");
+              console.log("Login failed:", res.data?.message?.[0] || "server error");
               return false;
             }
-          } catch (err) {
-            console.error("Login error", err);
+          } catch (err: unknown) {
+            if ((err as AxiosError).isAxiosError) {
+              console.log("Login error:", (err as AxiosError).message);
+            } else {
+              console.log("Login error:", err);
+            }
             return false;
           }
         },
 
         getMe: async () => {
           try {
-            const res = await api.get("/mainuser/me");
-
+            const res = await axiosInstance.get("/mainuser/me");
             const data = res.data;
 
             if (res.status === 200) {
@@ -140,11 +156,46 @@ export function createLoginStore(api: AxiosInstance): StoreApi<LoginStore> {
                 isAuth: true,
                 hasGameSecret: hasSecret,
               });
+
+              console.log("User data:", userData);
+
+              const room = data.data?.mystery?.room;
+              const mysteryContent = data.data?.mystery?.mysteryContent;
+
+              console.log({ room, mysteryContent });
+
+              // Remove automatic joinGame call to prevent infinite loops
+              // const { joinGame } = get();
+              // await joinGame();
             } else {
               console.log("User not authenticated");
+              set({ isAuth: false });
             }
-          } catch (err) {
-            console.error(err);
+          } catch (err: unknown) {
+            if ((err as AxiosError).isAxiosError) {
+              console.log("getMe error:", (err as AxiosError).message);
+            } else {
+              console.log("getMe error:", err);
+            }
+            set({ isAuth: false });
+          }
+        },
+
+        joinGame: async () => {
+          try {
+            // Get referral code from URL if available
+            const urlParams = new URLSearchParams(window.location.search);
+            const referralCode = urlParams.get('r');
+
+            await axiosInstance.post("/mainuser/join", {
+              ...(referralCode ? { referralCode } : {}),
+            });
+          } catch (err: unknown) {
+            if ((err as AxiosError).isAxiosError) {
+              console.log("joinGame error:", (err as AxiosError).message);
+            } else {
+              console.log("joinGame error:", err);
+            }
           }
         },
       }),
@@ -154,6 +205,7 @@ export function createLoginStore(api: AxiosInstance): StoreApi<LoginStore> {
           accessToken: state.accessToken,
           loginData: state.loginData,
           userData: state.userData,
+          isAuth: state.isAuth,
         }),
       }
     )

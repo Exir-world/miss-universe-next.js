@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import BottomNavbar from "./BottomNavbar";
 import React from "react";
@@ -15,17 +15,18 @@ export default function PageWrapper({
   const [loading, setLoading] = useState(true);
   const { getMe, hasGameSecret } = useLoginStoreState();
   
+  const fetchUserData = useCallback(async () => {
+    try {
+      await getMe();
+    } catch (err) {
+      console.error("Error in PageWrapper:", err);
+    } finally {
+      setLoading(false);
+    }
+  }, [getMe]);
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await getMe();
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
+    fetchUserData();
   }, []);
 
   const hideNav =

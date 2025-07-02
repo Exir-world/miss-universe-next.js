@@ -3,34 +3,32 @@ import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import BottomNavbar from "@/components/BottomNavbar";
 import WebApp from "@twa-dev/sdk";
-import { useLoginStore, useLoginStoreState } from "@/stores/context";
+import { useLoginStoreState } from "@/stores/context";
 import { toast } from "react-toastify";
 import { useRouter } from "@/i18n/navigation";
 import Image from "next/image";
+import { MdContentCopy } from "react-icons/md";
 
 export default function HomePage() {
   const t = useTranslations();
-  const [useData, setUserData] = useState({});
-  const { hasGameSecret } = useLoginStoreState();
+  const { hasGameSecret, userData } = useLoginStoreState();
   const router = useRouter();
-  const loginStore = useLoginStore();
 
   const [secretToken, setSecretToken] = useState<string | null>(null);
   const [notRegisteredModal, setNotRegisteredModal] = useState(false);
   const [isWinner, setIsWinner] = useState(false);
-  const [data, setData] = useState<{ logo: string }>({ logo: "" });
 
   useEffect(() => {
-    const mystery =
-      loginStore.getInitialState().userData.mystery?.mysteryContent;
+    const mystery = userData.mystery?.mysteryContent;
+
     if (mystery) {
       setSecretToken(mystery);
     }
 
-    if (loginStore.userData?.isWinner) {
+    if (userData.isWinner) {
       setIsWinner(true);
     }
-  }, [loginStore.userData]);
+  }, [userData]);
 
   useEffect(() => {
     WebApp.ready();
@@ -40,20 +38,30 @@ export default function HomePage() {
     if (!secretToken) return;
     try {
       await navigator.clipboard.writeText(secretToken);
-      toast.success(t("presidentjoker.presidentjoker-success.code"));
-    } catch (err) {
-      toast.error(t("presidentjoker.presidentjoker-wrong.button"));
+      toast.success(t("home.successCode"));
+    } catch {
+      toast.error(t("home.wrongCode"));
     }
   };
 
   const handleGoToInfo = () => {
-    const hasPId = !!loginStore.userData?.user?.pid;
+    const hasPId = !!userData.user?.pid;
     if (!hasPId) {
       setNotRegisteredModal(true);
     } else {
       const url = `https://token.ex.pro/en/salon?mystery=${secretToken}`;
-      if (window.Telegram?.WebApp) {
-        window.Telegram.WebApp.openLink(url);
+      if (
+        (
+          window as unknown as {
+            Telegram?: { WebApp?: { openLink: (url: string) => void } };
+          }
+        ).Telegram?.WebApp
+      ) {
+        (
+          window as unknown as {
+            Telegram: { WebApp: { openLink: (url: string) => void } };
+          }
+        ).Telegram.WebApp.openLink(url);
       } else {
         window.open(url, "_blank");
       }
@@ -63,12 +71,12 @@ export default function HomePage() {
   const goToGame = () => {
     router.push("/questions");
   };
-  
+
   const gameName = process.env.NEXT_PUBLIC_GAME_NAME || "Dubaieid";
 
   return (
     <div>
-      <div className="flex flex-col items-center justify-center h-screen pb-10 pt-2 text-white text-center">
+      <div className="flex flex-col items-center justify-center h-screen pb-10 pt-2 text-white text-center ">
         {/* Not Registered Modal */}
         {notRegisteredModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
@@ -95,13 +103,13 @@ export default function HomePage() {
                 </svg>
               </div>
               <p className="text-lg font-medium mb-6">
-                {/* {t("presidentjoker.presidentjoker-auth.notRegistered")} */}
+                {t("presidentjoker.presidentjoker-auth.notRegistered")}
               </p>
               <button
-                onClick={() => router.push("/Profile")}
+                onClick={() => router.push("/profile")}
                 className="w-full bg-primary text-white font-bold py-2 px-4 rounded-full hover:bg-primary-dark"
               >
-                {/* {t("presidentjoker.presidentjoker-auth.button")} */}
+                {t("presidentjoker.presidentjoker-auth.button")}
               </button>
             </div>
           </div>
@@ -109,35 +117,40 @@ export default function HomePage() {
 
         {/* Logo + Interactions */}
         <Image
-          src={`${gameName}/${gameName}.svg`}
+          src={`/${gameName}/${gameName}.svg`}
           width={220}
           height={220}
           alt="Logo"
-          // className={`w-2/3 max-w-72 cursor-pointer ${
-          //   loginStore.userData?.isWinner ? "animate-spin-slow" : ""
-          // }`}
+          className={`w-2/3 max-w-72 cursor-pointer ${
+            userData.isWinner ? "animate-spin-slow" : ""
+          }`}
           onClick={goToGame}
         />
+        {!secretToken && (
+          <h3 className="text-[30px] font-bold bg-gradient-to-r from-[#F68E00] via-[#FFEA94] to-[#FFBD00] bg-clip-text text-transparent">
+            {t("global.tapOnMe")}
+          </h3>
+        )}
 
         {secretToken ? (
           <>
             <span className="text-green-400 text-2xl font-bold mt-2">
-              {/* {t("presidentjoker.presidentjoker-success.title")} */}
+              {t("home.success")}
             </span>
-            <p className="mt-4">
-              {/* {t("presidentjoker.presidentjoker-success.des")} */}
-            </p>
+            <p className="mt-4">{t("home.des")}</p>
 
             <div className="flex p-4 mt-6 bg-white/20 border border-primary rounded-lg backdrop-blur-sm w-full max-w-md justify-between items-center">
               <span className="truncate">{secretToken}</span>
-              <button onClick={copyToClipboard}>📋</button>
+              <button onClick={copyToClipboard}>
+                <MdContentCopy />
+              </button>
             </div>
 
             <button
               onClick={handleGoToInfo}
-              className="w-full max-w-md mt-4 border-2 border-primary rounded-full py-2 text-white"
+              className="w-full max-w-md mt-4 border-2 border-[#FF4ED3] rounded-full py-3 text-white"
             >
-              {/* {t("presidentjoker.presidentjoker-success.button")} */}
+              {t("home.button")}
             </button>
           </>
         ) : (
@@ -154,28 +167,26 @@ export default function HomePage() {
                 <span className="text-yellow-400 text-4xl">✨</span>
               </div>
               <h2 className="text-2xl font-bold text-green-400 mb-2">
-                🎉 {t("presidentjoker.presidentjoker-success.title")}!
+                {t("home.title")}
               </h2>
-              <p className="text-lg text-white mb-4">
-                {/* {t("presidentjoker.presidentjoker-success.winnerDes")} */}
-              </p>
+              <p className="text-lg text-white mb-4">{t("home.winnerDes")}</p>
               <button
                 onClick={() => router.push("/profile")}
                 className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full mb-2"
               >
-                {/* 🎁 {t("presidentjoker.presidentjoker-success.claimButton")} */}
+                🎁 {t("home.claimButton")}
               </button>
               <button
                 onClick={() => router.push("/tasks")}
                 className="w-full text-sm text-gray-300 hover:text-white"
               >
-                {/* {t("presidentjoker.presidentjoker-success.exploreButton")} → */}
+                {t("home.exploreButton")} →
               </button>
             </div>
           </div>
         )}
       </div>
-      <BottomNavbar hasGameSecret={hasGameSecret}></BottomNavbar>
+      <BottomNavbar hasGameSecret={hasGameSecret} />
     </div>
   );
 }
