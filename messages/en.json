@@ -66,7 +66,15 @@
     "tapOnMe": "Tap on ME"
   },
   "home": {
-    "success": "Register your code on Exir Info to secure your spot in the lottery"
+    "success": "Congrats!",
+    "des": "Register your code on Exir Info to secure your spot in the lottery",
+    "button": "Register You Code",
+    "successCode": "Code copied",
+    "wrongCode": "Failed to copy code",
+    "exploreButton": " Explore Now",
+    "claimButton": "Claim Your Prize",
+    "winnerDes": "Go to profile to claim your prize or explore tasks to earn more rewards.",
+    "title": "Congratulations! You are a winner! 🎉"
   },
   "withdraw": {
     "amountRequired": "Amount is required.",
@@ -121,7 +129,17 @@
   "profile": {
     "profile": "Profile",
     "registerNow": "Register Now",
-    "balance": "Balance"
+    "balance": "Balance",
+    "withdraw": "Withdraw",
+    "phoneNumber": "Phone number",
+    "email": "Email",
+    "amount": "Amount",
+    "walletAddress": "Solana Wallet Address",
+    "otpCode":"OTP Code",
+    "payButton":"Pay with Ton"
+  },
+  "questions": {
+    "submit": "You won! "
   },
   "common": {
     "loading": "Loading...",

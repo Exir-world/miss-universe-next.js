@@ -8,13 +8,23 @@ import { IoCopyOutline } from "react-icons/io5";
 import { useApi } from "@/context/api";
 import { useLoginStoreState } from "@/stores/context";
 import { FaEnvelopeOpenText } from "react-icons/fa";
+import { useTranslations } from "next-intl";
+
+export type Referral = {
+  id: number;
+  userTgId: string;
+  pid: number | null;
+  email: string | null;
+  phoneNumber: string | null;
+  nickname: string | null;
+  referralCode: string;
+};
 
 interface Friend {
   id: number;
-  nickname: string;
-  userId: number;
-  game: string;
-  createdAt: string;
+  type: string; // or use a union of known types
+  createdAt: string; // ISO date string
+  referral: Referral;
 }
 
 export default function Referral() {
@@ -24,7 +34,7 @@ export default function Referral() {
   const { userData } = useLoginStoreState();
   const referralCode = userData.user.referralCode || "";
   const config = { gameName: process.env.NEXT_PUBLIC_GAME_NAME || "Dubaieid" };
-
+  const t = useTranslations();
   // Build the referral link robustly
   const getReferralUrl = () => {
     const base =
@@ -49,9 +59,6 @@ Click the link and start earning with me today!
     const fetchData = async () => {
       try {
         const response = await api.get("/mainuser/referrals");
-        console.log(
-          `${process.env.NEXT_REFERRAL_URL}${referralCode} 4544545///`
-        );
 
         setFriends(response.data.data || []);
       } catch (err) {
@@ -68,9 +75,9 @@ Click the link and start earning with me today!
     const linkToCopy = getReferralUrl();
     try {
       await navigator.clipboard.writeText(linkToCopy);
-      toast.success("code copied to clipboard! 🎉");
+      toast.success(t("home.successCode"));
     } catch {
-      toast.error("Failed to copy code to clipboard. Please try again. ");
+      toast.error(t("home.wrongCode"));
     }
   };
 
@@ -112,9 +119,9 @@ Click the link and start earning with me today!
           <span className="w-6 h-6">
             <FaEnvelopeOpenText size={20} />
           </span>
-          <p className="font-semibold text-sm">Friends</p>
+          <p className="font-semibold text-sm">{t("referral.friends")}</p>
+          <p className="font-thin text-xs">({friends.length})</p>
         </div>
-        <p className="font-thin text-xs">({friends.length})</p>
       </div>
 
       <ul className="overflow-auto h-full">
@@ -125,7 +132,7 @@ Click the link and start earning with me today!
         ) : (
           friends.map((friend: Friend, index: number) => (
             <li key={index} className="mt-4">
-              {index + 1}. {friend.nickname}
+              {index + 1}. {friend.referral.nickname}
               <p className="font-thin text-xs">10000 EX9630</p>
             </li>
           ))

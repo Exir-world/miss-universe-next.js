@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useLoginStoreState } from "@/stores/context";
 import PhoneInput from "@/components/phoneNumberInput/PhoneInput";
 import { toast } from "react-toastify";
+import { useTranslations } from "next-intl";
 
 const WithdrawButton = () => {
   const [showModal, setShowModal] = useState(false);
@@ -17,6 +18,7 @@ const WithdrawButton = () => {
   const [otpTimer, setOtpTimer] = useState(0);
   const [otpLoading, setOtpLoading] = useState(false);
   const { api } = useApi();
+  const t = useTranslations();
   const [errors, setErrors] = useState<{
     amount?: string;
     wallet?: string;
@@ -165,7 +167,7 @@ const WithdrawButton = () => {
         }}
         className="px-5 py-2 w-full bg-transparent rounded-full shadow-md border-2 border-[#FF4ED3] text-white"
       >
-        Withdraw
+        {t("profile.withdraw")}
       </button>
 
       <AnimatePresence>
@@ -191,7 +193,10 @@ const WithdrawButton = () => {
                   size={24}
                 />
               </div>
-              <h2 className="text-lg font-bold mb-4 text-center">Withdraw</h2>
+              <h2 className="text-lg font-bold mb-4 text-center">
+                {" "}
+                {t("profile.withdraw")}
+              </h2>
               {registerStep === "register" ? (
                 <form
                   onSubmit={(e) => e.preventDefault()}
@@ -200,7 +205,8 @@ const WithdrawButton = () => {
                 >
                   <div>
                     <label className="block text-sm font-medium mb-1">
-                      Phone Number <span className="text-red-500">*</span>
+                      {t("profile.phoneNumber")}{" "}
+                      <span className="text-red-500">*</span>
                     </label>
                     <PhoneInput
                       onSubmit={(phone) => setRegisterPhone(phone)}
@@ -209,7 +215,8 @@ const WithdrawButton = () => {
                   </div>
                   <div>
                     <label className="block text-sm font-medium mb-1">
-                      Email <span className="text-red-500">*</span>
+                      {t("profile.email")}{" "}
+                      <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="email"
@@ -244,7 +251,8 @@ const WithdrawButton = () => {
                 >
                   <div>
                     <label className="block text-sm font-medium mb-1">
-                      Amount <span className="text-red-500">*</span>
+                      {t("profile.amount")}{" "}
+                      <span className="text-red-500">*</span>
                     </label>
                     <input
                       value={amount}
@@ -261,7 +269,7 @@ const WithdrawButton = () => {
                   </div>
                   <div>
                     <label className="block text-sm font-medium mb-1">
-                      Solana Wallet Address{" "}
+                      {t("profile.walletAddress")}{" "}
                       <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -280,7 +288,8 @@ const WithdrawButton = () => {
                   </div>
                   <div>
                     <label className="block text-sm font-medium mb-1">
-                      OTP Code <span className="text-red-500">*</span>
+                      {t("profile.otpCode")}{" "}
+                      <span className="text-red-500">*</span>
                     </label>
                     <div className="flex gap-2">
                       <input
@@ -317,7 +326,7 @@ const WithdrawButton = () => {
                       type="submit"
                       className="w-full gap-1 py-3 text-sm rounded-full bg-[#50A7EA] text-white flex items-center justify-center"
                     >
-                      <span>Pay with Ton</span>
+                      <span>{t("profile.payButton")}</span>
                       <Image src={Ton} alt="ton" width={17} height={17}></Image>
                     </button>
                   </div>

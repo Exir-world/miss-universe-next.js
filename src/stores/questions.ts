@@ -1,3 +1,4 @@
+import { useRouter } from "@/i18n/navigation";
 import { create } from "zustand";
 
 export interface Option {
@@ -56,7 +57,9 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
         `questions/active?game=${process.env.NEXT_PUBLIC_GAME_NAME}`
       );
       if (res.status === 200) {
-        const sortedQuestions = res.data.data.slice().sort((a: Question, b: Question) => a.order - b.order);
+        const sortedQuestions = res.data.data
+          .slice()
+          .sort((a: Question, b: Question) => a.order - b.order);
         set({ questions: sortedQuestions, loading: false });
       } else {
         set({ error: "Failed to fetch questions", loading: false });
@@ -77,11 +80,17 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
   },
 
   submitAnswers: async (api) => {
+    const router = useRouter();
     try {
       const answers = get().answers;
+      console.log(answers,'from store');
+
       const res = await api.post("/mysteries/check-answer", {
         answers,
       });
+      if (res.status == 200) {
+        router.push("/");
+      }
       // handle response as needed
     } catch (err) {
       set({ error: "Failed to submit answers" });
@@ -92,4 +101,4 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
     set({ answers: [...DEFAULT_ANSWERS], nextStep: 0 });
     saveAnswersToLocalStorage([...DEFAULT_ANSWERS]);
   },
-})); 
+}));
