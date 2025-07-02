@@ -5,10 +5,10 @@ import WinnerButton from "@/components/winnerButton";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { useApi } from "@/context/api";
 import Image from "next/image";
-import Spinner from "@/components/Spinner";
 import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
 import { useLoginStoreState } from "@/stores/context";
+import { useQuestionsStore } from "@/stores/questions";
 
 type Option = {
   id: number;
@@ -33,32 +33,18 @@ const QuestionsPage = () => {
   // const t = useTranslations();
   const router = useRouter();
   const { api } = useApi();
-  const {} = useLoginStoreState();
+  const { questions, loading, fetchQuestions } = useQuestionsStore();
 
-  const [questions, setQuestions] = useState<Question[]>([]);
-  const [loading, setLoading] = useState(false);
   const t = useTranslations();
-  const getQuestions = async () => {
-    try {
-      setLoading(true);
-      const res = await api.get(
-        `questions/active?game=${process.env.NEXT_PUBLIC_GAME_NAME}`
-      );
-      if (res.status == 200) {
-        setQuestions(res.data.data);
-        setLoading(false);
-      }
-    } catch (error) {
-      toast.error(t("error.resourceNotFound"));
-      setLoading(false);
-    }
-  };
 
   useLayoutEffect(() => {
-    getQuestions();
-
+    fetchQuestions(api);
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
+
+    if (questions.length > 0) {
+      localStorage.setItem("miss_questions", JSON.stringify(questions));
+    }
+  }, [api, fetchQuestions]);
 
   if (loading) return;
 
@@ -72,13 +58,13 @@ const QuestionsPage = () => {
           <IoArrowBackSharp></IoArrowBackSharp>
         </button>
       </div>
-      <div className="grid grid-cols-3 w-full gap-2">
+      <div className="flex justify-center relative gap-4 mt-8 p-2 flex-wrap">
         {questions.length > 0 && !loading
           ? questions.map((question, index) => {
               return (
                 <Image
-                  className="rounded-md"
-                  onClick={() => router.push(`/questions/${index + 1}`)}
+                  className="rounded-xl relative w-2/7"
+                  onClick={() => router.push(`/questions/qNum?id=${index + 1}`)}
                   key={index}
                   src={question.imageUrl}
                   width={150}

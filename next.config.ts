@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "www.citypng.com",
-        pathname: "/public/uploads/preview/**", // Restrict to specific paths if needed
+        pathname: "/**", // Restrict to specific paths if needed
       },
       {
         protocol: "https",
