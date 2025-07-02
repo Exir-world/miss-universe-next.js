@@ -139,7 +139,7 @@ export default function HomePage() {
             <p className="mt-4">
               {/* {t("presidentjoker.presidentjoker-success.des")} */}
             </p>
-          
+
             <div className="flex p-4 mt-6 bg-white/20 border border-primary rounded-lg backdrop-blur-sm w-full max-w-md justify-between items-center">
               <span className="truncate">{secretToken}</span>
               <button onClick={copyToClipboard}>📋</button>

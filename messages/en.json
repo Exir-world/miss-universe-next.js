@@ -120,7 +120,8 @@
   },
   "profile": {
     "profile": "Profile",
-    "registerNow": "Register Now"
+    "registerNow": "Register Now",
+    "balance": "Balance"
   },
   "common": {
     "loading": "Loading...",
