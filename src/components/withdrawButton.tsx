@@ -39,6 +39,16 @@ const WithdrawButton = () => {
   const [registerLoading, setRegisterLoading] = useState(false);
   const [registerError, setRegisterError] = useState<string | null>(null);
 
+  const [walletId, setWalletId] = useState<string>("");
+  const [feeCoinId, setFeeCoinId] = useState<string>("");
+  const [method, setMethod] = useState<string>("TON_NETWORK"); // or PAYPAL, etc.
+  const [description, setDescription] = useState<string>(
+    "Withdrawal for personal us"
+  );
+
+  const [walletInfo, setWalletInfo] = useState("");
+  const [coinList, setCoinList] = useState([]);
+
   useEffect(() => {
     setRegisterStep(hasRegisterPId ? "withdraw" : "register");
   }, [hasRegisterPId]);
@@ -60,8 +70,15 @@ const WithdrawButton = () => {
   };
 
   const validateOtp = (value: string) => {
-    if (!value) return "OTP code is required.";
+    if (value.length < 3 || !value) return "OTP code is required.";
     return "OTP must be at least 3 digits.";
+  };
+
+  const identifyCoinId = (coin: string): string | null => {
+    if (!coinList.length) return null;
+
+    const currency = coinList.find((item) => item.name === coin);
+    return currency ? currency.id : null;
   };
 
   // Validate on change
@@ -82,28 +99,28 @@ const WithdrawButton = () => {
   useEffect(() => {
     setErrors((prev) => ({
       ...prev,
-      otp: otp ? validateOtp(otp) : undefined,
+      otp: otp ? otp : undefined,
     }));
   }, [otp]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const amountError = validateAmount(amount);
-    const walletError = validateWallet(wallet);
-    const otpError = validateOtp(otp);
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   const amountError = validateAmount(amount);
+  //   const walletError = validateWallet(wallet);
+  //   const otpError = validateOtp(otp);
 
-    setErrors({
-      amount: amountError,
-      wallet: walletError,
-      otp: otpError,
-    });
+  //   setErrors({
+  //     amount: amountError,
+  //     wallet: walletError,
+  //     otp: otpError,
+  //   });
 
-    if (amountError || walletError || otpError) {
-      return;
-    }
-    // handle submission
-    setShowModal(false);
-  };
+  //   if (amountError || walletError || otpError) {
+  //     return;
+  //   }
+  //   // handle submission
+  //   setShowModal(false);
+  // };
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -132,22 +149,26 @@ const WithdrawButton = () => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setRegisterError(null);
-    if (!registerPhone) {
-      setRegisterError("Phone number is required.");
-      toast.error("Phone number is required.");
-      return;
-    }
-    if (!registerEmail) {
-      setRegisterError("Email is required.");
-      toast.error("Email is required.");
-      return;
-    }
+    // if (!registerPhone) {
+    //   setRegisterError("Phone number is required.");
+    //   toast.error("Phone number is required.");
+    //   return;
+    // }
+    // if (!registerEmail) {
+    //   setRegisterError("Email is required.");
+    //   toast.error("Email is required.");
+    //   return;
+    // }
     setRegisterLoading(true);
+    console.log("hey");
+
     try {
-      await api.post("/mainuser/register", {
+      const res = await api.post("/mainuser/register", {
         phoneNumber: registerPhone,
         email: registerEmail,
       });
+      console.log(res.data);
+
       setRegisterStep("withdraw");
       toast.success("Registration successful!");
     } catch (err: any) {
@@ -158,22 +179,76 @@ const WithdrawButton = () => {
     setRegisterLoading(false);
   };
 
-  const hanldeWithdraw = async () => {
-    const data = {};
+  const hanldeWithdraw = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    const amountError = validateAmount(amount);
+    const walletError = validateWallet(wallet);
+    const otpError = validateOtp(otp);
+    setErrors({ amount: amountError, wallet: walletError, otp: otpError });
+    if (amountError || walletError) return;
+    const data = {
+      walletId: Number(walletId),
+      amount: Number(amount),
+      method,
+      feeCoinId: Number(feeCoinId),
+      destinationWalletAddress: wallet,
+      otp,
+      description: description,
+    };
+    console.log(data, "from");
+
     try {
-      const res = api.post(`withdraw-requests/with-deposit`, data, {
+      const res = await api.post(`withdraw-requests/with-deposit`, data, {
         headers: {
           "X-Game": process.env.NEXT_PUBLIC_GAME_NAME,
         },
       });
-
-      console.log(res);
-      
-    } catch (error) {
-      console.log(error);
-      toast.error(t(""));
+      if (res.status === 200 || res.status === 201) {
+        setShowModal(false);
+        toast.success(t("withdraw.registerSuccess"));
+      } else {
+        toast.error(t("withdraw.registerFailed"));
+      }
+    } catch (error: any) {
+      toast.error(
+        error?.response?.data?.message || t("withdraw.registerFailed")
+      );
     }
   };
+
+  const fetchAllCoins = async () => {
+    try {
+      const { data } = await api.get("/coins");
+      setCoinList(data.data);
+      console.log(data.data);
+      setFeeCoinId("1");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const getWalletData = async () => {
+    try {
+      const { data } = await api.get("/wallets/user/tg");
+      const info = data.data.map((el: any) => ({
+        coin: el.coin.name,
+        balance: el.balance,
+        id: el.id,
+        icon: el.coin.icon,
+      }));
+      setWalletInfo(info);
+      setWalletId(info[0]?.id);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  // Example: fetch walletId and feeCoinId on mount (replace with your real API logic)
+  useEffect(() => {
+    fetchAllCoins();
+    getWalletData();
+  }, []);
+
   return (
     <>
       <button
@@ -215,7 +290,7 @@ const WithdrawButton = () => {
               </h2>
               {registerStep === "register" ? (
                 <form
-                  onSubmit={(e) => e.preventDefault()}
+                  onSubmit={handleRegister}
                   className="space-y-4"
                   autoComplete="off"
                 >
@@ -225,7 +300,7 @@ const WithdrawButton = () => {
                       <span className="text-red-500">*</span>
                     </label>
                     <PhoneInput
-                      onSubmit={(phone) => setRegisterPhone(phone)}
+                      onChange={(phone) => setRegisterPhone(phone)}
                       loading={registerLoading}
                     />
                   </div>
@@ -248,12 +323,8 @@ const WithdrawButton = () => {
                   )}
                   <div className="flex justify-between mt-6">
                     <button
-                      type="button"
+                      type="submit"
                       className="w-full gap-1 py-3 text-sm rounded-full bg-[#50A7EA] text-white flex items-center justify-center"
-                      disabled={
-                        registerLoading || !registerPhone || !registerEmail
-                      }
-                      onClick={handleRegister}
                     >
                       {registerLoading ? "Registering..." : "Register"}
                     </button>
@@ -261,7 +332,7 @@ const WithdrawButton = () => {
                 </form>
               ) : (
                 <form
-                  onSubmit={handleSubmit}
+                  // onSubmit={handleSubmit}
                   className="space-y-4"
                   autoComplete="off"
                 >
@@ -333,10 +404,21 @@ const WithdrawButton = () => {
                           : "Send"}
                       </button>
                     </div>
-                    {errors.otp && (
+                    {/* {errors.otp && (
                       <p className="text-red-500 text-xs mt-1">{errors.otp}</p>
-                    )}
+                    )} */}
                   </div>
+                  {/* <div>
+                    <label className="block text-sm font-medium mb-1">
+                      {t("profile.description")}
+                    </label>
+                    <input
+                      type="text"
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                      className="w-full border border-gray-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4ED3]"
+                    />
+                  </div> */}
                   <div className="flex justify-between mt-6">
                     <button
                       type="submit"

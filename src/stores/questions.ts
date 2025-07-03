@@ -1,6 +1,3 @@
-import { useRouter } from "@/i18n/navigation";
-import { useLocale } from "next-intl";
-import { getLocale } from "next-intl/server";
 import { create } from "zustand";
 
 export interface Option {

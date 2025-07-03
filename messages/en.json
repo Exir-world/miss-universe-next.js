@@ -63,12 +63,12 @@
     "profile": "Profile",
     "tasks": "Tasks",
     "transactionHistoryTitle": "Transaction History",
-    "tapOnMe": "Tap on ME",
+    "tapOnMe": "Tap on ME!",
     "processing": "Processing...",
     "pending": "Pending",
     "claim": "Claim",
     "history": "History",
-    "room": "Romm",
+    "room": "Room",
     "chair": "Chair",
     "back": "Back"
   },
@@ -165,6 +165,12 @@
     "phone": "Phone",
     "tasks": "Tasks",
     "hey": "Hey"
+  },
+  "intro": {
+    "title": "999,999 Lucky Winners",
+    "des": "will win a treasure trove of EX9630 coins!",
+    "button": "Play Game",
+    "button2": "Profile"
   },
   "errors": {
     "resourceNotFound": "Resource not found. Please try again later.",

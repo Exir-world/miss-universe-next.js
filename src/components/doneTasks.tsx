@@ -88,7 +88,7 @@ export default function DoneTasks() {
         <div className="flex items-center gap-2">
           <MdOutlineMeetingRoom size={24} /> {t("global.room")}
         </div>
-        <p>{userData.mystery.room ?? "-"}</p>
+        <p>{userData?.mystery?.room ?? "-"}</p>
       </div>
 
       <div className="flex w-full justify-between items-center">
@@ -96,7 +96,7 @@ export default function DoneTasks() {
           <GiWoodenChair size={24} />
           {t("global.chair")}
         </div>
-        <p>{userData.mystery.session ?? "-"}</p>
+        <p>{userData?.mystery?.session ?? "-"}</p>
       </div>
     </div>
   );
