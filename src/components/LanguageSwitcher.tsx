@@ -64,7 +64,7 @@ export default function LanguageSwitcher() {
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
-              <div className="p-1 w-full flex justify-end">
+              <div className="p-1 w-full flex justify-end items-center">
                 <button
                   onClick={() => setIsOpen(false)}
                   className="w-full  text-red-500 font-medium hover:text-red-600 transition-colors duration-200"
@@ -79,7 +79,7 @@ export default function LanguageSwitcher() {
                 {filteredLocales.map((l) => (
                   <button
                     key={l.code}
-                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors duration-200 text-white"
+                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 hover:text-black transition-colors duration-200 text-white"
                     onClick={() => switchLocale(l.code)}
                   >
                     <span

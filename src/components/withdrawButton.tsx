@@ -158,6 +158,22 @@ const WithdrawButton = () => {
     setRegisterLoading(false);
   };
 
+  const hanldeWithdraw = async () => {
+    const data = {};
+    try {
+      const res = api.post(`withdraw-requests/with-deposit`, data, {
+        headers: {
+          "X-Game": process.env.NEXT_PUBLIC_GAME_NAME,
+        },
+      });
+
+      console.log(res);
+      
+    } catch (error) {
+      console.log(error);
+      toast.error(t(""));
+    }
+  };
   return (
     <>
       <button
@@ -324,6 +340,7 @@ const WithdrawButton = () => {
                   <div className="flex justify-between mt-6">
                     <button
                       type="submit"
+                      onClick={hanldeWithdraw}
                       className="w-full gap-1 py-3 text-sm rounded-full bg-[#50A7EA] text-white flex items-center justify-center"
                     >
                       <span>{t("profile.payButton")}</span>

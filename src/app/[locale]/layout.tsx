@@ -32,6 +32,8 @@ export default async function LocaleLayout({
   }
   const dir = locale === "fa" ? "rtl" : "ltr";
 
+  // const messages = locale === "fa" ? faMessages : enMessages;
+
   const fontUrls = {
     en: "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap",
     fr: "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap",
@@ -78,8 +80,11 @@ export default async function LocaleLayout({
     />
   );
 
+  // Dynamically import messages for the current locale
+  const messages = (await import(`../../../messages/${locale}.json`)).default;
+
   return (
-    <html lang={locale}>
+    <html lang={locale} dir={dir}>
       <head>
         {linkElement}
         <Script
@@ -88,7 +93,7 @@ export default async function LocaleLayout({
         ></Script>
       </head>
       <body style={{ fontFamily }}>
-        <NextIntlClientProvider locale={locale}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <Provider>
             <PageWrapper>{children}</PageWrapper>
           </Provider>
