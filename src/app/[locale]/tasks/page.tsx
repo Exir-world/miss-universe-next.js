@@ -75,9 +75,11 @@ const TasksPage: React.FC = () => {
             <div className="p-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl">
               <FaTasks className="size-3 text-white" />
             </div>
-            <h1 className="text-xl font-bold text-white">{t('tasks.center')}</h1>
+            <h1 className="text-xl font-bold text-white">
+              {t("tasks.center")}
+            </h1>
           </div>
-          <p className="text-gray-300">{t('tasks.completeToEarn')}</p>
+          <p className="text-gray-300">{t("tasks.completeToEarn")}</p>
         </div>
 
         {/* Error Display */}
@@ -91,7 +93,7 @@ const TasksPage: React.FC = () => {
         <div className="mb-8">
           <h2 className="text-white text-sm  mb-4 flex items-center">
             <MdTask className="w-6 h-6 mr-2 text-purple-400" />
-            Active Tasks ({todoTasks.length})
+            {t("tasks.activeTasks")} ({todoTasks.length})
           </h2>
 
           <div className="space-y-4">
@@ -115,10 +117,10 @@ const TasksPage: React.FC = () => {
               <div className="text-center py-12">
                 <FaClock className="w-16 h-16 text-gray-400 mx-auto mb-4" />
                 <p className="text-gray-400 text-lg">
-                  {t('tasks.noActiveTasks')}
+                  {t("tasks.noActiveTasks")}
                 </p>
                 <p className="text-gray-500 text-sm">
-                  {t('tasks.checkBackLater')}
+                  {t("tasks.checkBackLater")}
                 </p>
               </div>
             )}
@@ -129,7 +131,7 @@ const TasksPage: React.FC = () => {
         <div>
           <h2 className="text-white text-md font-semibold mb-4 flex items-center">
             <FaCheckSquare className="w-6 h-6 mr-2 text-green-400" />
-            Completed Tasks ({doneTasks.length})
+            {t("tasks.completeTask")} ({doneTasks.length})
           </h2>
 
           <div className="space-y-4">
@@ -148,7 +150,7 @@ const TasksPage: React.FC = () => {
                 <div className="w-12 h-12 bg-gray-600 rounded-full flex items-center justify-center mx-auto mb-3">
                   <FaCheckSquare className="w-6 h-6 text-gray-400" />
                 </div>
-                <p className="text-gray-400">{t('tasks.noCompletedTasks')}</p>
+                <p className="text-gray-400">{t("tasks.noCompletedTasks")}</p>
               </div>
             )}
           </div>

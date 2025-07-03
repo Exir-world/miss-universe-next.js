@@ -38,7 +38,7 @@ const QuestionsPage = () => {
 
   const t = useTranslations();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     fetchQuestions(api);
     window.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -50,11 +50,11 @@ const QuestionsPage = () => {
   const allAnswered = answers.filter((a) => a !== -1).length === 9;
 
   const handleSubmit = async () => {
-    console.log('hey');
-    
     try {
-      await submitAnswers(api);
-      toast.success(t("success.allCorrect"));
+      const res = await submitAnswers(api);
+      if ((res as any).data) router.push("/");
+
+      // toast.success(t("success.allCorrect"));
     } catch (e) {
       toast.error(t("errors.unknownError"));
     }
@@ -75,7 +75,9 @@ const QuestionsPage = () => {
       <div className="grid grid-cols-3 justify-center relative gap-4 mt-8 p-2 flex-wrap">
         {questions.length > 0 && !loading
           ? questions.map((question, index) => {
-              const questionIdx = questions.findIndex(q => q.id === question.id);
+              const questionIdx = questions.findIndex(
+                (q) => q.id === question.id
+              );
               const isAnswered = answers[questionIdx] !== -1;
               return (
                 <div key={index} className="relative w-fit">
@@ -111,7 +113,6 @@ const QuestionsPage = () => {
             {t("questions.submit")}
           </button>
         )}
-        {/* <WinnerButton></WinnerButton> */}
       </div>
     </div>
   );

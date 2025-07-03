@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { useQuestionsStore } from "@/stores/questions";
 import { useApi } from "@/context/api";
 import { useRouter } from "@/i18n/navigation";
+import { IoArrowBackSharp } from "react-icons/io5";
 
 type QuizOption = {
   id: number;
@@ -118,6 +119,14 @@ function Page() {
 
   return (
     <div>
+      <div className="w-full flex items-center justify-start my-4  px-4 ">
+        <button
+          className="p-2 text-white bg-gray-800 rounded-full border border-[#C643A8E5] "
+          onClick={() => router.push("/questions")}
+        >
+          <IoArrowBackSharp></IoArrowBackSharp>
+        </button>
+      </div>
       {currentQuestion.imageUrl && (
         <div
           style={{ position: "relative" }}

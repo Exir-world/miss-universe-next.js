@@ -80,16 +80,17 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
   },
 
   submitAnswers: async (api) => {
-    const router = useRouter();
+    // const router = useRouter();
     try {
       const answers = get().answers;
-      console.log(answers,'from store');
+      console.log(answers, "from store");
 
       const res = await api.post("/mysteries/check-answer", {
         answers,
       });
-      if (res.status == 200) {
-        router.push("/");
+      if (res.status == 200 || res.status == 201) {
+        // router.push("/");
+        return res.data;
       }
       // handle response as needed
     } catch (err) {

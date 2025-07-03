@@ -16,6 +16,7 @@ import {
 import { TbRosetteDiscountCheckFilled } from "react-icons/tb";
 
 import { SiThreads } from "react-icons/si";
+import { useTranslations } from "next-intl";
 
 interface Task {
   id: number;
@@ -115,7 +116,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({
   loading = false,
 }) => {
   const [userName, setUserName] = useState("");
-
+  const t = useTranslations();
   const handleDoWork = () => {
     if (task.content && onDoTask) {
       onDoTask(task.id, task.content);
@@ -157,7 +158,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({
           ) : task.isPending ? (
             <div className="flex justify-center items-center py-1 px-1.5 bg-purple-500/60 text-white rounded-full text-xs font-medium max-w-[96px]">
               <FaClock className="w-3 h-3 mx-1" />
-              Pending
+              {t("global.pending")}
             </div>
           ) : (
             <button
@@ -202,7 +203,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({
                 {loading ? (
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mx-auto " />
                 ) : (
-                  "Claim"
+                  t("global.claim")
                 )}
               </button>
             </div>
