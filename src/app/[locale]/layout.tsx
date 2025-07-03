@@ -10,10 +10,10 @@ import { Metadata } from "next";
 export const generateMetadata = async (): Promise<Metadata> => {
   const tenant = (await getCurrentTenant()) || "Dubaieid";
   return {
-    title: tenant,
+    title: process.env.NEXT_GAME_NAME || "Dubaieid",
     description: "Join the airdrop",
     icons: {
-      icon: `/${tenant}/favicon.ico`,
+      icon: `/${process.env.NEXT_GAME_NAME}/favicon.ico`,
     },
   };
 };
@@ -79,7 +79,7 @@ export default async function LocaleLayout({
   );
 
   return (
-    <html lang={locale} dir={dir}>
+    <html lang={locale}>
       <head>
         {linkElement}
         <Script

@@ -61,6 +61,8 @@ const QuestionsPage = () => {
   };
 
   if (loading) return;
+  
+  console.log(questions, "questionsx");
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
@@ -82,7 +84,7 @@ const QuestionsPage = () => {
               return (
                 <div key={index} className="relative w-fit">
                   <Image
-                    className="rounded-xl relative "
+                    className="rounded-xl relative"
                     onClick={() =>
                       router.push(`/questions/qNum?id=${question.order}`)
                     }

@@ -1,4 +1,6 @@
 import { useRouter } from "@/i18n/navigation";
+import { useLocale } from "next-intl";
+import { getLocale } from "next-intl/server";
 import { create } from "zustand";
 
 export interface Option {
@@ -53,8 +55,21 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
   fetchQuestions: async (api) => {
     set({ loading: true, error: null });
     try {
+      // Get language from next-intl cookie
+      const lang =
+        document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("NEXT_LOCALE="))
+          ?.split("=")[1] || "en"; // get lang
+
       const res = await api.get(
-        `questions/active?game=${process.env.NEXT_PUBLIC_GAME_NAME}`
+        `questions/active?game=${process.env.NEXT_PUBLIC_GAME_NAME}`,
+        {
+          headers: {
+            "X-Game": process.env.NEXT_PUBLIC_GAME_NAME,
+            "accept-language": lang,
+          },
+        }
       );
       if (res.status === 200) {
         const sortedQuestions = res.data.data
@@ -65,6 +80,8 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
         set({ error: "Failed to fetch questions", loading: false });
       }
     } catch (err) {
+      console.log(err);
+
       set({ error: "Failed to fetch questions", loading: false });
     }
   },
