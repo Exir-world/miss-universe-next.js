@@ -10,10 +10,10 @@ import { Metadata } from "next";
 export const generateMetadata = async (): Promise<Metadata> => {
   const tenant = (await getCurrentTenant()) || "Dubaieid";
   return {
-    title: tenant,
+    title: process.env.NEXT_GAME_NAME || "Dubaieid",
     description: "Join the airdrop",
     icons: {
-      icon: `/${tenant}/favicon.ico`,
+      icon: `/${process.env.NEXT_GAME_NAME}/favicon.ico`,
     },
   };
 };
@@ -31,6 +31,8 @@ export default async function LocaleLayout({
     notFound();
   }
   const dir = locale === "fa" ? "rtl" : "ltr";
+
+  // const messages = locale === "fa" ? faMessages : enMessages;
 
   const fontUrls = {
     en: "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap",
@@ -78,6 +80,9 @@ export default async function LocaleLayout({
     />
   );
 
+  // Dynamically import messages for the current locale
+  const messages = (await import(`../../../messages/${locale}.json`)).default;
+
   return (
     <html lang={locale} dir={dir}>
       <head>
@@ -88,7 +93,7 @@ export default async function LocaleLayout({
         ></Script>
       </head>
       <body style={{ fontFamily }}>
-        <NextIntlClientProvider locale={locale}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <Provider>
             <PageWrapper>{children}</PageWrapper>
           </Provider>

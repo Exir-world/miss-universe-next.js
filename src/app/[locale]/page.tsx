@@ -103,13 +103,13 @@ export default function HomePage() {
                 </svg>
               </div>
               <p className="text-lg font-medium mb-6">
-                {t("presidentjoker.presidentjoker-auth.notRegistered")}
+                {t("auth.notRegistered")}
               </p>
               <button
                 onClick={() => router.push("/profile")}
-                className="w-full bg-primary text-white font-bold py-2 px-4 rounded-full hover:bg-primary-dark"
+                className="w-full bg-primary text-white font-bold py-2 px-4 rounded-full hover:bg-primary-dark border "
               >
-                {t("presidentjoker.presidentjoker-auth.button")}
+                {t("auth.button")}
               </button>
             </div>
           </div>

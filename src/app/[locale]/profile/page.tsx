@@ -85,7 +85,7 @@ function Page() {
     <div className="flex flex-col items-center justify-center gap-2 w-full h-full ">
       <div className="border border-[#C643A8E5] rounded-lg bg-[#7D7D7D4D]/30 px-4 pt-4 pb-6 w-full flex flex-col items-center">
         <div className="flex items-center justify-between w-full">
-          <span>{t("", { nickname: firstname || "User" })}</span>
+          {/* <span>{t("", { nickname: firstname || "User" })}</span> */}
           <div className="flex items-center text-white gap-4 justify-between w-full p-2">
             <Avatar nickName={firstname || "User"} />
             <LanguageSwitcher />

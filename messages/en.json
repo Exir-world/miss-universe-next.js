@@ -63,7 +63,14 @@
     "profile": "Profile",
     "tasks": "Tasks",
     "transactionHistoryTitle": "Transaction History",
-    "tapOnMe": "Tap on ME"
+    "tapOnMe": "Tap on ME!",
+    "processing": "Processing...",
+    "pending": "Pending",
+    "claim": "Claim",
+    "history": "History",
+    "room": "Room",
+    "chair": "Chair",
+    "back": "Back"
   },
   "home": {
     "success": "Congrats!",
@@ -75,6 +82,10 @@
     "claimButton": "Claim Your Prize",
     "winnerDes": "Go to profile to claim your prize or explore tasks to earn more rewards.",
     "title": "Congratulations! You are a winner! 🎉"
+  },
+  "auth": {
+    "notRegistered": "You have not registered yet! go to proflile and signup please",
+    "button": "go to profile"
   },
   "withdraw": {
     "amountRequired": "Amount is required.",
@@ -119,7 +130,9 @@
     "subscribe": "Subscribe",
     "join": "Join",
     "follow": "Follow",
-    "visit": "Visit"
+    "visit": "Visit",
+    "completeTask": "Completed Tasks",
+    "activeTasks": "Active Tasks"
   },
   "transaction": {
     "history": "Transaction History",
@@ -135,8 +148,8 @@
     "email": "Email",
     "amount": "Amount",
     "walletAddress": "Solana Wallet Address",
-    "otpCode":"OTP Code",
-    "payButton":"Pay with Ton"
+    "otpCode": "OTP Code",
+    "payButton": "Pay with Ton"
   },
   "questions": {
     "submit": "You won! "
@@ -153,6 +166,12 @@
     "tasks": "Tasks",
     "hey": "Hey"
   },
+  "intro": {
+    "title": "999,999 Lucky Winners",
+    "des": "will win a treasure trove of EX9630 coins!",
+    "button": "Play Game",
+    "button2": "Profile"
+  },
   "errors": {
     "resourceNotFound": "Resource not found. Please try again later.",
     "authenticationRequired": "Authentication required. Please log in again.",
@@ -164,6 +183,7 @@
   "taskModal": {
     "completeTask": "Complete Task",
     "enterUsernameToComplete": "Enter your username to complete this task",
-    "yourUsername": "Your username"
+    "yourUsername": "Your username",
+    "complete": "Task completed successfully!"
   }
 }

@@ -1,4 +1,3 @@
-import { useRouter } from "@/i18n/navigation";
 import { create } from "zustand";
 
 export interface Option {
@@ -53,8 +52,21 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
   fetchQuestions: async (api) => {
     set({ loading: true, error: null });
     try {
+      // Get language from next-intl cookie
+      const lang =
+        document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("NEXT_LOCALE="))
+          ?.split("=")[1] || "en"; // get lang
+
       const res = await api.get(
-        `questions/active?game=${process.env.NEXT_PUBLIC_GAME_NAME}`
+        `questions/active?game=${process.env.NEXT_PUBLIC_GAME_NAME}`,
+        {
+          headers: {
+            "X-Game": process.env.NEXT_PUBLIC_GAME_NAME,
+            "accept-language": lang,
+          },
+        }
       );
       if (res.status === 200) {
         const sortedQuestions = res.data.data
@@ -65,6 +77,8 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
         set({ error: "Failed to fetch questions", loading: false });
       }
     } catch (err) {
+      console.log(err);
+
       set({ error: "Failed to fetch questions", loading: false });
     }
   },
@@ -80,16 +94,17 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
   },
 
   submitAnswers: async (api) => {
-    const router = useRouter();
+    // const router = useRouter();
     try {
       const answers = get().answers;
-      console.log(answers,'from store');
+      console.log(answers, "from store");
 
       const res = await api.post("/mysteries/check-answer", {
         answers,
       });
-      if (res.status == 200) {
-        router.push("/");
+      if (res.status == 200 || res.status == 201) {
+        // router.push("/");
+        return res.data;
       }
       // handle response as needed
     } catch (err) {

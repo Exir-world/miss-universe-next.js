@@ -60,7 +60,8 @@ export type { LoginStore };
 
 export function createLoginStore(api?: AxiosInstance): StoreApi<LoginStore> {
   // If api is not provided, create one with default locale
-  const locale = typeof window !== 'undefined' ? (navigator.language || 'en') : 'en';
+  const locale =
+    typeof window !== "undefined" ? navigator.language || "en" : "en";
   const axiosInstance = api || createAxiosInstance(locale);
   return createStore<LoginStore>()(
     persist(
@@ -100,7 +101,6 @@ export function createLoginStore(api?: AxiosInstance): StoreApi<LoginStore> {
 
         login: async (countryCode = "", referralCode = "") => {
           const { loginData, normalizePhoneNumber } = get();
-          console.log("Login data:", loginData);
 
           let phoneNumber = normalizePhoneNumber(loginData.phoneNumber);
           if (phoneNumber === null) {
@@ -109,7 +109,6 @@ export function createLoginStore(api?: AxiosInstance): StoreApi<LoginStore> {
           }
 
           phoneNumber = countryCode + phoneNumber;
-          console.log("Phone number:", phoneNumber);
 
           try {
             const res = await axiosInstance.post("/mainuser/register", {
@@ -119,17 +118,23 @@ export function createLoginStore(api?: AxiosInstance): StoreApi<LoginStore> {
               ...(referralCode !== "" ? { referralCode } : {}),
             });
 
-            console.log("Login response:", { data: res.data, status: res.status });
+            console.log("Login response:", {
+              data: res.data,
+              status: res.status,
+            });
 
             if (res.status === 201) {
               console.log("Login successful:", res.data);
-              set({ 
+              set({
                 accessToken: res.data.token,
-                isAuth: true 
+                isAuth: true,
               });
               return true;
             } else {
-              console.log("Login failed:", res.data?.message?.[0] || "server error");
+              console.log(
+                "Login failed:",
+                res.data?.message?.[0] || "server error"
+              );
               return false;
             }
           } catch (err: unknown) {
@@ -150,7 +155,7 @@ export function createLoginStore(api?: AxiosInstance): StoreApi<LoginStore> {
             if (res.status === 200) {
               const userData: DataStructure = data.data;
               const hasSecret = !!userData.mystery?.mysteryContent;
-
+              document.cookie = `hasGameSecret=${hasSecret}; path=/;`;
               set({
                 userData,
                 isAuth: true,
@@ -161,8 +166,6 @@ export function createLoginStore(api?: AxiosInstance): StoreApi<LoginStore> {
 
               const room = data.data?.mystery?.room;
               const mysteryContent = data.data?.mystery?.mysteryContent;
-
-              console.log({ room, mysteryContent });
 
               // Remove automatic joinGame call to prevent infinite loops
               // const { joinGame } = get();
@@ -185,7 +188,7 @@ export function createLoginStore(api?: AxiosInstance): StoreApi<LoginStore> {
           try {
             // Get referral code from URL if available
             const urlParams = new URLSearchParams(window.location.search);
-            const referralCode = urlParams.get('r');
+            const referralCode = urlParams.get("r");
 
             await axiosInstance.post("/mainuser/join", {
               ...(referralCode ? { referralCode } : {}),

@@ -23,7 +23,7 @@ interface Transaction {
 
 export default function TransactionHistory() {
   const router = useRouter();
-  const t = useTranslations();
+  const t = useTranslations("");
   const { api } = useApi();
   const [transactionHistory, setTransactionHistory] = useState<Transaction[]>(
     []

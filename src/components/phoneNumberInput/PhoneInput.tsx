@@ -11,12 +11,17 @@ interface Country {
 }
 
 interface PhoneInputProps {
-  onSubmit?: (phoneNumber: string, countryCode: string) => void;
+  onChange?: (phoneNumber: string) => void;
   loading?: boolean;
 }
 
-const PhoneInput: React.FC<PhoneInputProps> = ({ onSubmit, loading = false }) => {
-  const [countries, setCountries] = useState<Country[]>(countrieCodes as Country[]);
+const PhoneInput: React.FC<PhoneInputProps> = ({
+  onChange,
+  loading = false,
+}) => {
+  const [countries, setCountries] = useState<Country[]>(
+    countrieCodes as Country[]
+  );
   const [selectedCountry, setSelectedCountry] = useState<Country>(countries[0]);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -24,14 +29,16 @@ const PhoneInput: React.FC<PhoneInputProps> = ({ onSubmit, loading = false }) =>
 
   const validatePhoneNumber = (number: string) => {
     // Remove all non-digit characters
-    const cleaned = number.replace(/\D/g, '');
+    const cleaned = number.replace(/\D/g, "");
     // Should have 7-15 digits
     return cleaned.length >= 7 && cleaned.length <= 15;
   };
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
+    console.log(value,'4');
     setPhoneNumber(value);
+    onChange(value);
 
     if (value && !validatePhoneNumber(value)) {
       setError("Please enter a valid phone number (7-15 digits)");
@@ -57,18 +64,18 @@ const PhoneInput: React.FC<PhoneInputProps> = ({ onSubmit, loading = false }) =>
     setCountries(filteredCountries);
   };
 
-  const handleSubmit = () => {
-    if (!phoneNumber || !validatePhoneNumber(phoneNumber)) {
-      setError("Please enter a valid phone number");
-      return;
-    }
-    
-    if (onSubmit) {
-      // Format the phone number with country code
-      const formattedPhone = selectedCountry.telephoneCode + phoneNumber.replace(/\D/g, '');
-      onSubmit(formattedPhone, selectedCountry.telephoneCode);
-    }
-  };
+  // const handleSubmit = () => {
+  //   if (!phoneNumber || !validatePhoneNumber(phoneNumber)) {
+  //     setError("Please enter a valid phone number");
+  //     return;
+  //   }
+
+  //   if (onChange) {
+  //     // Format the phone number with country code
+  //     const formattedPhone = selectedCountry.telephoneCode + phoneNumber.replace(/\D/g, '');
+  //     onChange(formattedPhone, selectedCountry.telephoneCode);
+  //   }
+  // };
 
   return (
     <>

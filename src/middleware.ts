@@ -1,6 +1,7 @@
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 import { NextRequest, NextResponse } from "next/server";
+import { getLocale } from "next-intl/server";
 
 const domains: Record<string, string> = {
   "https://t.me/atossa_expro_bot?start=": "atossa",
@@ -12,13 +13,26 @@ const domains: Record<string, string> = {
   "https://t.me/dubaieid_ex_pro_bot?start=": "dubaieid",
 };
 
-export function middleware(request: NextRequest) {
-  const hostname = request.headers.get("host") || "";
-  const tenant = domains[hostname];
+export async function middleware(request: NextRequest) {
+  // const hostname = request.headers.get("host") || "";
+  // const tenant = domains[hostname];
 
   const response = NextResponse.next();
-  if (tenant) {
-    response.cookies.set("tenant", tenant);
+  // if (tenant) {
+  //   response.cookies.set("tenant", tenant);
+  // }
+
+  const locale = await getLocale();
+  const pathname = request.nextUrl.pathname;
+  const hasGameSecret = request.cookies.get("hasGameSecret").value;
+  
+  if (!hasGameSecret) {
+    // Prevent infinite loop: don't redirect if already on /[locale]/intro
+    if (pathname.startsWith(`/${locale}/intro`)) {
+      return response;
+    }
+    const origin = request.nextUrl.origin;
+    return NextResponse.redirect(`${origin}/${locale}/intro`);
   }
 
   return response;
