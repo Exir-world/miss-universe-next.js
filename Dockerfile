@@ -24,7 +24,6 @@ RUN npm install --legacy-peer-deps --only=production
 # Copy necessary build output from builder stage
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/next.config.mjs ./next.config.mjs
 COPY --from=builder /app/node_modules ./node_modules
 
 EXPOSE 3000
