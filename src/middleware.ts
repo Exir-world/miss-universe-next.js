@@ -22,10 +22,10 @@ export async function middleware(request: NextRequest) {
   //   response.cookies.set("tenant", tenant);
   // }
 
-  const locale = await getLocale();
+  const locale = (await getLocale()) || "en";
   const pathname = request.nextUrl.pathname;
-  const hasGameSecret = request.cookies.get("hasGameSecret").value;
-  
+  const hasGameSecret = request.cookies.get("hasGameSecret")?.value || "";
+
   if (!hasGameSecret) {
     // Prevent infinite loop: don't redirect if already on /[locale]/intro
     if (pathname.startsWith(`/${locale}/intro`)) {

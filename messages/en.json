@@ -132,7 +132,8 @@
     "follow": "Follow",
     "visit": "Visit",
     "completeTask": "Completed Tasks",
-    "activeTasks": "Active Tasks"
+    "activeTasks": "Active Tasks",
+    "noCompletedTasks": "No Completed Tasks"
   },
   "transaction": {
     "history": "Transaction History",

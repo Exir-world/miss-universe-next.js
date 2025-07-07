@@ -61,7 +61,7 @@ const QuestionsPage = () => {
   };
 
   if (loading) return;
-  
+
   console.log(questions, "questionsx");
 
   return (
@@ -84,7 +84,7 @@ const QuestionsPage = () => {
               return (
                 <div key={index} className="relative w-fit">
                   <Image
-                    className="rounded-xl relative"
+                    className="rounded-[15px] relative border border-[#C643A8E5]"
                     onClick={() =>
                       router.push(`/questions/qNum?id=${question.order}`)
                     }
@@ -94,22 +94,22 @@ const QuestionsPage = () => {
                     priority={index < 3}
                     alt="pic"
                   />
-                  {isAnswered && (
+                  {/* {isAnswered && (
                     <div className="absolute z-50 bg-black/40 flex items-center justify-center rounded-xl left-0 right-0 top-0 bottom-0">
                       <span className="text-green-400 text-3xl font-bold">
                         ✓
                       </span>
                     </div>
-                  )}
+                  )} */}
                 </div>
               );
             })
           : null}
       </div>
-      <div className="w-full max-w-md flex flex-col items-center mt-8">
+      <div className="w-full max-w-md flex flex-col items-center mt-8 px-2">
         {allAnswered && (
           <button
-            className="w-full py-3 rounded-xl border-2 border-[#C643A8E5] text-white font-bold bg-transparent hover:bg-[#C643A8E5]/20 transition"
+            className="w-full py-2 rounded-xl border-2 bg-[#c956aee5] border-[#C643A8E5] text-white font-medium  hover:bg-[#C643A8E5]/20 transition"
             onClick={handleSubmit}
           >
             {t("questions.submit")}

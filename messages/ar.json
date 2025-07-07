@@ -132,7 +132,8 @@
     "follow": "تابع",
     "visit": "قم بزيارة",
     "completeTask": "المهام المكتملة",
-    "activeTasks": "مهام فعّالة"
+    "activeTasks": "مهام فعّالة",
+    "noCompletedTasks": "لا توجد مهام مكتملة"
   },
   "transaction": {
     "history": "سجل المعاملات",
