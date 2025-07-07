@@ -132,7 +132,8 @@
     "follow": "دنبال کردن",
     "visit": "بازدید",
     "completeTask": "وظایف تکمیل‌شده",
-    "activeTasks": "وظایف فعال"
+    "activeTasks": "وظایف فعال",
+    "noCompletedTasks": "وظایف انجام نشده"
   },
   "transaction": {
     "history": "تاریخچه تراکنش‌ها",
