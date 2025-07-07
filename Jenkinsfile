@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_REGISTRY_URL = 'docker.exirtu.be'
         IMAGE_NAME = 'missuniverse.ex.pro-next'
-        GIT_REPO_URL = 'github.com/Exir-world/miss-universe-next.js.git'
+        GIT_REPO_URL = 'git@github.com:Exir-world/miss-universe-next.js.git'
         TELEGRAM_CHAT_ID = '-1002585379912'
         TELEGRAM_BOT_TOKEN = '8027466900:AAG6Q_0p6rSeEXtg8e0gDcYJmIJ_R7zBVew'
     }
