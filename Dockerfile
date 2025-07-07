@@ -1,36 +1,41 @@
-FROM node:lts-alpine AS builder
+# Build Stage
+FROM node:20-alpine AS builder
 
-RUN apk update && apk upgrade && \
-    apk add --no-cache bash git openssh python3 make g++
+# Set working directory
+WORKDIR /app
 
-RUN npm install -g npm
+# Install dependencies
+COPY package.json package-lock.json ./
+RUN npm install --legacy-peer-deps
 
-ENV NODE_ENV=build
+# Copy all files
+COPY . .
 
-USER node
-WORKDIR /home/node
+# Build Next.js app
+RUN npm run build
 
-# COPY .npmrc ./
-COPY package*.json ./
-RUN npm ci
+# Production Stage
+FROM node:20-alpine
 
-COPY --chown=node:node . .
-RUN npm run build \
-    && npm prune --production
+# Set working directory
+WORKDIR /app
 
-# ---
+# Install only production dependencies
+COPY package.json package-lock.json ./
+RUN npm install --legacy-peer-deps --only=production
 
-FROM node:lts-alpine
+# Copy built app from builder
+COPY --from=builder /app/.next .next
+COPY --from=builder /app/public public
+COPY --from=builder /app/next.config.js .
+COPY --from=builder /app/package.json .
+COPY --from=builder /app/node_modules ./node_modules
 
+# Expose port
+EXPOSE 3000
+
+# Set environment variables
 ENV NODE_ENV=production
 
-USER node
-WORKDIR /home/node
-
-COPY --from=builder --chown=node:node /home/node/package*.json ./
-COPY --from=builder --chown=node:node /home/node/node_modules/ ./node_modules/
-COPY --from=builder --chown=node:node /home/node/dist/ ./dist/
-
-# CMD ["npm", "run", "migration:run"]
-
-CMD ["node", "dist/main.js"]
+# Start the app
+CMD ["npm", "start"]
