@@ -117,7 +117,7 @@ export default function HomePage() {
 
         {/* Logo + Interactions */}
         <Image
-          src={`/${gameName}/${gameName}.svg`}
+          src={`${gameName}/${gameName}.svg`}
           width={220}
           height={220}
           alt="Logo"
