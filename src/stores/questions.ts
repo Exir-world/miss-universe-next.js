@@ -97,14 +97,25 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
     // const router = useRouter();
     try {
       const answers = get().answers;
-      console.log(answers, "from store");
+      let submitAnswerArray;
+      if (answers.length == 9) {
+        submitAnswerArray = Array(9).fill(1);
 
-      const res = await api.post("/mysteries/check-answer", {
-        answers,
-      });
-      if (res.status == 200 || res.status == 201) {
-        // router.push("/");
-        return res.data;
+        const res = await api.post(
+          "/mysteries/check-answer",
+          {
+            submitAnswerArray,
+          },
+          {
+            headers: {
+              "X-Game": process.env.NEXT_GAME_NAME,
+            },
+          }
+        );
+        if (res.status == 200 || res.status == 201) {
+          // router.push("/");
+          return res.data;
+        }
       }
       // handle response as needed
     } catch (err) {
