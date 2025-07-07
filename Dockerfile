@@ -24,13 +24,6 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install --legacy-peer-deps --only=production
 
-# Copy built app from builder
-COPY --from=builder /app/.next .next
-COPY --from=builder /app/public public
-COPY --from=builder /app/next.config.js .
-COPY --from=builder /app/package.json .
-COPY --from=builder /app/node_modules ./node_modules
-
 # Expose port
 EXPOSE 3000
 
