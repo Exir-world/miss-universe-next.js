@@ -53,7 +53,7 @@ function Page() {
       setWalletData(coinInfo);
       // setWalletId(res.data.data[0]?.id || null);
     } catch (e) {
-      toast.error(t("global.errors.resourceNotFound15"));
+      toast.error(t("global.errors.resourceNotFound"));
     } finally {
       setLoading(false);
     }

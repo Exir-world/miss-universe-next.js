@@ -36,8 +36,8 @@ export function ApiProvider({ children }: { children: React.ReactNode }) {
   // const initData =
   //   "query_id=AAE-nkBjAwAAAD6eQGMScSUG&user=%7B%22id%22%3A8107630142%2C%22first_name%22%3A%22Exirgec%22%2C%22last_name%22%3A%22Matik%22%2C%22username%22%3A%22matik1999%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FAQDD4nj43TOOafYj3NKKxtdCLkQkjGNODLgeLJucGUv9U3559dQKbVUVt3Jwb0R-.svg%22%7D&auth_date=1751347874&signature=2FwAypWVjneJet8IL-_XkHIkyd7qor5hSvxyFw3fj2mqE9VTEESl68-wuCi8fBs6wfppWHVkH61bZeSQAitYBw&hash=482403cdef4ce142588435112f2bd33db7899ba81a741ec6e29ce6dc5b399e73";
 
-  const initData = typeof window !== "undefined" ? WebApp.initData : "";
-  
+  const initData = typeof window !== "undefined" ? WebApp?.initData : "";
+
   // Use the shared axios instance
   const apiInstance = useMemo(
     () => createAxiosInstance(locale, initData),
