@@ -12,6 +12,7 @@
     "@twa-dev/sdk": "^8.0.2",
     "axios": "^1.10.0",
     "cookies-next": "^6.0.0",
+    "dotenv": "^17.0.1",
     "flag-icons": "^7.5.0",
     "framer-motion": "^12.19.2",
     "motion": "^12.19.2",

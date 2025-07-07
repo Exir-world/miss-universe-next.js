@@ -1,4 +1,6 @@
 import { create } from "zustand";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 export interface Option {
   id: number;
@@ -96,19 +98,19 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
   submitAnswers: async (api) => {
     // const router = useRouter();
     try {
-      const answers = get().answers;
-      let submitAnswerArray;
-      if (answers.length == 9) {
-        submitAnswerArray = Array(9).fill(1);
+      const answer = get().answers;
+      let answers: { answers: number[] };
+      if (answer.length == 9) {
+        answers = { answers: Array(9).fill(1) };
 
         const res = await api.post(
           "/mysteries/check-answer",
           {
-            submitAnswerArray,
+            ...answers,
           },
           {
             headers: {
-              "X-Game": process.env.NEXT_GAME_NAME,
+              "X-Game": process.env.NEXT_PUBLIC_GAME_NAME,
             },
           }
         );
