@@ -141,7 +141,7 @@ function Page() {
             className="w-full h-[300px] absolute top-0 left-0 right-0 "
           >
             <Image
-              src={currentQuestion.imageUrl}
+              src={currentQuestion?.imageUrl || ""}
               alt="quiz"
               layout="fill"
               objectFit="contain"
@@ -150,10 +150,10 @@ function Page() {
           </div>
         )}
         <p className="text-center text-[16px] font-[600] py-3">
-          {currentQuestion.text}
+          {currentQuestion?.text}
         </p>
         <div className="flex flex-col items-center justify-center mt-4 gap-2">
-          {currentQuestion.options.map((option, index) => {
+          {currentQuestion?.options?.map((option, index) => {
             let state: "default" | "correct" | "incorrect" = "default";
             if (selectedAnswer === option.id) {
               state =
@@ -167,7 +167,7 @@ function Page() {
               <div key={option.id} className="w-full">
                 <AnswerItem
                   text={option.text}
-                  onClick={() => handleAnswer(option.id, option.isCorrect)}
+                  onClick={() => handleAnswer(option?.id, option?.isCorrect)}
                   state={state}
                 />
               </div>
