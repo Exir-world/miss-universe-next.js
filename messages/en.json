@@ -1,5 +1,6 @@
 {
   "global": {
+    "startGame": "Start Game",
     "completeTask": "Complete Task",
     "enterUsernameToComplete": "Enter your username to complete this task",
     "yourUsername": "Your username",

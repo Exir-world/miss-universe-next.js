@@ -1,7 +1,5 @@
 "use client";
-import { useEffect } from "react";
 import { useRouter } from "@/i18n/navigation";
-import { useLoginStoreState } from "@/stores/context";
 import { useTranslations } from "next-intl";
 
 const coins = [
@@ -17,14 +15,17 @@ export default function PlayIntro() {
   const router = useRouter();
   const t = useTranslations();
 
-  useEffect(() => {
-    const redirectDelay = setTimeout(() => {
-      router.replace("/");
-    }, 3000);
+  // useEffect(() => {
+  //   const redirectDelay = setTimeout(() => {
+  //     router.replace("/");
+  //   }, 3000);
 
-    return () => clearTimeout(redirectDelay);
-  }, [router]);
+  //   return () => clearTimeout(redirectDelay);
+  // }, [router]);
 
+  const goToGame = () => {
+    router.push("/");
+  };
   return (
     <div className="flex flex-col items-center justify-center relative min-h-screen">
       <svg
@@ -69,6 +70,14 @@ export default function PlayIntro() {
             </div>
           ));
         })()}
+      </div>
+      <div className="py-5 w-full flex justify-center ">
+        <button
+          className="w-full py-2 rounded-xl border-2 bg-[#c956aee5] border-[#C643A8E5] text-white font-medium  hover:bg-[#C643A8E5]/20 transition"
+          onClick={goToGame}
+        >
+          {t("global.startGame")}
+        </button>
       </div>
     </div>
   );

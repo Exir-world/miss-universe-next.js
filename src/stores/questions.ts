@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import * as dotenv from "dotenv";
+import { useLoginStoreState } from "./context";
 dotenv.config();
 
 export interface Option {
@@ -96,8 +97,8 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
   },
 
   submitAnswers: async (api) => {
-    // const router = useRouter();
     try {
+      const loginStore = useLoginStoreState();
       const answer = get().answers;
       let answers: { answers: number[] };
       if (answer.length == 9) {
@@ -115,8 +116,9 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
           }
         );
         if (res.status == 200 || res.status == 201) {
-          // router.push("/");
-          return res.data;
+          await loginStore.getMe();
+
+          return res;
         }
       }
       // handle response as needed

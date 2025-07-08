@@ -162,8 +162,6 @@ export function createLoginStore(api?: AxiosInstance): StoreApi<LoginStore> {
                 hasGameSecret: hasSecret,
               });
 
-              console.log("User data:", userData);
-
               const room = data.data?.mystery?.room;
               const mysteryContent = data.data?.mystery?.mysteryContent;
 

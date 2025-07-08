@@ -51,18 +51,20 @@ const QuestionsPage = () => {
 
   const handleSubmit = async () => {
     try {
-      const res = await submitAnswers(api);
-      if ((res as any).data) router.push("/");
+      await submitAnswers(api);
+
+      router.push("/");
 
       // toast.success(t("success.allCorrect"));
     } catch (e) {
+      console.log(e);
+
       toast.error(t("errors.unknownError"));
     }
   };
 
   if (loading) return;
 
-  console.log(questions, "questionsx");
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
