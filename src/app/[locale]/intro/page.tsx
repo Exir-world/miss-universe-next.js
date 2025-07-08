@@ -1,6 +1,8 @@
 "use client";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { ImSpinner3 } from "react-icons/im";
 
 const coins = [
   "94202 EX9630 Coins for 900,000 Winners",
@@ -15,6 +17,7 @@ export default function PlayIntro() {
   const router = useRouter();
   const t = useTranslations();
   const locale = useLocale();
+  const [isLoading, setIsLoading] = useState(false);
   // useEffect(() => {
   //   const redirectDelay = setTimeout(() => {
   //     router.replace("/");
@@ -24,12 +27,21 @@ export default function PlayIntro() {
   // }, [router]);
 
   const goToGame = () => {
-    router.push(`/${locale}/`);
+    try {
+      // setIsLoading(true);
+      router.push(`/${locale}/`);
+    } catch (error) {
+      console.log(error);
+
+      // setIsLoading(false);
+    } finally {
+      // setIsLoading(false);
+    }
   };
   return (
-    <div className="flex flex-col items-center justify-center relative min-h-screen">
+    <div className="flex flex-col items-center justify-center relative min-h-screen px-4">
       <svg
-        className="absolute top-0 left-20"
+        className="absolute top-0 left-4 sm:left-20"
         width="40"
         height="22"
         viewBox="0 0 40 22"
@@ -71,13 +83,15 @@ export default function PlayIntro() {
           ));
         })()}
       </div>
-      <div className="py-5 w-full flex justify-center ">
-        <button
-          className="w-full py-2 rounded-xl border-2 bg-[#c956aee5] border-[#C643A8E5] text-white font-medium  hover:bg-[#C643A8E5]/20 transition"
-          onClick={goToGame}
-        >
-          {t("global.startGame")}
-        </button>
+      <div className="py-5 w-full flex justify-center">
+        <div className="w-full max-w-sm px-4">
+          <button
+            className="w-full py-2 rounded-xl border-2 bg-[#c956aee5] border-[#C643A8E5] text-white font-medium hover:bg-[#C643A8E5]/20 transition flex items-center gap-2 justify-center"
+            onClick={goToGame}
+          >
+            {t("global.startGame")}
+          </button>
+        </div>
       </div>
     </div>
   );

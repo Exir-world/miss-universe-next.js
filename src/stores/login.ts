@@ -154,8 +154,9 @@ export function createLoginStore(api?: AxiosInstance): StoreApi<LoginStore> {
 
             if (res.status === 200) {
               const userData: DataStructure = data.data;
-              const hasSecret = !!userData.mystery?.mysteryContent;
+              const hasSecret = !!userData?.user?.userTgId;
               document.cookie = `hasGameSecret=${hasSecret}; path=/;`;
+
               set({
                 userData,
                 isAuth: true,
