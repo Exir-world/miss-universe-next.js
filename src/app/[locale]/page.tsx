@@ -75,7 +75,7 @@ export default function HomePage() {
     router.push("/questions");
   };
 
-  const gameName = process.env.NEXT_PUBLIC_GAME_NAME || "Dubaieid";
+  
 
   return (
     <div>
@@ -120,7 +120,7 @@ export default function HomePage() {
 
         {/* Logo + Interactions */}
         <Image
-          src={`/${gameName}/${gameName}.svg`}
+          src={`/${process.env.NEXT_PUBLIC_GAME_NAME}/${process.env.NEXT_PUBLIC_GAME_NAME}.svg`}
           width={220}
           height={220}
           alt="Logo"
