@@ -1,6 +1,6 @@
 "use client";
-import { useRouter } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 
 const coins = [
   "94202 EX9630 Coins for 900,000 Winners",
@@ -14,7 +14,7 @@ const coins = [
 export default function PlayIntro() {
   const router = useRouter();
   const t = useTranslations();
-
+  const locale = useLocale();
   // useEffect(() => {
   //   const redirectDelay = setTimeout(() => {
   //     router.replace("/");
@@ -24,7 +24,7 @@ export default function PlayIntro() {
   // }, [router]);
 
   const goToGame = () => {
-    router.push("/");
+    router.push(`/${locale}/`);
   };
   return (
     <div className="flex flex-col items-center justify-center relative min-h-screen">

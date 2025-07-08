@@ -1,6 +1,8 @@
 {
   "global": {
+    "startGame": "ابدأ اللعبة",
     "completeTask": "أكمل المهمة",
+    "withdrawWarn": "رسوم عملية السحب هي 6.9 دولارًا.",
     "enterUsernameToComplete": "أدخل اسم المستخدم الخاص بك لإكمال هذه المهمة",
     "yourUsername": "اسم المستخدم الخاص بك",
     "taskCenter": "مركز المهام",

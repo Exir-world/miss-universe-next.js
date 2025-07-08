@@ -1,6 +1,8 @@
 {
   "global": {
     "completeTask": "تکمیل وظیفه",
+    "withdrawWarn": "کارمزد تراکنش برداشت ۶.۹ دلار است.",
+    "startGame": "شروع بازی",
     "enterUsernameToComplete": "نام کاربری خود را برای تکمیل این وظیفه وارد کنید",
     "yourUsername": "نام کاربری شما",
     "taskCenter": "مرکز وظایف",
