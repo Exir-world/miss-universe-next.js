@@ -25,6 +25,17 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Locale-based font classes */
+body.font-fa {
+  font-family: 'Vazirmatn', sans-serif;
+}
+body.font-en {
+  font-family: 'Poppins', sans-serif;
+}
+body.font-ar {
+  font-family: 'Cairo', sans-serif;
+}
+
 /* Custom animations */
 @keyframes spin-slow {
   from {

@@ -11,7 +11,7 @@ import { MdContentCopy } from "react-icons/md";
 
 export default function HomePage() {
   const t = useTranslations();
-  const { hasGameSecret, userData } = useLoginStoreState();
+  const { hasGameSecret, userData, getMe } = useLoginStoreState();
   const router = useRouter();
 
   const [secretToken, setSecretToken] = useState<string | null>(null);
@@ -19,6 +19,9 @@ export default function HomePage() {
   const [isWinner, setIsWinner] = useState(false);
 
   useEffect(() => {
+    // (async () => {
+    //   await getMe();
+    // })();
     const mystery = userData.mystery?.mysteryContent;
 
     if (mystery) {
