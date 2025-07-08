@@ -160,8 +160,8 @@ function Page() {
                 isCorrect === true
                   ? "correct"
                   : isCorrect === false
-                  ? "incorrect"
-                  : "default";
+                    ? "incorrect"
+                    : "default";
             }
             return (
               <div key={option.id} className="w-full">
