@@ -94,13 +94,11 @@ export default async function LocaleLayout({
           async
         ></Script>
       </head>
-      <body style={{ fontFamily }} className={fontClass} >
+      <body style={{ fontFamily }} className={fontClass}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Provider>
             <PageWrapper>
-              <ClientWrapper>
-                {children}
-              </ClientWrapper>
+              <ClientWrapper>{children}</ClientWrapper>
             </PageWrapper>
           </Provider>
         </NextIntlClientProvider>
