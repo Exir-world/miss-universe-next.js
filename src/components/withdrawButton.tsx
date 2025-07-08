@@ -8,6 +8,7 @@ import { useLoginStoreState } from "@/stores/context";
 import PhoneInput from "@/components/phoneNumberInput/PhoneInput";
 import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
+import exclamation from "../../public/excalmation.svg";
 
 const WithdrawButton = () => {
   const [showModal, setShowModal] = useState(false);
@@ -372,6 +373,12 @@ const WithdrawButton = () => {
                         {errors.wallet}
                       </p>
                     )}
+                  </div>
+                  <div className="flex w-full items-center justify-center gap-1 py-1">
+                    <Image src={exclamation} alt="svg"></Image>
+                    <p className="font-[400] text-[14px]">
+                      {t("global.withdrawWarn")}
+                    </p>
                   </div>
                   <div>
                     <label className="block text-sm font-medium mb-1">

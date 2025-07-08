@@ -96,13 +96,13 @@ const QuestionsPage = () => {
                     priority={index < 3}
                     alt="pic"
                   />
-                  {/* {isAnswered && (
+                  {isAnswered && (
                     <div className="absolute z-50 bg-black/40 flex items-center justify-center rounded-xl left-0 right-0 top-0 bottom-0">
                       <span className="text-green-400 text-3xl font-bold">
                         ✓
                       </span>
                     </div>
-                  )} */}
+                  )}
                 </div>
               );
             })
