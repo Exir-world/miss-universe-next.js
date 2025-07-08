@@ -26,14 +26,14 @@ export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const hasGameSecret = request.cookies.get("hasGameSecret")?.value || "";
 
-  if (!hasGameSecret) {
-    // Prevent infinite loop: don't redirect if already on /[locale]/intro
-    if (pathname.startsWith(`/${locale}/intro`)) {
-      return response;
-    }
-    const origin = request.nextUrl.origin;
-    return NextResponse.redirect(`${origin}/${locale}/intro`);
-  }
+  // if (!hasGameSecret) {
+  //   // Prevent infinite loop: don't redirect if already on /[locale]/intro
+  //   if (pathname.startsWith(`/${locale}/intro`)) {
+  //     return response;
+  //   }
+  //   const origin = request.nextUrl.origin;
+  //   return NextResponse.redirect(`${origin}/${locale}/intro`);
+  // }
 
   return response;
 }
