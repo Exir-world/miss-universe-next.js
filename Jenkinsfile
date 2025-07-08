@@ -68,7 +68,13 @@ pipeline {
         stage('Docker Build & Push') {
             steps {
                 script {
-                    def customImage = docker.build("${IMAGE_NAME}:${IMAGE_TAG}", "-f Dockerfile .")
+                    def customImage = docker.build(
+                        "${IMAGE_NAME}:${IMAGE_TAG}",
+                        "--build-arg NEXT_PUBLIC_BASE_URL=${env.NEXT_PUBLIC_BASE_URL} " +
+                        "--build-arg NEXT_PUBLIC_GAME_NAME=${env.NEXT_PUBLIC_GAME_NAME} " +
+                        "-f Dockerfile ."
+                    )
+
 
                     withCredentials([usernamePassword(credentialsId: 'DOCKER_REGISTRY_CREDENTIALS_ID', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                         sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin ${DOCKER_REGISTRY_URL}'
