@@ -20,7 +20,7 @@ export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
   // if (tenant) {
   //   response.cookies.set("tenant", tenant);
-  // }
+  // }A
 
   const locale = (await getLocale()) || "en";
   const pathname = request.nextUrl.pathname;
