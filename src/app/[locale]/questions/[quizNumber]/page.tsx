@@ -135,7 +135,7 @@ function Page() {
             <IoArrowBackSharp></IoArrowBackSharp>
           </button>
         </div>
-        {currentQuestion.imageUrl && (
+        {currentQuestion.imageUrl && typeof currentQuestion.imageUrl === "string" && (
           <div
             style={{ position: "relative" }}
             className="w-full h-[300px] absolute top-0 left-0 right-0 "
