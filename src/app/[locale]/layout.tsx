@@ -6,6 +6,7 @@ import PageWrapper from "@/components/PageWrapper";
 import { getCurrentTenant } from "@/lib/tenant";
 import Provider from "@/components/provider";
 import { Metadata } from "next";
+import ClientWrapper from "@/components/clientWrappper";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const tenant = (await getCurrentTenant()) || "Dubaieid";
@@ -83,6 +84,7 @@ export default async function LocaleLayout({
   // Dynamically import messages for the current locale
   const messages = (await import(`../../../messages/${locale}.json`)).default;
 
+  const fontClass = `font-${locale}`;
   return (
     <html lang={locale} dir={dir}>
       <head>
@@ -92,10 +94,14 @@ export default async function LocaleLayout({
           async
         ></Script>
       </head>
-      <body style={{ fontFamily }}>
+      <body style={{ fontFamily }} className={fontClass} >
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Provider>
-            <PageWrapper>{children}</PageWrapper>
+            <PageWrapper>
+              <ClientWrapper>
+                {children}
+              </ClientWrapper>
+            </PageWrapper>
           </Provider>
         </NextIntlClientProvider>
       </body>
