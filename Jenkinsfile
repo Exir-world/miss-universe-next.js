@@ -9,6 +9,9 @@ pipeline {
         TELEGRAM_BOT_TOKEN = '8027466900:AAG6Q_0p6rSeEXtg8e0gDcYJmIJ_R7zBVew'
         NEXT_PUBLIC_BASE_URL = 'https://token.ex.pro/api'
         NEXT_PUBLIC_GAME_NAME = 'Dubaieid'
+        NEXT_GAME_NAME='Dubaieid'
+        NEXT_REFERRAL_URL='https://t.me/dubaieid_ex_pro_bot?start='
+
     }
 
     stages {
