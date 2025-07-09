@@ -32,6 +32,7 @@ interface QuestionsState {
 
 const ANSWERS_KEY = "answersSubmit";
 const DEFAULT_ANSWERS = Array(9).fill(-1);
+const MISS_QUESTIONS = "miss_questions";
 
 function saveAnswersToLocalStorage(answers: number[]) {
   if (typeof window !== "undefined") {
@@ -62,22 +63,28 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
           .find((row) => row.startsWith("NEXT_LOCALE="))
           ?.split("=")[1] || "en"; // get lang
 
-      const res = await api.get(
-        `questions/active?game=${process.env.NEXT_PUBLIC_GAME_NAME}`,
-        {
-          headers: {
-            "X-Game": process.env.NEXT_PUBLIC_GAME_NAME,
-            "accept-language": lang,
-          },
+      const questionsExits = localStorage.getItem(MISS_QUESTIONS);
+      if (!questionsExits) {
+        const res = await api.get(
+          `questions/active?game=${process.env.NEXT_PUBLIC_GAME_NAME}`,
+          {
+            headers: {
+              "X-Game": process.env.NEXT_PUBLIC_GAME_NAME,
+              "accept-language": lang,
+            },
+          }
+        );
+        if (res.status === 200) {
+          localStorage.setItem("miss_questions", JSON.stringify(res.data.data));
+          const sortedQuestions = res.data.data
+            .slice()
+            .sort((a: Question, b: Question) => a.order - b.order);
+          set({ questions: sortedQuestions, loading: false });
+        } else {
+          set({ error: "Failed to fetch questions", loading: false });
         }
-      );
-      if (res.status === 200) {
-        const sortedQuestions = res.data.data
-          .slice()
-          .sort((a: Question, b: Question) => a.order - b.order);
-        set({ questions: sortedQuestions, loading: false });
       } else {
-        set({ error: "Failed to fetch questions", loading: false });
+        set({ questions: JSON.parse(questionsExits), loading: false });
       }
     } catch (err) {
       console.log(err);

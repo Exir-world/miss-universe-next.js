@@ -168,7 +168,8 @@ export function createLoginStore(api?: AxiosInstance): StoreApi<LoginStore> {
 
               // Remove automatic joinGame call to prevent infinite loops
               // const { joinGame } = get();
-              // await joinGame();
+              const { joinGame } = get();
+              await joinGame();
             } else {
               console.log("User not authenticated");
               set({ isAuth: false });
@@ -185,6 +186,10 @@ export function createLoginStore(api?: AxiosInstance): StoreApi<LoginStore> {
 
         joinGame: async () => {
           try {
+            // Access user data from the store
+            const { userData } = get();
+            if (userData.mystery.mysteryContent) return;
+
             // Get referral code from URL if available
             const urlParams = new URLSearchParams(window.location.search);
             const referralCode = urlParams.get("r");

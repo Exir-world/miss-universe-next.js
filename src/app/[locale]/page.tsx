@@ -76,6 +76,7 @@ export default function HomePage() {
   };
 
   
+console.log(`${process.env.NEXT_PUBLIC_GAME_NAME}/${process.env.NEXT_PUBLIC_GAME_NAME}.svg`);
 
   return (
     <div>
@@ -89,6 +90,7 @@ export default function HomePage() {
                 className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
               >
                 ✕
+
               </button>
               <div className="mb-4">
                 <svg
