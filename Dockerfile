@@ -34,10 +34,6 @@ RUN npm install --legacy-peer-deps --only=production
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/next.config.js ./next.config.js
-
-# If you use a custom server (e.g., server.js), copy it:
-# COPY --from=builder /app/server.js ./server.js
 
 EXPOSE 3000
 
