@@ -32,10 +32,13 @@ export default function Referral() {
   const [loading, setLoading] = useState(true);
   const { api } = useApi();
   const { userData } = useLoginStoreState();
-  const referralCode = userData.user.referralCode || "";
+  const referralCode = userData?.user?.referralCode || "";
+  console.log(referralCode,'referral');
+  
   const config = { gameName: process.env.NEXT_PUBLIC_GAME_NAME || "Dubaieid" };
   const t = useTranslations();
   // Build the referral link robustly
+  
   const getReferralUrl = () => {
     const base =
       process.env.NEXT_REFERRAL_URL ||
