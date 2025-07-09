@@ -72,7 +72,8 @@
     "history": "History",
     "room": "Room",
     "chair": "Chair",
-    "back": "Back"
+    "back": "Back",
+    "noFriends" :"You have not add any Friends"
   },
   "home": {
     "success": "Congrats!",

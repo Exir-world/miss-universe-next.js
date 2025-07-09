@@ -33,16 +33,14 @@ export default function Referral() {
   const { api } = useApi();
   const { userData } = useLoginStoreState();
   const referralCode = userData?.user?.referralCode || "";
-  console.log(referralCode, "referral");
 
   const config = { gameName: process.env.NEXT_PUBLIC_GAME_NAME || "Dubaieid" };
   const t = useTranslations();
   // Build the referral link robustly
 
   const getReferralUrl = () => {
-    const base =
-      process.env.NEXT_REFERRAL_URL ||
-      (typeof window !== "undefined" ? window.location.origin + "/?r=" : "");
+    const base = process.env.NEXT_REFERRAL_URL;
+    // ||      (typeof window !== "undefined" ? window.location.origin + "/?r=" : "");
     return `${base}${referralCode}`;
   };
   const referralUrl = getReferralUrl();
@@ -130,7 +128,7 @@ Click the link and start earning with me today!
       <ul className="overflow-auto h-full">
         {friends.length === 0 ? (
           <div className="flex flex-col items-center h-full w-full justify-center py-3">
-            <p className="font-bold text-center"></p>
+            <p className="font-bold text-center">{t("global.noFriends")}</p>
           </div>
         ) : (
           friends.map((friend: Friend, index: number) => (

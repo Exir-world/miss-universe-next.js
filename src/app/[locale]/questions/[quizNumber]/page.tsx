@@ -12,6 +12,7 @@ import { useApi } from "@/context/api";
 import { useRouter } from "@/i18n/navigation";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
+import QuestionImageSkeleton from "@/components/questionImageSkeleton";
 
 type QuizOption = {
   id: number;
@@ -135,20 +136,21 @@ function Page() {
             <IoArrowBackSharp></IoArrowBackSharp>
           </button>
         </div>
-        {currentQuestion.imageUrl && typeof currentQuestion.imageUrl === "string" && (
-          <div
-            style={{ position: "relative" }}
-            className="w-full h-[300px] absolute top-0 left-0 right-0 "
-          >
+        <div className="w-full h-[300px] relative">
+          {currentQuestion.imageUrl &&
+          typeof currentQuestion.imageUrl === "string" ? (
             <Image
-              src={currentQuestion?.imageUrl || ""}
+              className="border rounded-lg"
+              src={currentQuestion.imageUrl}
               alt="quiz"
               layout="fill"
               objectFit="contain"
               priority
             />
-          </div>
-        )}
+          ) : (
+            <QuestionImageSkeleton></QuestionImageSkeleton>
+          )}
+        </div>
         <p className="text-center text-[16px] font-[600] py-3">
           {currentQuestion?.text}
         </p>
@@ -160,8 +162,8 @@ function Page() {
                 isCorrect === true
                   ? "correct"
                   : isCorrect === false
-                    ? "incorrect"
-                    : "default";
+                  ? "incorrect"
+                  : "default";
             }
             return (
               <div key={option.id} className="w-full">

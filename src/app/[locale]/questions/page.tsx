@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
 import { useLoginStoreState } from "@/stores/context";
 import { useQuestionsStore } from "@/stores/questions";
+import { MdDone } from "react-icons/md";
 
 type Option = {
   id: number;
@@ -83,38 +84,41 @@ const QuestionsPage = () => {
       <div className="grid grid-cols-3 justify-center relative gap-4 mt-8 p-2 flex-wrap">
         {allQuestions.length > 0
           ? allQuestions?.map((question, index) => {
-            const questionIdx = allQuestions.findIndex(
-              (q) => q.id === question.id
-            );
-            const isAnswered = answers[questionIdx] !== -1;
-            return (
-              <div key={index} className="relative w-fit">
-                <Image
-                  className="rounded-[15px] relative border border-[#C643A8E5]"
-                  onClick={() =>
-                    router.push(`/questions/qNum?id=${question.order}`)
-                  }
-                  src={question?.imageUrl || ""}
-                  width={150}
-                  height={150}
-                  priority={index < 3}
-                  alt="pic"
-                  onError={(e) => {
-                    e.currentTarget.onerror = null;
-                    e.currentTarget.src = "/vercel.svg"; // fallback image
-                    console.warn('Question image failed to load:', question?.imageUrl);
-                  }}
-                />
-                {isAnswered && (
-                  <div className="absolute z-50 bg-black/40 flex items-center justify-center rounded-xl left-0 right-0 top-0 bottom-0">
-                    <span className="text-green-400 text-3xl font-bold">
-                      ✓
-                    </span>
-                  </div>
-                )}
-              </div>
-            );
-          })
+              const questionIdx = allQuestions.findIndex(
+                (q) => q.id === question.id
+              );
+              const isAnswered = answers[questionIdx] !== -1;
+              return (
+                <div key={index} className="relative w-fit">
+                  <Image
+                    className="rounded-[15px] relative border border-[#C643A8E5]"
+                    onClick={() =>
+                      router.push(`/questions/qNum?id=${question.order}`)
+                    }
+                    src={question?.imageUrl || ""}
+                    width={150}
+                    height={150}
+                    priority={index < 3}
+                    alt="pic"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = "/vercel.svg"; // fallback image
+                      console.warn(
+                        "Question image failed to load:",
+                        question?.imageUrl
+                      );
+                    }}
+                  />
+                  {isAnswered && (
+                    <div className="absolute z-50 bg-black/40 flex items-center justify-center rounded-xl left-0 right-0 top-0 bottom-0">
+                      <span className="text-green-400 text-3xl font-bold">
+                        <MdDone size={30}></MdDone>
+                      </span>
+                    </div>
+                  )}
+                </div>
+              );
+            })
           : null}
       </div>
       <div className="w-full max-w-md flex flex-col items-center mt-8 px-2">
