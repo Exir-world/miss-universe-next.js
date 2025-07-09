@@ -14,7 +14,7 @@ export default function PageWrapper({
   const pathname = usePathname();
   const [loading, setLoading] = useState(true);
   const { getMe, hasGameSecret } = useLoginStoreState();
-  
+
   const fetchUserData = useCallback(async () => {
     try {
       await getMe();
@@ -28,9 +28,6 @@ export default function PageWrapper({
   useEffect(() => {
     fetchUserData();
   }, []);
-
-  const hideNav =
-    ["/login"].includes(pathname || "") || (pathname || "").includes("intro");
 
   return (
     <div className="relative min-h-screen bg-zinc-900 text-white">
@@ -104,10 +101,9 @@ export default function PageWrapper({
           className="pb-32 max-w-2xl mx-auto w-full transition-all duration-500 animate-fade-slide"
         >
           {children}
+          {<BottomNavbar hasGameSecret={hasGameSecret} />}
         </div>
       </div>
-
-      {!hideNav && <BottomNavbar hasGameSecret={hasGameSecret} />}
     </div>
   );
 }

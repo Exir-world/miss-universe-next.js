@@ -33,12 +33,12 @@ export default function Referral() {
   const { api } = useApi();
   const { userData } = useLoginStoreState();
   const referralCode = userData?.user?.referralCode || "";
-  console.log(referralCode,'referral');
-  
+  console.log(referralCode, "referral");
+
   const config = { gameName: process.env.NEXT_PUBLIC_GAME_NAME || "Dubaieid" };
   const t = useTranslations();
   // Build the referral link robustly
-  
+
   const getReferralUrl = () => {
     const base =
       process.env.NEXT_REFERRAL_URL ||
@@ -144,11 +144,11 @@ Click the link and start earning with me today!
 
       <div className="grid grid-cols-2 gap-4 py-1 w-full">
         <div className="flex items-center w-full">
-          {canShare && (
+          {
             <p className="p-2 border-[#C643A8E5] rounded-full border w-full text-center truncate text-sm">
               {fullShareLink}
             </p>
-          )}
+          }
         </div>
         <div className="flex items-center justify-end gap-2 w-full">
           <button

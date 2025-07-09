@@ -76,7 +76,6 @@ export default function HomePage() {
   };
 
   
-console.log(`${process.env.NEXT_PUBLIC_GAME_NAME}/${process.env.NEXT_PUBLIC_GAME_NAME}.svg`);
 
   return (
     <div>
@@ -130,7 +129,15 @@ console.log(`${process.env.NEXT_PUBLIC_GAME_NAME}/${process.env.NEXT_PUBLIC_GAME
             userData.isWinner ? "animate-spin-slow" : ""
           }`}
           onClick={goToGame}
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = "/vercel.svg"; // fallback image
+            console.warn('Logo image failed to load. Check NEXT_PUBLIC_GAME_NAME and file path.');
+          }}
         />
+        {(!process.env.NEXT_PUBLIC_GAME_NAME) && (
+          <div className="text-red-500">Logo env variable missing!</div>
+        )}
         {!secretToken && (
           <h3 className="text-[30px] font-bold bg-gradient-to-r from-[#F68E00] via-[#FFEA94] to-[#FFBD00] bg-clip-text text-transparent">
             {t("global.tapOnMe")}
@@ -144,10 +151,10 @@ console.log(`${process.env.NEXT_PUBLIC_GAME_NAME}/${process.env.NEXT_PUBLIC_GAME
             </span>
             <p className="mt-4">{t("home.des")}</p>
 
-            <div className="flex p-4 mt-6 bg-white/20 border border-primary rounded-lg backdrop-blur-sm w-full max-w-md justify-between items-center">
+            <div className="flex p-2.5 mt-6 bg-white/20 border border-primary rounded-lg backdrop-blur-sm w-full max-w-md justify-between items-center">
               <span className="truncate">{secretToken}</span>
-              <button onClick={copyToClipboard}>
-                <MdContentCopy />
+              <button onClick={copyToClipboard} className="p-1 " >
+                <MdContentCopy size={24}/>
               </button>
             </div>
 
@@ -191,7 +198,7 @@ console.log(`${process.env.NEXT_PUBLIC_GAME_NAME}/${process.env.NEXT_PUBLIC_GAME
           </div>
         )}
       </div>
-      <BottomNavbar hasGameSecret={hasGameSecret} />
+      {/* <BottomNavbar hasGameSecret={hasGameSecret} /> */}
     </div>
   );
 }
