@@ -42,7 +42,7 @@ export function ApiProvider({ children }: { children: React.ReactNode }) {
   const apiInstance = useMemo(
     () => createAxiosInstance(locale, initData),
     [locale, initData]
-  );
+  ); 
 
   useEffect(() => {
     WebApp.ready();
