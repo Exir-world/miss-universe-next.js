@@ -1,7 +1,5 @@
 import { create } from "zustand";
-import * as dotenv from "dotenv";
 import { useLoginStoreState } from "./context";
-dotenv.config();
 
 export interface Option {
   id: number;
