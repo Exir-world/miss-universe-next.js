@@ -95,7 +95,7 @@ const QuestionsPage = () => {
                     onClick={() =>
                       router.push(`/questions/qNum?id=${question.order}`)
                     }
-                    src={question?.imageUrl}
+                    src={`${question?.imageUrl}`}
                     width={150}
                     height={150}
                     alt="pic"
