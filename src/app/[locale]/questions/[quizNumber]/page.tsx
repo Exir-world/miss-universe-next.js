@@ -119,6 +119,8 @@ function Page() {
     return <Spinner />;
   }
 
+  const BASE_URL = "https://token.ex.pro/cdn";
+
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -141,7 +143,7 @@ function Page() {
           typeof currentQuestion.imageUrl === "string" ? (
             <Image
               className="border rounded-lg"
-              src={currentQuestion.imageUrl}
+              src={`${BASE_URL}${currentQuestion.imageUrl}`}
               alt="quiz"
               layout="fill"
               objectFit="contain"

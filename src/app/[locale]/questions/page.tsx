@@ -70,6 +70,7 @@ const QuestionsPage = () => {
       toast.error(t("errors.unknownError"));
     }
   };
+  const BASE_URL = "https://token.ex.pro/cdn";
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
@@ -88,14 +89,16 @@ const QuestionsPage = () => {
                 (q) => q.id === question.id
               );
               const isAnswered = answers[questionIdx] !== -1;
+              console.log(question.imageUrl);
+
               return (
                 <div key={index} className="relative w-fit">
                   <Image
-                    className="rounded-[15px] relative border border-[#C643A8E5]"
+                    className="rounded-[15px] relative border-2 border-[#C643A8E5]"
                     onClick={() =>
                       router.push(`/questions/qNum?id=${question.order}`)
                     }
-                    src={question?.imageUrl}
+                    src={`${BASE_URL}${question?.imageUrl}`}
                     width={150}
                     height={150}
                     alt="pic"
