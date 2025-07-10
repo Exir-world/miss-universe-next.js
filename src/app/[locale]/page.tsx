@@ -121,7 +121,7 @@ export default function HomePage() {
 
         {/* Logo + Interactions */}
         <Image
-          src={`/${process.env.NEXT_PUBLIC_GAME_NAME}/${process.env.NEXT_PUBLIC_GAME_NAME}.svg`}
+          src={`/Dubaieid/Dubaieid.svg`}
           width={220}
           height={220}
           alt="Logo"
