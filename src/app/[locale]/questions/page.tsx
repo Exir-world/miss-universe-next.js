@@ -84,6 +84,8 @@ const QuestionsPage = () => {
       <div className="grid grid-cols-3 justify-center relative gap-4 mt-8 p-2 flex-wrap">
         {allQuestions.length > 0
           ? allQuestions?.map((question, index) => {
+            console.log(question,'*/*');
+            
               const questionIdx = allQuestions.findIndex(
                 (q) => q.id === question.id
               );
@@ -95,18 +97,18 @@ const QuestionsPage = () => {
                     onClick={() =>
                       router.push(`/questions/qNum?id=${question.order}`)
                     }
-                    src={question?.imageUrl || ""}
+                    src={question?.imageUrl}
                     width={150}
                     height={150}
-                    priority={index < 3}
                     alt="pic"
-                    onError={(e) => {
-                      e.currentTarget.onerror = null;
-                      e.currentTarget.src = "/vercel.svg"; // fallback image
-                      console.warn(
-                        "Question image failed to load:",
-                        question?.imageUrl
-                      );
+                    onError={(event) => {
+                      // Prevent infinite loop by only setting fallback once
+                      if (
+                        event.currentTarget.src !==
+                        window.location.origin + "/vercel.svg"
+                      ) {
+                        event.currentTarget.src = "/vercel.svg";
+                      }
                     }}
                   />
                   {isAnswered && (
