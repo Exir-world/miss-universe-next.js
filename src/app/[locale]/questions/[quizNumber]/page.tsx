@@ -119,7 +119,7 @@ function Page() {
     return <Spinner />;
   }
 
-  const BASE_URL = "https://token.ex.pro/cdn";
+  const IMAGES_BASE_URL = "https://token.ex.pro/cdn";
 
   return (
     <AnimatePresence mode="wait">
@@ -143,7 +143,7 @@ function Page() {
           typeof currentQuestion.imageUrl === "string" ? (
             <Image
               className="border rounded-lg"
-              src={`${BASE_URL}${currentQuestion.imageUrl}`}
+              src={`${IMAGES_BASE_URL}/${process.env.NEXT_PUBLIC_GAME_NAME}/${process.env.NEXT_PUBLIC_GAME_NAME}.svg`}
               alt="quiz"
               layout="fill"
               objectFit="contain"
