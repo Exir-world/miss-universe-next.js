@@ -14,20 +14,7 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "www.citypng.com",
-        port: "", // Leave this blank unless you're using a non-default port
-        pathname: "/public/uploads/preview/**",
-      },
-      {
-        protocol: "https",
-        hostname: "token.ex.pro",
-        port: "",
-        pathname: "/**", // Allow all paths under token.ex.pro
-      },
-    ],
+    domains: ["token.ex.pro"],
   },
 };
 
