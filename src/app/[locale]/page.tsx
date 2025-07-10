@@ -8,8 +8,8 @@ import { toast } from "react-toastify";
 import { useRouter } from "@/i18n/navigation";
 import Image from "next/image";
 import { MdContentCopy } from "react-icons/md";
-import dubai from "../../../public/Dubaieid/Dubaieid.svg";
-import atossa from "../../../public/Atossa/Atossa.svg";
+
+const IMAGES_BASE_URL= 'https://token.ex.pro/cdn'
 
 export default function HomePage() {
   const t = useTranslations();
@@ -120,7 +120,7 @@ export default function HomePage() {
 
         {/* Logo + Interactions */}
         <Image
-          src={dubai}
+          src={`${IMAGES_BASE_URL}/${process.env.NEXT_PUBLIC_GAME_NAME}/${process.env.NEXT_PUBLIC_GAME_NAME}.svg`}
           width={220}
           height={220}
           alt="Logo"
