@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import { useRouter } from "@/i18n/navigation";
 import Image from "next/image";
 import { MdContentCopy } from "react-icons/md";
+import dubai from "../../../public/Dubaieid/Dubaieid.svg";
+import atossa from "../../../public/Atossa/Atossa.svg";
 
 export default function HomePage() {
   const t = useTranslations();
@@ -75,8 +77,6 @@ export default function HomePage() {
     router.push("/questions");
   };
 
-  
-
   return (
     <div>
       <div className="flex flex-col items-center justify-center h-screen pb-10 pt-2 text-white text-center ">
@@ -89,7 +89,6 @@ export default function HomePage() {
                 className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
               >
                 ✕
-
               </button>
               <div className="mb-4">
                 <svg
@@ -121,7 +120,7 @@ export default function HomePage() {
 
         {/* Logo + Interactions */}
         <Image
-          src={`/Dubaieid/Dubaieid.svg`}
+          src={dubai}
           width={220}
           height={220}
           alt="Logo"
@@ -132,10 +131,12 @@ export default function HomePage() {
           onError={(e) => {
             e.currentTarget.onerror = null;
             e.currentTarget.src = "/vercel.svg"; // fallback image
-            console.warn('Logo image failed to load. Check NEXT_PUBLIC_GAME_NAME and file path.');
+            console.warn(
+              "Logo image failed to load. Check NEXT_PUBLIC_GAME_NAME and file path."
+            );
           }}
         />
-        {(!process.env.NEXT_PUBLIC_GAME_NAME) && (
+        {!process.env.NEXT_PUBLIC_GAME_NAME && (
           <div className="text-red-500">Logo env variable missing!</div>
         )}
         {!secretToken && (
@@ -153,8 +154,8 @@ export default function HomePage() {
 
             <div className="flex p-2.5 mt-6 bg-white/20 border border-primary rounded-lg backdrop-blur-sm w-full max-w-md justify-between items-center">
               <span className="truncate">{secretToken}</span>
-              <button onClick={copyToClipboard} className="p-1 " >
-                <MdContentCopy size={24}/>
+              <button onClick={copyToClipboard} className="p-1 ">
+                <MdContentCopy size={24} />
               </button>
             </div>
 
