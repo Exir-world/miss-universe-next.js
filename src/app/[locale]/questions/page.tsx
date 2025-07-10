@@ -84,8 +84,6 @@ const QuestionsPage = () => {
       <div className="grid grid-cols-3 justify-center relative gap-4 mt-8 p-2 flex-wrap">
         {allQuestions.length > 0
           ? allQuestions?.map((question, index) => {
-            console.log(question,'*/*');
-            
               const questionIdx = allQuestions.findIndex(
                 (q) => q.id === question.id
               );

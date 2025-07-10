@@ -62,28 +62,29 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
           ?.split("=")[1] || "en"; // get lang
 
       const questionsExits = localStorage.getItem(MISS_QUESTIONS);
-      if (!questionsExits) {
-        const res = await api.get(
-          `questions/active?game=${process.env.NEXT_PUBLIC_GAME_NAME}`,
-          {
-            headers: {
-              "X-Game": process.env.NEXT_PUBLIC_GAME_NAME,
-              "accept-language": lang,
-            },
-          }
-        );
-        if (res.status === 200) {
-          localStorage.setItem("miss_questions", JSON.stringify(res.data.data));
-          const sortedQuestions = res.data.data
-            .slice()
-            .sort((a: Question, b: Question) => a.order - b.order);
-          set({ questions: sortedQuestions, loading: false });
-        } else {
-          set({ error: "Failed to fetch questions", loading: false });
+      // if (!questionsExits) {
+      const res = await api.get(
+        `questions/active?game=${process.env.NEXT_PUBLIC_GAME_NAME}`,
+        {
+          headers: {
+            "X-Game": process.env.NEXT_PUBLIC_GAME_NAME,
+            "accept-language": lang,
+          },
         }
+      );
+      if (res.status === 200 || res.status === 201 ) {
+        // localStorage.setItem("miss_questions", JSON.stringify(res.data.data));
+        const sortedQuestions = res.data.data
+          .slice()
+          .sort((a: Question, b: Question) => a.order - b.order);
+        set({ questions: sortedQuestions, loading: false });
       } else {
-        set({ questions: JSON.parse(questionsExits), loading: false });
+        set({ error: "Failed to fetch questions", loading: false });
       }
+      // }
+      //  else {
+      //   set({ questions: JSON.parse(questionsExits), loading: false });
+      // }
     } catch (err) {
       console.log(err);
 
