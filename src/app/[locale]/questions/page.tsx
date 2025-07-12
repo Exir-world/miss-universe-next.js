@@ -71,18 +71,7 @@ const QuestionsPage = () => {
     }
   };
 
-  const images = [
-    // these are hardcoded !
-    "https://token.ex.pro/cdn/questions/Dubaieid/0.jpg",
-    "https://token.ex.pro/cdn/questions/Dubaieid/1.jpg",
-    "https://token.ex.pro/cdn/questions/Dubaieid/2.jpg",
-    "https://token.ex.pro/cdn/questions/Dubaieid/3.jpg",
-    "https://token.ex.pro/cdn/questions/Dubaieid/4.jpg",
-    "https://token.ex.pro/cdn/questions/Dubaieid/5.jpg",
-    "https://token.ex.pro/cdn/questions/Dubaieid/6.jpg",
-    "https://token.ex.pro/cdn/questions/Dubaieid/7.jpg",
-    "https://token.ex.pro/cdn/questions/Dubaieid/8.jpg",
-  ];
+
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
@@ -94,51 +83,45 @@ const QuestionsPage = () => {
           <IoArrowBackSharp></IoArrowBackSharp>
         </button>
       </div>
-      <div className="grid grid-cols-3 justify-center relative gap-4 mt-8 p-2 flex-wrap">
-        {allQuestions.length > 0
-          ? allQuestions?.map((question, index) => {
-              const questionIdx = allQuestions.findIndex(
-                (q) => q.id === question.id
-              );
-              const isAnswered = answers[questionIdx] !== -1;
-              return (
-                <div key={question.id} className="relative w-full ">
-                  <div
-                    onClick={() =>
-                      router.push(`/questions/qNum?id=${question.order}`)
-                    }
-                    style={{ cursor: "pointer" }}
-                  >
-                    {/* <img
-                      className="rounded-[15px] relative border border-[#C643A8E5]"
-                      src={images[index]}
-                      width={150}
-                      height={150}
-                      alt="Qpic"
-                    /> */}
-                    <div
-                      className="size-[200px]"
-                      style={{
-                        backgroundImage: `url(${question.imageUrl})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        borderRadius: "15px",
-                        border: "1px solid #C643A8E5",
-                      }}
-                    ></div>
-                  </div>
-                  {isAnswered && (
-                    <div className="absolute z-50 bg-black/40 flex items-center justify-center rounded-xl left-0 right-0 top-0 bottom-0">
-                      <span className="text-green-400 text-3xl font-bold">
-                        <MdDone size={30}></MdDone>
-                      </span>
-                    </div>
-                  )}
+      <div className="grid grid-cols-3 gap-4 p-4 w-full max-w-[600px] mx-auto">
+        {allQuestions.slice(0, 9).map((question, index) => {
+          const questionIdx = allQuestions.findIndex(
+            (q) => q.id === question.id
+          );
+          const isAnswered = answers[questionIdx] !== -1;
+
+          return (
+            <div key={question.id} className="relative w-full">
+              <div
+                onClick={() =>
+                  router.push(`/questions/qNum?id=${question.order}`)
+                }
+                style={{ cursor: "pointer" }}
+              >
+                <div
+                  className="w-full aspect-square"
+                  style={{
+                    backgroundImage: `url(${question.imageUrl})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    borderRadius: "15px",
+                    border: "1px solid #C643A8E5",
+                  }}
+                ></div>
+              </div>
+
+              {isAnswered && (
+                <div className="absolute inset-0 z-50 bg-black/40 flex items-center justify-center rounded-[15px]">
+                  <span className="text-green-400 text-3xl font-bold">
+                    <MdDone size={30} />
+                  </span>
                 </div>
-              );
-            })
-          : null}
+              )}
+            </div>
+          );
+        })}
       </div>
+
       <div className="w-full max-w-md flex flex-col items-center mt-8 px-2">
         {allAnswered && (
           <button
