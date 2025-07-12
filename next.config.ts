@@ -20,6 +20,18 @@ const nextConfig: NextConfig = {
         hostname: "token.ex.pro",
         pathname: "/cdn/questions/**",
       },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "3000",
+        pathname: "/api/**",
+      },
+      {
+        protocol: "https",
+        hostname: "localhost",
+        port: "3000",
+        pathname: "/api/**",
+      },
     ],
   },
 };

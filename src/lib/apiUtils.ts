@@ -58,4 +58,24 @@ export function getErrorMessage(error: unknown): string {
     default:
       return apiError.message;
   }
+}
+
+/**
+ * Generate local image URL for questions
+ * @param questionNumber - The question number (1-9)
+ * @returns Local API URL for the question image
+ */
+export function getQuestionImageUrl(questionNumber: number): string {
+  // For server-side rendering, use relative URL
+  return `/api/image?filename=question-${questionNumber}.webp`;
+}
+
+/**
+ * Check if we should use local images instead of external CDN
+ * @returns boolean indicating if local images should be used
+ */
+export function shouldUseLocalImages(): boolean {
+  // For now, always use external images to avoid issues
+  // We can enable local images later when needed
+  return false;
 } 
