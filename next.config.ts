@@ -16,7 +16,13 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    domains: ["token.ex.pro"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "token.ex.pro",
+        pathname: "/cdn/questions/**",
+      },
+    ],
   },
 };
 
