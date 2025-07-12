@@ -8,8 +8,10 @@ import { toast } from "react-toastify";
 import { useRouter } from "@/i18n/navigation";
 import Image from "next/image";
 import { MdContentCopy } from "react-icons/md";
+import Link from "next/link";
+import { LuCircleHelp } from "react-icons/lu";
 
-const IMAGES_BASE_URL= 'https://token.ex.pro/cdn'
+const IMAGES_BASE_URL = "https://token.ex.pro/cdn";
 
 export default function HomePage() {
   const t = useTranslations();
@@ -79,6 +81,15 @@ export default function HomePage() {
 
   return (
     <div>
+      <div className="w-full  flex justify-end ">
+        <Link
+          href={"https://cicada1919.ex.pro"}
+          target="_blank"
+          className="p-1.5 "
+        >
+          <LuCircleHelp size={24} />
+        </Link>
+      </div>
       <div className="flex flex-col items-center justify-center h-screen pb-10 pt-2 text-white text-center ">
         {/* Not Registered Modal */}
         {notRegisteredModal && (

@@ -89,9 +89,6 @@ function Page() {
           <div className="flex items-center text-white gap-4 justify-between w-full p-2">
             <Avatar nickName={firstname || "User"} />
             <LanguageSwitcher />
-            <Link href={"https://cicada1919.ex.pro"} target="_blank">
-              <LuCircleHelp size={24} />
-            </Link>
           </div>
         </div>
         <div className="flex w-full flex-col justify-center items-center px-2 pt-7 gap-4 font-[600] text-[14px] tracking-wider">
