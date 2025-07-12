@@ -89,7 +89,7 @@ const QuestionsPage = () => {
               );
               const isAnswered = answers[questionIdx] !== -1;
               return (
-                <div key={index} className="relative w-fit">
+                <div key={question.id} className="relative w-fit">
                   <div onClick={() => router.push(`/questions/qNum?id=${question.order}`)} style={{ cursor: "pointer" }}>
                     <Image
                       className="rounded-[15px] relative border border-[#C643A8E5]"
