@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { useLoginStoreState } from "./context";
+import { getQuestionImageUrl, shouldUseLocalImages } from "@/lib/apiUtils";
 
 export interface Option {
   id: number;
@@ -44,6 +45,18 @@ function loadAnswersFromLocalStorage(): number[] {
   return stored ? JSON.parse(stored) : [...DEFAULT_ANSWERS];
 }
 
+// Function to process questions and replace image URLs with local ones if needed
+function processQuestions(questions: Question[]): Question[] {
+  if (!shouldUseLocalImages()) {
+    return questions;
+  }
+
+  return questions.map((question, index) => ({
+    ...question,
+    imageUrl: getQuestionImageUrl(question.order),
+  }));
+}
+
 export const useQuestionsStore = create<QuestionsState>((set, get) => ({
   questions: [],
   answers: loadAnswersFromLocalStorage(),
@@ -77,7 +90,11 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
         const sortedQuestions = res.data.data
           .slice()
           .sort((a: Question, b: Question) => a.order - b.order);
-        set({ questions: sortedQuestions, loading: false });
+        
+        // Process questions to use local images if needed
+        const processedQuestions = processQuestions(sortedQuestions);
+        
+        set({ questions: processedQuestions, loading: false });
       } else {
         set({ error: "Failed to fetch questions", loading: false });
       }
@@ -86,7 +103,7 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
       //   set({ questions: JSON.parse(questionsExits), loading: false });
       // }
     } catch (err) {
-      console.log(err);
+      console.error("Error fetching questions:", err);
 
       set({ error: "Failed to fetch questions", loading: false });
     }
