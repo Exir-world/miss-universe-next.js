@@ -71,19 +71,6 @@ const QuestionsPage = () => {
     }
   };
 
-  const images = [
-    // these are hardcoded !
-    "https://token.ex.pro/cdn/questions/Dubaieid/0.jpg",
-    "https://token.ex.pro/cdn/questions/Dubaieid/1.jpg",
-    "https://token.ex.pro/cdn/questions/Dubaieid/2.jpg",
-    "https://token.ex.pro/cdn/questions/Dubaieid/3.jpg",
-    "https://token.ex.pro/cdn/questions/Dubaieid/4.jpg",
-    "https://token.ex.pro/cdn/questions/Dubaieid/5.jpg",
-    "https://token.ex.pro/cdn/questions/Dubaieid/6.jpg",
-    "https://token.ex.pro/cdn/questions/Dubaieid/7.jpg",
-    "https://token.ex.pro/cdn/questions/Dubaieid/8.jpg",
-  ];
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
       <div className="w-full flex items-center justify-start my-4 fixed top-8 px-4 left-0 right-0">
@@ -109,23 +96,17 @@ const QuestionsPage = () => {
                     }
                     style={{ cursor: "pointer" }}
                   >
-                    {/* <img
+                    <Image
                       className="rounded-[15px] relative border border-[#C643A8E5]"
-                      src={images[index]}
+                      src={`/api/image?url=${encodeURIComponent(
+                        `https://token.ex.pro/cdn/questions/Dubaieid/${index}.jpg`
+                      )}`}
                       width={150}
                       height={150}
                       alt="Qpic"
-                    /> */}
-                    <div
-                      className="size-[200px]"
-                      style={{
-                        backgroundImage: `url(${question.imageUrl})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        borderRadius: "15px",
-                        border: "1px solid #C643A8E5",
-                      }}
-                    ></div>
+                      unoptimized
+                      priority={index === 0}
+                    />
                   </div>
                   {isAnswered && (
                     <div className="absolute z-50 bg-black/40 flex items-center justify-center rounded-xl left-0 right-0 top-0 bottom-0">
