@@ -80,7 +80,7 @@ export default function HomePage() {
   };
 
   return (
-    <div>
+    <div> hey babe
       <div className="w-full  flex justify-end ">
         <Link
           href={"https://cicada1919.ex.pro"}
