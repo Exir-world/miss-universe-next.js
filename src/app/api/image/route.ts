@@ -1,61 +1,33 @@
-// /app/api/image/route.ts (app dir) or /pages/api/image.ts (pages dir)
-import { NextRequest, NextResponse } from "next/server";
-import { readFileSync, existsSync } from "fs";
-import { join } from "path";
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const url = searchParams.get("url");
 
-export async function GET(req: NextRequest) {
-  const url = new URL(req.url);
-  const filename = url.searchParams.get("filename") || process.env.NEXT_GAME_NAME;
-
-  if (!filename) {
-    return new NextResponse("Image name is required", { status: 400 });
-  }
-
-  // Try different possible paths for the image
-  const possiblePaths = [
-    join(process.cwd(), "public", "Dubaieid", filename),
-    join(process.cwd(), "public", "images", filename),
-    join(process.cwd(), "public", filename),
-  ];
-
-  let imagePath: string | null = null;
-
-  for (const path of possiblePaths) {
-    if (existsSync(path)) {
-      imagePath = path;
-      break;
-    }
-  }
-
-  if (!imagePath) {
-    return new NextResponse("Image not found", { status: 404 });
+  if (!url || !url.startsWith("https://token.ex.pro")) {
+    return new Response(JSON.stringify({ error: "Invalid URL" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
   try {
-    const imageBuffer = readFileSync(imagePath);
-
-    // Determine content type based on file extension
-    const ext = filename.split(".").pop()?.toLowerCase();
-    let contentType = "image/jpeg";
-
-    if (ext === "webp") {
-      contentType = "image/webp";
-    } else if (ext === "png") {
-      contentType = "image/png";
-    } else if (ext === "gif") {
-      contentType = "image/gif";
-    } else if (ext === "svg") {
-      contentType = "image/svg+xml";
+    const response = await fetch(url);
+    if (!response.ok) {
+      return new Response(JSON.stringify({ error: "Image fetch failed" }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
     }
+    const contentType = response.headers.get("content-type") || "image/jpeg";
+    const buffer = await response.arrayBuffer();
 
-    return new NextResponse(imageBuffer, {
-      headers: {
-        "Content-Type": contentType,
-        "Cache-Control": "public, max-age=31536000", // Cache for 1 year
-      },
+    return new Response(Buffer.from(buffer), {
+      status: 200,
+      headers: { "Content-Type": contentType },
     });
-  } catch (error) {
-    console.error("Error reading image:", error);
-    return new NextResponse("Error reading image", { status: 500 });
+  } catch (err) {
+    return new Response(JSON.stringify({ error: "Image fetch failed" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 }
