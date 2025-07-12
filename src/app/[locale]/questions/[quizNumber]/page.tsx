@@ -151,6 +151,8 @@ function Page() {
             <QuestionImageSkeleton></QuestionImageSkeleton>
           )}
         </div>
+        <div className="">{currentQuestion.imageUrl}</div>
+
         <p className="text-center text-[16px] font-[600] py-3">
           {currentQuestion?.text}
         </p>
