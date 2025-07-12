@@ -23,6 +23,16 @@ const nextConfig: NextConfig = {
         pathname: "/cdn/questions/**",
       },
       {
+        protocol: "https",
+        hostname: "token.ex.pro",
+        pathname: "/cdn/questions/*.jpg",
+      },
+      {
+        protocol: "https",
+        hostname: "token.ex.pro",
+        pathname: "/cdn/questions/*.jpeg",
+      },
+      {
         protocol: "http",
         hostname: "localhost",
         port: "3000",

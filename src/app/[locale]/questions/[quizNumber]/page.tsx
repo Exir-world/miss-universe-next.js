@@ -151,9 +151,9 @@ function Page() {
             <QuestionImageSkeleton></QuestionImageSkeleton>
           )}
         </div>
-        <div className="">{currentQuestion.imageUrl}</div>
+        <div >{currentQuestion.imageUrl}</div>
 
-        <p className="text-center text-[16px] font-[600] py-3">
+        <p className="text-center text-[16px] font-[600] py-3 bg-blue-500">
           {currentQuestion?.text}
         </p>
         <div className="flex flex-col items-center justify-center mt-4 gap-2">
