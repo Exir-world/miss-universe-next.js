@@ -113,7 +113,7 @@ const QuestionsPage = () => {
                       src={images[index]}
                       width={150}
                       height={150}
-                      alt="pic"
+                      alt="Qpic"
                     />
                   </div>
                   {isAnswered && (
