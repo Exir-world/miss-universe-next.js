@@ -36,7 +36,7 @@ const QuestionsPage = () => {
   const { api } = useApi();
   const { questions, loading, fetchQuestions, answers, submitAnswers } =
     useQuestionsStore();
-  const [allQuestions, setAllQuestions] = useState([]);
+  const [allQuestions, setAllQuestions] = useState<Question[]>([]);
 
   const t = useTranslations();
 
@@ -48,7 +48,7 @@ const QuestionsPage = () => {
   }, []);
 
   useEffect(() => {
-    if (questions.length > 0 && allQuestions.length === 0) {
+    if (questions.length > 0) {
       setAllQuestions(questions);
     }
     // Only run when questions changes
@@ -90,25 +90,16 @@ const QuestionsPage = () => {
               const isAnswered = answers[questionIdx] !== -1;
               return (
                 <div key={index} className="relative w-fit">
-                  <Image
-                    className="rounded-[15px] relative border border-[#C643A8E5]"
-                    onClick={() =>
-                      router.push(`/questions/qNum?id=${question.order}`)
-                    }
-                    src={`${question?.imageUrl}`}
-                    width={150}
-                    height={150}
-                    alt="pic"
-                    onError={(event) => {
-                      // Prevent infinite loop by only setting fallback once
-                      if (
-                        event.currentTarget.src !==
-                        window.location.origin + "/vercel.svg"
-                      ) {
-                        event.currentTarget.src = "/vercel.svg";
-                      }
-                    }}
-                  />
+                  <div onClick={() => router.push(`/questions/qNum?id=${question.order}`)} style={{ cursor: "pointer" }}>
+                    <Image
+                      className="rounded-[15px] relative border border-[#C643A8E5]"
+                      src={question.imageUrl}
+                      width={150}
+                      height={150}
+                      alt="pic"
+                      unoptimized
+                    />
+                  </div>
                   {isAnswered && (
                     <div className="absolute z-50 bg-black/40 flex items-center justify-center rounded-xl left-0 right-0 top-0 bottom-0">
                       <span className="text-green-400 text-3xl font-bold">
