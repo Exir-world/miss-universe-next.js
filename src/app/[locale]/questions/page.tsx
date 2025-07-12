@@ -98,9 +98,7 @@ const QuestionsPage = () => {
                 >
                   <Image
                     className="rounded-[15px] relative border border-[#C643A8E5]"
-                    src={`/api/image?url=${encodeURIComponent(
-                      `https://token.ex.pro/cdn/questions/Dubaieid/${index}.jpg`
-                    )}`}
+                    src={`/api/image?url=https://token.ex.pro/cdn/questions/Dubaieid/${index}.jpg`}
                     width={150}
                     height={150}
                     alt="Qpic"
