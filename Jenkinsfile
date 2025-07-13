@@ -22,41 +22,50 @@ pipeline {
             }
         }
 
-        stage('Build & Push for Each Game') {
-            steps {
-                script {
-                    def apps = [
-                        [name: 'dubaieid', gameName: 'Dubaieid', referralUrl: 'https://t.me/dubaieid_ex_pro_bot?start='],
-                        [name: 'atossa', gameName: 'Atossa', referralUrl: 'https://t.me/atossa_ex_pro_bot?start='],
-                        [name: 'santa', gameName: 'Santa', referralUrl: 'https://t.me/santa_ex_pro_bot?start=']
-                        // Add more game configs here as needed
-                    ]
-
-                    for (app in apps) {
-                        def imageTag = "${app.name}-${env.BUILD_NUMBER}"
-                        echo "🚀 Building image for ${app.gameName} with tag ${imageTag}"
-
-                        def customImage = docker.build(
-                            "${IMAGE_NAME}:${imageTag}",
-                            "--build-arg NEXT_PUBLIC_BASE_URL=https://token.ex.pro/api " +
-                            "--build-arg NEXT_PUBLIC_GAME_NAME=${app.gameName} " +
-                            "--build-arg NEXT_GAME_NAME=${app.gameName} " +
-                            "--build-arg NEXT_REFERRAL_URL=${app.referralUrl} " +
-                            "-f Dockerfile ."
-                        )
-
-                        withCredentials([usernamePassword(credentialsId: 'DOCKER_REGISTRY_CREDENTIALS_ID', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                            sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin ${DOCKER_REGISTRY_URL}"
-                        }
-
-                        docker.withRegistry("https://${DOCKER_REGISTRY_URL}", 'DOCKER_REGISTRY_CREDENTIALS_ID') {
-                            customImage.push()
-                            echo "✅ Image pushed: ${IMAGE_NAME}:${imageTag}"
-                        }
-                    }
+    stage('Build & Push for Each Game') {
+        steps {
+            script {
+                def apps = [
+                    [name: 'dubaieid', gameName: 'Dubaieid', referralUrl: 'https://t.me/dubaieid_ex_pro_bot?start='],
+                    [name: 'atossa', gameName: 'Atossa', referralUrl: 'https://t.me/atossa_ex_pro_bot?start='],
+                    [name: 'santa', gameName: 'Santa', referralUrl: 'https://t.me/santa_ex_pro_bot?start=']
+                    // Add more games here if needed
+                ]
+    
+                withCredentials([usernamePassword(credentialsId: 'DOCKER_REGISTRY_CREDENTIALS_ID', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh "echo \$DOCKER_PASS | docker login -u \$DOCKER_USER --password-stdin ${DOCKER_REGISTRY_URL}"
                 }
+    
+                for (app in apps) {
+                    def tag = "${app.name}-${env.BUILD_NUMBER}"
+                    def fullImageName = "${DOCKER_REGISTRY_URL}/${IMAGE_NAME}:${tag}"
+    
+                    echo "🚀 Building image: ${fullImageName}"
+    
+                    def builtImage = docker.build(
+                        fullImageName,
+                        "--build-arg NEXT_PUBLIC_BASE_URL=https://token.ex.pro/api " +
+                        "--build-arg NEXT_PUBLIC_GAME_NAME=${app.gameName} " +
+                        "--build-arg NEXT_GAME_NAME=${app.gameName} " +
+                        "--build-arg NEXT_REFERRAL_URL=${app.referralUrl} " +
+                        "-f Dockerfile ."
+                    )
+    
+                    docker.withRegistry("https://${DOCKER_REGISTRY_URL}", 'DOCKER_REGISTRY_CREDENTIALS_ID') {
+                        builtImage.push()
+                        echo "✅ Pushed: ${fullImageName}"
+                    }
+    
+                    // Optional: Remove local image after push to avoid clutter
+                    sh "docker rmi ${fullImageName} || true"
+                }
+    
+                // Cleanup any dangling images left behind
+                sh "docker image prune -f"
             }
         }
+    }
+
 
         stage('Cleanup Old Docker Images') {
             steps {
