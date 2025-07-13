@@ -59,7 +59,7 @@ pipeline {
                     def latestTag = "1"
                     try {
                         def tags = readJSON text: tagsJson
-                        def numericTags = tags.tags.findAll { it ==~ /^\d+$/ }*.toInteger().sort()
+                        def numericTags = tags.tags.findAll { it ==~ /^\d+$/ }.collect { it.toInteger() }.sort()
                         if (numericTags) {
                             latestTag = (numericTags[-1] + 1).toString()
                         }
