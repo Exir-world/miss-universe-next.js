@@ -1,7 +1,7 @@
 {
   "global": {
     "startGame": "Spiel starten",
-    "withdrawWarn": "Die Transaktionsgebühr für Abhebungen beträgt 6,9 $.",
+    "withdrawWarn": "Die Transaktionsgebühr für Abhebungen beträgt 6,9 Tether.",
     "completeTask": "Aufgabe abschließen",
     "enterUsernameToComplete": "Geben Sie Ihren Benutzernamen ein, um diese Aufgabe abzuschließen",
     "yourUsername": "Ihr Benutzername",

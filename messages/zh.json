@@ -1,7 +1,7 @@
 {
   "global": {
     "startGame": "开始游戏",
-    "withdrawWarn": "提款交易费用为6.9美元。",
+    "withdrawWarn": "提现手续费为6.9泰达币。",
     "completeTask": "完成任务",
     "enterUsernameToComplete": "输入您的用户名以完成此任务",
     "yourUsername": "您的用户名",

@@ -162,7 +162,7 @@ export function createLoginStore(api?: AxiosInstance): StoreApi<LoginStore> {
                 isAuth: true,
                 hasGameSecret: hasSecret,
               });
-
+              const hasJoinedGame = data?.data?.mystery;
               const room = data.data?.mystery?.room;
               const mysteryContent = data.data?.mystery?.mysteryContent;
 
@@ -188,7 +188,10 @@ export function createLoginStore(api?: AxiosInstance): StoreApi<LoginStore> {
           try {
             // Access user data from the store
             const { userData } = get();
-            if (userData.mystery.mysteryContent) return;
+            if (userData?.mystery) {
+              console.log("User already joined the game, skipping joinGame.");
+              return;
+            }
 
             // Get referral code from URL if available
             const urlParams = new URLSearchParams(window.location.search);

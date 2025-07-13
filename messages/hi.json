@@ -1,7 +1,7 @@
 {
   "global": {
     "startGame": "खेल शुरू करें",
-    "withdrawWarn": "निकासी लेनदेन शुल्क $6.9 है।",
+    "withdrawWarn": "वापसी लेनदेन शुल्क 6.9 टेथर है।",
     "completeTask": "कार्य पूरा करें",
     "enterUsernameToComplete": "इस कार्य को पूरा करने के लिए अपना उपयोगकर्ता नाम दर्ज करें",
     "yourUsername": "आपका उपयोगकर्ता नाम",

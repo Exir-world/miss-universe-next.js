@@ -1,7 +1,7 @@
 {
   "global": {
     "startGame": "Iniciar Juego",
-    "withdrawWarn": "La tarifa de transacción de retiro es de $6.9.",
+    "withdrawWarn": "La tarifa de transacción de retiro es de 6.9 Tether.",
     "completeTask": "Completar Tarea",
     "enterUsernameToComplete": "Ingresa tu nombre de usuario para completar esta tarea",
     "yourUsername": "Tu nombre de usuario",

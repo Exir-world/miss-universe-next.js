@@ -1,7 +1,7 @@
 {
   "global": {
     "startGame": "Oyunu Başlat",
-    "withdrawWarn": "Para çekme işlem ücreti $6.9'dur.",
+    "withdrawWarn": "Para çekme işlem ücreti 6,9 Tether'dir.",
     "completeTask": "Görevi Tamamla",
     "enterUsernameToComplete": "Bu görevi tamamlamak için kullanıcı adınızı girin",
     "yourUsername": "Kullanıcı adınız",

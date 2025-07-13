@@ -85,15 +85,15 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
           },
         }
       );
-      if (res.status === 200 || res.status === 201 ) {
+      if (res.status === 200 || res.status === 201) {
         // localStorage.setItem("miss_questions", JSON.stringify(res.data.data));
         const sortedQuestions = res.data.data
           .slice()
           .sort((a: Question, b: Question) => a.order - b.order);
-        
+
         // Process questions to use local images if needed
         const processedQuestions = processQuestions(sortedQuestions);
-        
+
         set({ questions: processedQuestions, loading: false });
       } else {
         set({ error: "Failed to fetch questions", loading: false });
@@ -121,9 +121,10 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
 
   submitAnswers: async (api) => {
     try {
-      const loginStore = useLoginStoreState();
+      // const loginStore = useLoginStoreState();
       const answer = get().answers;
       let answers: { answers: number[] };
+
       if (answer.length == 9) {
         answers = { answers: Array(9).fill(1) };
 
@@ -139,7 +140,7 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
           }
         );
         if (res.status == 200 || res.status == 201) {
-          await loginStore.getMe();
+          // await loginStore.getMe();
 
           return res;
         }
