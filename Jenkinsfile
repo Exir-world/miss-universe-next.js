@@ -7,23 +7,44 @@ pipeline {
         GIT_REPO_URL = 'git@github.com:Exir-world/miss-universe-next.js.git'
         TELEGRAM_CHAT_ID = '-1002585379912'
         TELEGRAM_BOT_TOKEN = '8027466900:AAG6Q_0p6rSeEXtg8e0gDcYJmIJ_R7zBVew'
-        NEXT_PUBLIC_BASE_URL = 'https://token.ex.pro/api'
-        NEXT_PUBLIC_GAME_NAME = 'Dubaieid'
-        NEXT_GAME_NAME='Dubaieid'
-        NEXT_REFERRAL_URL='https://t.me/dubaieid_ex_pro_bot?start='
+    }
 
+    parameters {
+        choice(name: 'APP', choices: ['dubaieid', 'missuniverse', 'mevlana', 'santa', 'satoshi', 'churchill', 'tesla'], description: 'Select the app to deploy')
     }
 
     stages {
         stage('Cleanup') {
             steps {
-                deleteDir() // deletes workspace content
+                deleteDir()
             }
         }
 
         stage('Checkout Code') {
             steps {
-                checkout scm 
+                checkout scm
+            }
+        }
+
+        stage('Set Environment Variables') {
+            steps {
+                script {
+                    def envs = [
+                        dubaieid:    [GAME_NAME: 'Dubaieid',    BASE_URL: 'https://token.ex.pro/api', REFERRAL_URL: 'https://t.me/dubaieid_ex_pro_bot?start='],
+                        missuniverse:[GAME_NAME: 'Atossa',      BASE_URL: 'https://token.ex.pro/api', REFERRAL_URL: 'https://t.me/atossa_ex_pro_bot?start='],
+                        mevlana:     [GAME_NAME: 'Oros',        BASE_URL: 'https://token.ex.pro/api', REFERRAL_URL: 'https://t.me/mevlana_ex_pro_bot?start='],
+                        santa:       [GAME_NAME: 'Santa',       BASE_URL: 'https://token.ex.pro/api', REFERRAL_URL: 'https://t.me/santa_ex_pro_bot?start='],
+                        satoshi:     [GAME_NAME: 'Satoshi',     BASE_URL: 'https://token.ex.pro/api', REFERRAL_URL: 'https://t.me/satoshi_ex_pro_bot?start='],
+                        churchill:   [GAME_NAME: 'Churchill',   BASE_URL: 'https://token.ex.pro/api', REFERRAL_URL: 'https://t.me/churchill_ex_pro_bot?start='],
+                        tesla:       [GAME_NAME: 'Tesla',       BASE_URL: 'https://token.ex.pro/api', REFERRAL_URL: 'https://t.me/tesla_ex_pro_bot?start=']
+                    ]
+
+                    def selected = envs[params.APP]
+                    env.NEXT_PUBLIC_GAME_NAME = selected.GAME_NAME
+                    env.NEXT_PUBLIC_BASE_URL = selected.BASE_URL
+                    env.NEXT_GAME_NAME = selected.GAME_NAME
+                    env.NEXT_REFERRAL_URL = selected.REFERRAL_URL
+                }
             }
         }
 
@@ -38,16 +59,8 @@ pipeline {
                     def latestTag = "1"
                     try {
                         def tags = readJSON text: tagsJson
-                        def numericTags = []
-
-                        for (tag in tags.tags) {
-                            if (tag ==~ /^\d+$/) {
-                                numericTags << tag.toInteger()
-                            }
-                        }
-
-                        numericTags.sort()
-                        if (numericTags && numericTags.size() > 0) {
+                        def numericTags = tags.tags.findAll { it ==~ /^\d+$/ }*.toInteger().sort()
+                        if (numericTags) {
                             latestTag = (numericTags[-1] + 1).toString()
                         }
                     } catch (Exception e) {
@@ -111,9 +124,10 @@ pipeline {
         success {
             script {
                 def lastCommitMessage = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
-                def message = "✅ your container is alive!!! \n" +
-                              "Commit: ${lastCommitMessage} \n" +
-                              "Image Name: ${env.IMAGE_NAME}:${env.IMAGE_TAG}"
+                def message = "✅ your container is alive!!!\n" +
+                              "App: ${params.APP}\n" +
+                              "Commit: ${lastCommitMessage}\n" +
+                              "Image: ${env.IMAGE_NAME}:${env.IMAGE_TAG}"
 
                 sh """
                 curl -s -X POST https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage \\
@@ -127,9 +141,10 @@ pipeline {
         failure {
             script {
                 def lastCommitMessage = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
-                def message = "❌ Pipeline is dead! \n" +
-                              "Commit: ${lastCommitMessage} \n" +
-                              "Image Name: ${env.IMAGE_NAME}:${env.IMAGE_TAG}"
+                def message = "❌ Pipeline failed!\n" +
+                              "App: ${params.APP}\n" +
+                              "Commit: ${lastCommitMessage}\n" +
+                              "Image: ${env.IMAGE_NAME}:${env.IMAGE_TAG}"
 
                 sh """
                 curl -s -X POST https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage \\
