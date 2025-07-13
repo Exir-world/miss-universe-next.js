@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
 import exclamation from "../../public/excalmation.svg";
 
-const WithdrawButton = () => {
+const WithdrawButton = ({ onTransaction }: any) => {
   const [showModal, setShowModal] = useState(false);
   const [amount, setAmount] = useState("");
   const [wallet, setWallet] = useState("");
@@ -134,7 +134,9 @@ const WithdrawButton = () => {
   const handleOtpClick = useCallback(async () => {
     setOtpLoading(true);
     try {
-      const res = await api.post("/otp/generate");
+      const res = await api.post("/otp/generate", {
+        type: "email",
+      });
       setOtpResponse(res.data);
       setOtpTimer(60);
     } catch (e) {
@@ -161,7 +163,6 @@ const WithdrawButton = () => {
     //   return;
     // }
     setRegisterLoading(true);
-    console.log("hey");
 
     try {
       const res = await api.post("/mainuser/register", {
@@ -196,7 +197,6 @@ const WithdrawButton = () => {
       otp,
       description: description,
     };
-    console.log(data, "from");
 
     try {
       const res = await api.post(`withdraw-requests/with-deposit`, data, {
@@ -207,6 +207,7 @@ const WithdrawButton = () => {
       if (res.status === 200 || res.status === 201) {
         setShowModal(false);
         toast.success(t("withdraw.registerSuccess"));
+        onTransaction(true);
       } else {
         toast.error(t("withdraw.registerFailed"));
       }
@@ -221,8 +222,7 @@ const WithdrawButton = () => {
     try {
       const { data } = await api.get("/coins");
       setCoinList(data.data);
-      console.log(data.data);
-      setFeeCoinId("1");
+      setFeeCoinId("3");
     } catch (err) {
       console.error(err);
     }

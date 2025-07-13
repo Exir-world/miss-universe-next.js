@@ -30,7 +30,7 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "token.ex.pro",
-        pathname: "/cdn/questions/*.jpeg",
+        pathname: "/**",
       },
       {
         protocol: "http",

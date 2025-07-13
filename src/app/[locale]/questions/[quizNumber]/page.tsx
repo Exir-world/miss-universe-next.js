@@ -118,7 +118,6 @@ function Page() {
   if (!currentQuestion) {
     return <Spinner />;
   }
-
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -137,11 +136,10 @@ function Page() {
           </button>
         </div>
         <div className="w-full h-[300px] relative">
-          {currentQuestion.imageUrl &&
-          typeof currentQuestion.imageUrl === "string" ? (
+          {currentQuestion.imageUrl ? (
             <Image
               className="border rounded-lg"
-              src={currentQuestion.imageUrl}
+              src={`/api/image?url=${currentQuestion.imageUrl}`}
               alt="quiz"
               layout="fill"
               objectFit="contain"
@@ -151,9 +149,7 @@ function Page() {
             <QuestionImageSkeleton></QuestionImageSkeleton>
           )}
         </div>
-        <div >{currentQuestion.imageUrl}</div>
-
-        <p className="text-center text-[16px] font-[600] py-3 bg-blue-500">
+        <p className="text-center text-[16px] font-[600] py-3 ">
           {currentQuestion?.text}
         </p>
         <div className="flex flex-col items-center justify-center mt-4 gap-2">
