@@ -3,6 +3,7 @@ import Avatar from "@/components/avatar";
 import DoneTasks from "@/components/doneTasks";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ClaimRewardButton from "@/components/profileWinnButton";
+import TransactionDoneModal from "@/components/transactionDone";
 import WithdrawButton from "@/components/withdrawButton";
 import { useApi } from "@/context/api";
 import { useTranslations } from "next-intl";
@@ -40,6 +41,7 @@ function Page() {
   const [coinPrice, setCoinPrice] = useState<any>(null);
   const [walletData, setWalletData] = useState<Wallet[]>([]);
 
+  const [transactionDone, setTransactionDone] = useState(false);
   const getWalletData = async () => {
     try {
       const res = await api.get("/wallets/user/tg");
@@ -118,7 +120,6 @@ function Page() {
             {walletData.length > 0 ? (
               <>
                 {walletData.map((wallet, id) => {
-                  console.log(wallet, "walletData");
                   return (
                     <div className="w-full flex items-center gap-2" key={id}>
                       <Image
@@ -141,7 +142,12 @@ function Page() {
           </div>
         </div>
 
-        <WithdrawButton></WithdrawButton>
+        <WithdrawButton onTransaction={setTransactionDone}></WithdrawButton>
+
+        <TransactionDoneModal
+          isOpen={transactionDone}
+          onClose={() => setTransactionDone(false)}
+        ></TransactionDoneModal>
       </div>
     </div>
   );

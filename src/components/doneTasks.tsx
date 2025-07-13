@@ -59,7 +59,7 @@ export default function DoneTasks() {
       <div className="flex w-full justify-between items-center">
         <div className="flex items-center gap-2">
           <FaUsers size={24} />
-          {t("global.friends")} {data?.referralsCount}
+          {t("global.friends")} {`(${data?.referralsCount})`}
         </div>
         <p>{data?.referralRewardsAmount} EX9630</p>
       </div>
@@ -68,7 +68,7 @@ export default function DoneTasks() {
         <div className="flex items-center gap-2">
           <BiTask size={24} />
           {t("global.tasks")}
-          {data?.doneTasksCount}/{data?.tasksCount}
+          {`(${data?.doneTasksCount}/${data?.tasksCount})`}
         </div>
         <p>{data?.taskRewardsAmount} EX9630</p>
       </div>
@@ -77,7 +77,7 @@ export default function DoneTasks() {
         <div className="flex items-center gap-2">
           <IoReceiptOutline size={24} />
           {t("global.withdraw")}
-          {data?.withdrawCount}
+          {`(${data?.withdrawCount})`}
         </div>
         <Link href="/transactionHistory" className="text-blue-600">
           {t("global.history")}

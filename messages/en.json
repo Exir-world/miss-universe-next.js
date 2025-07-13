@@ -73,7 +73,9 @@
     "room": "Room",
     "chair": "Chair",
     "back": "Back",
-    "noFriends" :"You have not add any Friends"
+    "noFriends": "You have not add any Friends",
+    "transactionDone": "Transaction completed successfully.",
+    "backToTransactions": "View Transaction History"
   },
   "home": {
     "success": "Congrats!",

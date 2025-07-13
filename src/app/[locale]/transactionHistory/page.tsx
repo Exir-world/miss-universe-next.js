@@ -34,7 +34,7 @@ export default function TransactionHistory() {
   const fetchTransactionHistory = useCallback(async () => {
     try {
       // Try the correct API endpoint first
-      const res = await api.get("/mainuser/withdraw-requests");
+      const res = await api.get("/withdraw-requests");
       if (res.status === 200) {
         setTransactionHistory(res.data?.data || []);
       }
