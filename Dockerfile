@@ -42,7 +42,7 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules ./node_modules
 
 # If you use next.config.js or other static configs at runtime:
-COPY --from=builder /app/next.config.js ./next.config.js
+# COPY --from=builder /app/next.config.js ./next.config.js
 
 EXPOSE 3000
 
