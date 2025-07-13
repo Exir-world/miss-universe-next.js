@@ -9,6 +9,7 @@ ARG NEXT_PUBLIC_GAME_NAME
 ARG NEXT_REFERRAL_URL
 ARG NEXT_GAME_NAME
 
+# Export them so Next.js can embed them
 ENV NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
 ENV NEXT_PUBLIC_GAME_NAME=${NEXT_PUBLIC_GAME_NAME}
 ENV NEXT_REFERRAL_URL=${NEXT_REFERRAL_URL}
@@ -18,10 +19,10 @@ ENV NEXT_GAME_NAME=${NEXT_GAME_NAME}
 COPY package.json package-lock.json ./
 RUN npm install --legacy-peer-deps
 
-# Copy source files
+# Copy application source
 COPY . .
 
-# Build the Next.js app
+# Build the Next.js app (envs will be embedded here)
 RUN npm run build
 
 # ---------- Production Stage ----------
@@ -31,13 +32,17 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
-# Copy only what's needed for runtime
+# Copy necessary files
 COPY package.json package-lock.json ./
 RUN npm install --legacy-peer-deps --only=production
 
+# Copy build artifacts and public assets
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules ./node_modules
+
+# If you use next.config.js or other static configs at runtime:
+COPY --from=builder /app/next.config.js ./next.config.js
 
 EXPOSE 3000
 
