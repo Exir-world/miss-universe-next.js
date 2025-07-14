@@ -191,5 +191,18 @@
     "enterUsernameToComplete": "أدخل اسم المستخدم الخاص بك لإكمال هذه المهمة",
     "yourUsername": "اسم المستخدم الخاص بك",
     "complete": "تم إكمال المهمة بنجاح!"
+  },
+  "formValidations": {
+    "phoneRequired": "رقم الهاتف مطلوب.",
+    "emailRequired": "البريد الإلكتروني مطلوب.",
+    "invalidEmail": "يرجى إدخال عنوان بريد إلكتروني صالح.",
+    "typeError": "نطاق البريد الإلكتروني غير صالح.",
+    "otp": "يجب أن يتكون رمز OTP من 3 أرقام على الأقل.",
+    "amountRequired": "المبلغ مطلوب.",
+    "invalidNumber": "أدخل رقمًا إيجابيًا صالحًا.",
+    "otpRequired": "رمز OTP مطلوب.",
+    "invalidAddresss": "أدخل عنوان سولانا صالحًا.",
+    "walletRequired": "عنوان المحفظة مطلوب.",
+    "otpFailed": "فشل إرسال OTP. يرجى المحاولة مرة أخرى."
   }
 }

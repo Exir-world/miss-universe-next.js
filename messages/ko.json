@@ -191,5 +191,18 @@
     "enterUsernameToComplete": "태스크를 완료하려면 사용자 이름을 입력하세요",
     "yourUsername": "사용자 이름",
     "complete": "태스크가 성공적으로 완료되었습니다!"
+  },
+  "formValidations": {
+    "phoneRequired": "전화번호가 필요합니다.",
+    "emailRequired": "이메일이 필요합니다.",
+    "invalidEmail": "유효한 이메일 주소를 입력해 주세요.",
+    "typeError": "유효하지 않은 이메일 도메인입니다.",
+    "otp": "OTP는 최소 3자리 숫자여야 합니다.",
+    "amountRequired": "금액이 필요합니다.",
+    "invalidNumber": "유효한 양수를 입력해 주세요.",
+    "otpRequired": "OTP 코드가 필요합니다.",
+    "invalidAddresss": "유효한 Solana 주소를 입력해 주세요.",
+    "walletRequired": "지갑 주소가 필요합니다.",
+    "otpFailed": "OTP 전송에 실패했습니다. 다시 시도해 주세요."
   }
 }

@@ -191,5 +191,18 @@
     "enterUsernameToComplete": "Geben Sie Ihren Benutzernamen ein, um diese Aufgabe abzuschließen",
     "yourUsername": "Ihr Benutzername",
     "complete": "Aufgabe erfolgreich abgeschlossen!"
+  },
+  "formValidations": {
+    "phoneRequired": "Telefonnummer ist erforderlich.",
+    "emailRequired": "E-Mail ist erforderlich.",
+    "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+    "typeError": "Ungültige E-Mail-Domäne.",
+    "otp": "OTP muss mindestens 3 Ziffern haben.",
+    "amountRequired": "Betrag ist erforderlich.",
+    "invalidNumber": "Geben Sie eine gültige positive Zahl ein.",
+    "otpRequired": "OTP-Code ist erforderlich.",
+    "invalidAddresss": "Geben Sie eine gültige Solana-Adresse ein.",
+    "walletRequired": "Wallet-Adresse ist erforderlich.",
+    "otpFailed": "OTP konnte nicht gesendet werden. Bitte versuchen Sie es erneut."
   }
 }

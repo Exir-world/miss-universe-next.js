@@ -191,5 +191,18 @@
     "enterUsernameToComplete": "タスクを完了するにはユーザー名を入力してください",
     "yourUsername": "ユーザー名",
     "complete": "タスクが正常に完了しました！"
+  },
+  "formValidations": {
+    "phoneRequired": "電話番号が必要です。",
+    "emailRequired": "メールアドレスが必要です。",
+    "invalidEmail": "有効なメールアドレスを入力してください。",
+    "typeError": "無効なメールドメインです。",
+    "otp": "OTPは3桁以上である必要があります。",
+    "amountRequired": "金額が必要です。",
+    "invalidNumber": "有効な正の数を入力してください。",
+    "otpRequired": "OTPコードが必要です。",
+    "invalidAddresss": "有効なSolanaアドレスを入力してください。",
+    "walletRequired": "ウォレットアドレスが必要です。",
+    "otpFailed": "OTPの送信に失敗しました。もう一度お試しください。"
   }
 }
