@@ -56,23 +56,43 @@ const WithdrawButton = ({ onTransaction }: any) => {
 
   // Validators
   const validateAmount = (value: string) => {
-    if (!value) return "Amount is required.";
+    if (!value) return t("formValidations.amountRequired");
     const num = Number(value);
-    if (isNaN(num) || num <= 0) return "Enter a valid positive number.";
+    if (isNaN(num) || num <= 0) return t("formValidations.invalidNumber");
     return "";
   };
 
   const validateWallet = (value: string) => {
-    if (!value) return "Wallet address is required.";
+    if (!value) return t("formValidations.walletRequired");
     // Simple Solana address check (base58, 32-44 chars)
     if (!/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(value))
-      return "Enter a valid Solana address.";
+      return t("formValidations.invalidAddresss");
     return "";
   };
 
   const validateOtp = (value: string) => {
-    if (value.length < 3 || !value) return "OTP code is required.";
-    return "OTP must be at least 3 digits.";
+    if (value.length < 3 || !value) return t("formValidations.otpRequired");
+    return t("formValidations.otp");
+  };
+
+  const validateEmail = (value: string) => {
+    if (!value || value.trim() === "") {
+      setRegisterError(t("formValidations.emailRequired"));
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(value)) {
+      setRegisterError(t("formValidations.invalidEmail"));
+      return;
+    }
+
+    const domain = value.split("@")[1];
+    if (!domain.includes(".")) {
+      setRegisterError(t("formValidations.typeError"));
+      return;
+    }
+    return value;
   };
 
   const identifyCoinId = (coin: string): string | null => {
@@ -143,7 +163,7 @@ const WithdrawButton = ({ onTransaction }: any) => {
       console.log(e);
       setErrors((prev) => ({
         ...prev,
-        otp: "Failed to send OTP. Please try again.",
+        otp: t("formValidations.otpFailed"),
       }));
     }
     setOtpLoading(false);
@@ -152,24 +172,23 @@ const WithdrawButton = ({ onTransaction }: any) => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setRegisterError(null);
-    // if (!registerPhone) {
-    //   setRegisterError("Phone number is required.");
-    //   toast.error("Phone number is required.");
-    //   return;
-    // }
-    // if (!registerEmail) {
-    //   setRegisterError("Email is required.");
-    //   toast.error("Email is required.");
-    //   return;
-    // }
+    if (!registerPhone) {
+      setRegisterError(t("formValidations.phoneRequired"));
+      toast.error(t("formValidations.phoneRequired"));
+      return;
+    }
+    if (!registerEmail) {
+      setRegisterError(t("formValidations.emailRequired"));
+      toast.error(t("formValidations.emailRequired"));
+      return;
+    }
     setRegisterLoading(true);
 
     try {
       const res = await api.post("/mainuser/register", {
         phoneNumber: registerPhone,
-        email: registerEmail,
+        email: validateEmail(registerEmail),
       });
-      console.log(res.data);
 
       setRegisterStep("withdraw");
       toast.success("Registration successful!");

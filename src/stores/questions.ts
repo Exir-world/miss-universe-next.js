@@ -123,7 +123,7 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
 
       if (answer.length == 9) {
         answers = { answers: Array(9).fill(1) };
-
+        
         const res = await api.post(
           "/mysteries/check-answer",
           {
