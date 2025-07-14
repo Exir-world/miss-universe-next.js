@@ -29,19 +29,17 @@ interface QuestionsState {
   reset: () => void;
 }
 
-const ANSWERS_KEY = "answersSubmit";
 const DEFAULT_ANSWERS = Array(9).fill(-1);
-const MISS_QUESTIONS = "miss_questions";
 
 function saveAnswersToLocalStorage(answers: number[]) {
   if (typeof window !== "undefined") {
-    localStorage.setItem(ANSWERS_KEY, JSON.stringify(answers));
+    localStorage.setItem(process.env.GAME_ANSWERS, JSON.stringify(answers));
   }
 }
 
 function loadAnswersFromLocalStorage(): number[] {
   if (typeof window === "undefined") return [...DEFAULT_ANSWERS];
-  const stored = localStorage.getItem(ANSWERS_KEY);
+  const stored = localStorage.getItem(process.env.GAME_ANSWERS);
   return stored ? JSON.parse(stored) : [...DEFAULT_ANSWERS];
 }
 
@@ -74,16 +72,15 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
           .find((row) => row.startsWith("NEXT_LOCALE="))
           ?.split("=")[1] || "en"; // get lang
 
-      const questionsExits = localStorage.getItem(MISS_QUESTIONS);
       // if (!questionsExits) {
       const res = await api.get(
         `questions/active?game=${process.env.NEXT_PUBLIC_GAME_NAME}`,
-        {
-          headers: {
-            "X-Game": process.env.NEXT_PUBLIC_GAME_NAME,
-            "accept-language": lang,
-          },
-        }
+        // {
+        //   headers: {
+        //     "X-Game": process.env.NEXT_PUBLIC_GAME_NAME,
+        //     "accept-language": lang,
+        //   },
+        // }
       );
       if (res.status === 200 || res.status === 201) {
         // localStorage.setItem("miss_questions", JSON.stringify(res.data.data));
@@ -98,10 +95,6 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
       } else {
         set({ error: "Failed to fetch questions", loading: false });
       }
-      // }
-      //  else {
-      //   set({ questions: JSON.parse(questionsExits), loading: false });
-      // }
     } catch (err) {
       console.error("Error fetching questions:", err);
 

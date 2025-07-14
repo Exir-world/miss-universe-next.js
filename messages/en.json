@@ -1,6 +1,7 @@
 {
   "global": {
     "startGame": "Start Game",
+    "unregisteredWithdrawButton":"Register and Withdraw",
     "withdrawWarn": "The withdrawal transaction fee is 6.9 Tether.",
     "completeTask": "Complete Task",
     "enterUsernameToComplete": "Enter your username to complete this task",
@@ -14,7 +15,7 @@
     "follow": "Follow",
     "visit": "Visit",
     "noTransactionsFound": "No transactions found.",
-    "transactionHistory": "Transaction History",
+    "transactionHistory": "Withdrawal History",
     "amountRequired": "Amount is required.",
     "amountInvalid": "Enter a valid positive number.",
     "walletRequired": "Wallet address is required.",
@@ -64,7 +65,7 @@
     "registerNow": "Register Now",
     "profile": "Profile",
     "tasks": "Tasks",
-    "transactionHistoryTitle": "Transaction History",
+    "transactionHistoryTitle": "Withdrawal History",
     "tapOnMe": "Tap on ME!",
     "processing": "Processing...",
     "pending": "Pending",
@@ -75,7 +76,7 @@
     "back": "Back",
     "noFriends": "You have not add any Friends",
     "transactionDone": "Transaction completed successfully.",
-    "backToTransactions": "View Transaction History"
+    "backToTransactions": "View Withdrawal History"
   },
   "home": {
     "success": "Congrats!",
@@ -141,9 +142,9 @@
     "noCompletedTasks": "No Completed Tasks"
   },
   "transaction": {
-    "history": "Transaction History",
+    "history": "Withdrawal History",
     "noTransactions": "No transactions found.",
-    "title": "Transaction History"
+    "title": "Withdrawal History"
   },
   "profile": {
     "profile": "Profile",

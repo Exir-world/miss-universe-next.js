@@ -2,6 +2,7 @@
 import Avatar from "@/components/avatar";
 import DoneTasks from "@/components/doneTasks";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import PhoneInput from "@/components/phoneNumberInput/PhoneInput";
 import ClaimRewardButton from "@/components/profileWinnButton";
 import TransactionDoneModal from "@/components/transactionDone";
 import WithdrawButton from "@/components/withdrawButton";

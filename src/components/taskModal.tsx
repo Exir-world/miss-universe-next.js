@@ -79,7 +79,7 @@ export const TaskModal: React.FC<TaskModalProps> = ({
                 {t("taskModal.enterUsernameToComplete")}
               </p>
 
-              <input
+              {/* <input
                 type="text"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
@@ -88,7 +88,7 @@ export const TaskModal: React.FC<TaskModalProps> = ({
                 className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200"
                 disabled={loading}
                 autoFocus
-              />
+              /> */}
 
               <button
                 onClick={handleSubmit}

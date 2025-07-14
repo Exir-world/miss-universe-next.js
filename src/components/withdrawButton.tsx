@@ -259,7 +259,9 @@ const WithdrawButton = ({ onTransaction }: any) => {
         }}
         className="px-5 py-2 w-full bg-transparent rounded-full shadow-md border-2 border-[#FF4ED3] text-white"
       >
-        {t("profile.withdraw")}
+        {hasRegisterPId
+          ? t("profile.withdraw")
+          : t("global.unregisteredWithdrawButton")}
       </button>
 
       <AnimatePresence>
