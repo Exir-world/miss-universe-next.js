@@ -33,13 +33,16 @@ const DEFAULT_ANSWERS = Array(9).fill(-1);
 
 function saveAnswersToLocalStorage(answers: number[]) {
   if (typeof window !== "undefined") {
-    localStorage.setItem(process.env.GAME_ANSWERS, JSON.stringify(answers));
+    localStorage.setItem(
+      `answers_${process.env.GAME_ANSWERS}`,
+      JSON.stringify(answers)
+    );
   }
 }
 
 function loadAnswersFromLocalStorage(): number[] {
   if (typeof window === "undefined") return [...DEFAULT_ANSWERS];
-  const stored = localStorage.getItem(process.env.GAME_ANSWERS);
+  const stored = localStorage.getItem(`answers_${process.env.GAME_ANSWERS}`);
   return stored ? JSON.parse(stored) : [...DEFAULT_ANSWERS];
 }
 
@@ -74,7 +77,7 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
 
       // if (!questionsExits) {
       const res = await api.get(
-        `questions/active?game=${process.env.NEXT_PUBLIC_GAME_NAME}`,
+        `questions/active?game=${process.env.NEXT_PUBLIC_GAME_NAME}`
         // {
         //   headers: {
         //     "X-Game": process.env.NEXT_PUBLIC_GAME_NAME,
