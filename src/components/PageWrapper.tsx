@@ -98,7 +98,7 @@ export default function PageWrapper({
         {/* Page content */}
         <div
           key={pathname}
-          className="pb-32 max-w-2xl mx-auto w-full transition-all duration-500 animate-fade-slide"
+          className="pb-24 max-w-2xl mx-auto w-full transition-all duration-500 animate-fade-slide"
         >
           {children}
           {<BottomNavbar hasGameSecret={hasGameSecret} />}

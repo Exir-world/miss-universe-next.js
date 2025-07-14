@@ -36,9 +36,8 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    console.log(value,'4');
     setPhoneNumber(value);
-    onChange(value);
+    onChange(selectedCountry.telephoneCode.concat(value));
 
     if (value && !validatePhoneNumber(value)) {
       setError("Please enter a valid phone number (7-15 digits)");
