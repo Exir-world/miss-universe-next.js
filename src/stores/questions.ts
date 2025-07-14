@@ -34,7 +34,7 @@ const DEFAULT_ANSWERS = Array(9).fill(-1);
 function saveAnswersToLocalStorage(answers: number[]) {
   if (typeof window !== "undefined") {
     localStorage.setItem(
-      `answers_${process.env.GAME_ANSWERS}`,
+      `answers_${process.env.NEXT_GAME_NAME}`,
       JSON.stringify(answers)
     );
   }
@@ -42,7 +42,7 @@ function saveAnswersToLocalStorage(answers: number[]) {
 
 function loadAnswersFromLocalStorage(): number[] {
   if (typeof window === "undefined") return [...DEFAULT_ANSWERS];
-  const stored = localStorage.getItem(`answers_${process.env.GAME_ANSWERS}`);
+  const stored = localStorage.getItem(`answers_${process.env.NEXT_GAME_NAME}`);
   return stored ? JSON.parse(stored) : [...DEFAULT_ANSWERS];
 }
 

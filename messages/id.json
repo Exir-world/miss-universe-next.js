@@ -191,5 +191,18 @@
     "enterUsernameToComplete": "Masukkan nama pengguna Anda untuk menyelesaikan tugas ini",
     "yourUsername": "Nama pengguna Anda",
     "complete": "Tugas berhasil diselesaikan!"
+  },
+  "formValidations": {
+    "phoneRequired": "Nomor telepon diperlukan.",
+    "emailRequired": "Email diperlukan.",
+    "invalidEmail": "Harap masukkan alamat email yang valid.",
+    "typeError": "Domain email tidak valid.",
+    "otp": "OTP harus terdiri dari minimal 3 digit.",
+    "amountRequired": "Jumlah diperlukan.",
+    "invalidNumber": "Masukkan nomor positif yang valid.",
+    "otpRequired": "Kode OTP diperlukan.",
+    "invalidAddresss": "Masukkan alamat Solana yang valid.",
+    "walletRequired": "Alamat dompet diperlukan.",
+    "otpFailed": "Gagal mengirim OTP. Silakan coba lagi."
   }
 }

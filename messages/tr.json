@@ -191,5 +191,18 @@
     "enterUsernameToComplete": "Bu görevi tamamlamak için kullanıcı adınızı girin",
     "yourUsername": "Kullanıcı adınız",
     "complete": "Görev başarıyla tamamlandı!"
+  },
+  "formValidations": {
+    "phoneRequired": "Telefon numarası gereklidir.",
+    "emailRequired": "E-posta gereklidir.",
+    "invalidEmail": "Lütfen geçerli bir e-posta adresi girin.",
+    "typeError": "Geçersiz e-posta alanı.",
+    "otp": "OTP en az 3 haneli olmalıdır.",
+    "amountRequired": "Miktar gereklidir.",
+    "invalidNumber": "Geçerli bir pozitif sayı girin.",
+    "otpRequired": "OTP kodu gereklidir.",
+    "invalidAddresss": "Geçerli bir Solana adresi girin.",
+    "walletRequired": "Cüzdan adresi gereklidir.",
+    "otpFailed": "OTP gönderilemedi. Lütfen tekrar deneyin."
   }
 }

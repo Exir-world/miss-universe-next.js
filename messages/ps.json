@@ -191,5 +191,18 @@
     "enterUsernameToComplete": "د دې دندې د بشپړولو لپاره خپل کارن-نوم دننه کړئ",
     "yourUsername": "ستاسو کارن-نوم",
     "complete": "دنده په بریالیتوب سره بشپړه شوه!"
+  },
+  "formValidations": {
+    "phoneRequired": "د تلیفون شمیره اړینه ده.",
+    "emailRequired": "برېښنالیک اړین دی.",
+    "invalidEmail": "مهرباني وکړئ یو معتبر برېښنالیک آدرس دننه کړئ.",
+    "typeError": "نامعتبر برېښنالیک ډومین.",
+    "otp": "OTP باید لږ تر لږه ۳ عدده وي.",
+    "amountRequired": "مقدار اړین دی.",
+    "invalidNumber": "یو معتبر مثبت شمېر دننه کړئ.",
+    "otpRequired": "د OTP کوډ اړین دی.",
+    "invalidAddresss": "یو معتبر سولانا آدرس دننه کړئ.",
+    "walletRequired": "د والټ آدرس اړین دی.",
+    "otpFailed": "د OTP لیږلو کې ناکامي. مهرباني وکړئ بیا هڅه وکړئ."
   }
 }

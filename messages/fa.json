@@ -191,5 +191,18 @@
     "enterUsernameToComplete": "برای تکمیل این وظیفه، نام کاربری خود را وارد کنید",
     "yourUsername": "نام کاربری شما",
     "complete": "وظیفه با موفقیت تکمیل شد!"
+  },
+  "formValidations": {
+    "phoneRequired": "شماره تلفن الزامی است.",
+    "emailRequired": "ایمیل الزامی است.",
+    "invalidEmail": "لطفاً یک آدرس ایمیل معتبر وارد کنید.",
+    "typeError": "دامنه ایمیل نامعتبر است.",
+    "otp": "کد OTP باید حداقل 3 رقم باشد.",
+    "amountRequired": "مقدار الزامی است.",
+    "invalidNumber": "یک شماره مثبت معتبر وارد کنید.",
+    "otpRequired": "کد OTP الزامی است.",
+    "invalidAddresss": "یک آدرس سولانا معتبر وارد کنید.",
+    "walletRequired": "آدرس کیف پول الزامی است.",
+    "otpFailed": "ارسال OTP ناموفق بود. لطفاً دوباره امتحان کنید."
   }
 }

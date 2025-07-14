@@ -190,5 +190,18 @@
     "enterUsernameToComplete": "Ingresa tu nombre de usuario para completar esta tarea",
     "yourUsername": "Tu nombre de usuario",
     "complete": "¡Tarea completada con éxito!"
+  },
+  "formValidations": {
+    "phoneRequired": "El número de teléfono es obligatorio.",
+    "emailRequired": "El correo electrónico es obligatorio.",
+    "invalidEmail": "Por favor, introduce una dirección de correo electrónico válida.",
+    "typeError": "Dominio de correo electrónico no válido.",
+    "otp": "El OTP debe tener al menos 3 dígitos.",
+    "amountRequired": "El monto es obligatorio.",
+    "invalidNumber": "Introduce un número positivo válido.",
+    "otpRequired": "El código OTP es obligatorio.",
+    "invalidAddresss": "Introduce una dirección de Solana válida.",
+    "walletRequired": "La dirección de la billetera es obligatoria.",
+    "otpFailed": "No se pudo enviar el OTP. Por favor, intenta de nuevo."
   }
 }

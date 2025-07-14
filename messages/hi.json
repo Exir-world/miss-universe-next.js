@@ -191,5 +191,18 @@
     "enterUsernameToComplete": "इस कार्य को पूरा करने के लिए अपना उपयोगकर्ता नाम दर्ज करें",
     "yourUsername": "आपका उपयोगकर्ता नाम",
     "complete": "कार्य सफलतापूर्वक पूरा हुआ!"
+  },
+  "formValidations": {
+    "phoneRequired": "फोन नंबर आवश्यक है।",
+    "emailRequired": "ईमेल आवश्यक है।",
+    "invalidEmail": "कृपया एक मान्य ईमेल पता दर्ज करें।",
+    "typeError": "अमान्य ईमेल डोमेन।",
+    "otp": "OTP में कम से कम 3 अंक होने चाहिए।",
+    "amountRequired": "राशि आवश्यक है।",
+    "invalidNumber": "एक मान्य धनात्मक संख्या दर्ज करें।",
+    "otpRequired": "OTP कोड आवश्यक है।",
+    "invalidAddresss": "एक मान्य सोलाना पता दर्ज करें।",
+    "walletRequired": "वॉलेट पता आवश्यक है।",
+    "otpFailed": "OTP भेजने में विफल। कृपया पुनः प्रयास करें।"
   }
 }
