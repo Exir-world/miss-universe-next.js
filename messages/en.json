@@ -1,7 +1,7 @@
 {
   "global": {
     "startGame": "Start Game",
-    "unregisteredWithdrawButton":"Register and Withdraw",
+    "unregisteredWithdrawButton": "Register and Withdraw",
     "withdrawWarn": "The withdrawal transaction fee is 6.9 Tether.",
     "completeTask": "Complete Task",
     "enterUsernameToComplete": "Enter your username to complete this task",
@@ -173,6 +173,7 @@
     "tasks": "Tasks",
     "hey": "Hey"
   },
+
   "intro": {
     "title": "999,999 Lucky Winners",
     "des": "will win a treasure trove of EX9630 coins!",
@@ -192,5 +193,18 @@
     "enterUsernameToComplete": "Enter your username to complete this task",
     "yourUsername": "Your username",
     "complete": "Task completed successfully!"
+  },
+  "formValidations": {
+    "phoneRequired": "Phone number is required.",
+    "emailRequired": "Email is required.",
+    "invalidEmail": "Please enter a valid email address",
+    "typeError": "Invalid email domain",
+    "otp": "OTP must be at least 3 digits.",
+    "amountRequired": "Amount is required.",
+    "invalidNumber": "Enter a valid positive number.",
+    "otpRequired": "OTP code is required.",
+    "invalidAddresss": "Enter a valid Solana address.",
+    "walletRequired": "Wallet address is required.",
+    "otpFailed":"Failed to send OTP. Please try again."
   }
 }
