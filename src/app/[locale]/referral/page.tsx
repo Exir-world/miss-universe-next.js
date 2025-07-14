@@ -33,6 +33,7 @@ export default function Referral() {
   const { api } = useApi();
   const { userData } = useLoginStoreState();
   const referralCode = userData?.user?.referralCode || "";
+  const IMAGES_BASE_URL = "https://token.ex.pro/cdn";
 
   const config = { gameName: process.env.NEXT_PUBLIC_GAME_NAME || "Dubaieid" };
   const t = useTranslations();
@@ -83,7 +84,7 @@ Click the link and start earning with me today!
   };
 
   const handleShareLink = () => {
-    const imageLink = `https://token.ex.pro/cdn/logo/${config.gameName}`;
+    const imageLink = `${IMAGES_BASE_URL}/${process.env.NEXT_PUBLIC_GAME_NAME}/${process.env.NEXT_PUBLIC_GAME_NAME}.svg`;
     const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(
       getReferralUrl()
     )}&text=${encodeURIComponent(`${shareText}\n\n${imageLink}`)}`;
