@@ -1,7 +1,7 @@
 {
   "global": {
     "startGame": "Démarrer le jeu",
-    "withdrawWarn": "Les frais de transaction de retrait sont de 6,9 $.",
+    "withdrawWarn": "Les frais de transaction de retrait sont de 6,9 Tether.",
     "completeTask": "Terminer la tâche",
     "enterUsernameToComplete": "Entrez votre nom d'utilisateur pour compléter cette tâche",
     "yourUsername": "Votre nom d'utilisateur",

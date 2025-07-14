@@ -92,18 +92,20 @@ const QuestionsPage = () => {
               <div key={question.id} className="relative w-full ">
                 <div
                   onClick={() =>
-                  router.push(`/questions/qNum?id=${question.order}`)
+                    router.push(`/questions/qNum?id=${question.order}`)
                   }
                   style={{ cursor: "pointer" }}
                 >
                   <Image
-                  className="rounded-[15px] relative border border-[#C643A8E5]"
-                  src={`/api/image?url=${encodeURIComponent(question.imageUrl)}`}
-                  width={150}
-                  height={150}
-                  alt="Qpic"
-                  unoptimized={false} // Enable Next.js image optimization and caching
-                  priority={index === 0}
+                    className="rounded-[15px] relative border border-[#C643A8E5]"
+                    src={`/api/image?url=${encodeURIComponent(
+                      question.imageUrl
+                    )}`}
+                    width={150}
+                    height={150}
+                    alt="Qpic"
+                    unoptimized={false} // Enable Next.js image optimization and caching
+                    priority={index === 0}
                   />
                 </div>
                 {isAnswered && (

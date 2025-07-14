@@ -21,12 +21,9 @@ export default function HomePage() {
   const [secretToken, setSecretToken] = useState<string | null>(null);
   const [notRegisteredModal, setNotRegisteredModal] = useState(false);
   const [isWinner, setIsWinner] = useState(false);
+  const mystery = userData?.mystery?.mysteryContent;
 
   useEffect(() => {
-    // (async () => {
-    //   await getMe();
-    // })();
-    const mystery = userData.mystery?.mysteryContent;
 
     if (mystery) {
       setSecretToken(mystery);

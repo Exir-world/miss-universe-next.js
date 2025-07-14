@@ -1,7 +1,7 @@
 {
   "global": {
     "startGame": "Mulai Permainan",
-    "withdrawWarn": "Biaya transaksi penarikan adalah $6.9.",
+    "withdrawWarn": "Biaya transaksi penarikan adalah 6,9 Tether.",
     "completeTask": "Selesaikan Tugas",
     "enterUsernameToComplete": "Masukkan nama pengguna Anda untuk menyelesaikan tugas ini",
     "yourUsername": "Nama pengguna Anda",

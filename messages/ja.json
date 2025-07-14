@@ -1,7 +1,7 @@
 {
   "global": {
     "startGame": "ゲームを開始",
-    "withdrawWarn": "出金手数料は6.9ドルです。",
+    "withdrawWarn": "出金手数料は6.9テザーです。",
     "completeTask": "タスクを完了",
     "enterUsernameToComplete": "タスクを完了するにはユーザー名を入力してください",
     "yourUsername": "ユーザー名",

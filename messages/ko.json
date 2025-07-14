@@ -1,7 +1,7 @@
 {
   "global": {
     "startGame": "게임 시작",
-    "withdrawWarn": "출금 수수료는 6.9달러입니다.",
+    "withdrawWarn": "출금 수수료는 6.9 테더입니다.",
     "completeTask": "태스크 완료",
     "enterUsernameToComplete": "태스크를 완료하려면 사용자 이름을 입력하세요",
     "yourUsername": "사용자 이름",

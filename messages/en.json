@@ -1,7 +1,7 @@
 {
   "global": {
     "startGame": "Start Game",
-    "withdrawWarn": "The withdrawal transaction fee is $6.9.",
+    "withdrawWarn": "The withdrawal transaction fee is 6.9 Tether.",
     "completeTask": "Complete Task",
     "enterUsernameToComplete": "Enter your username to complete this task",
     "yourUsername": "Your username",
