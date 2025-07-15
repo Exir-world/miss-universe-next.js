@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import BottomNavbar from "./BottomNavbar";
 import React from "react";
 import { useLoginStoreState } from "@/stores/context";
@@ -14,8 +14,9 @@ export default function PageWrapper({
 }) {
   const pathname = usePathname();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [loading, setLoading] = useState(true);
-  const { getMe, hasGameSecret } = useLoginStoreState();
+  const { getMe, hasGameSecret, joinGame } = useLoginStoreState();
 
   const fetchUserData = useCallback(async () => {
     try {
@@ -30,6 +31,13 @@ export default function PageWrapper({
   useEffect(() => {
     fetchUserData();
   }, [pathname, fetchUserData]);
+
+  useEffect(() => {
+    console.log(searchParams.get("start"), "from wraper");
+    const referralCode = searchParams.get("r");
+    joinGame(referralCode);
+    
+  }, []);
 
   return (
     <div className="relative min-h-screen bg-zinc-900 text-white">
