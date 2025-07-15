@@ -195,8 +195,17 @@ export function createLoginStore(api?: AxiosInstance): StoreApi<LoginStore> {
 
             // Get referral code from URL if available
             const urlParams = new URLSearchParams(window.location.search);
+            console.log(urlParams, "from store");
 
             const referralCode = urlParams.get("r") || urlParams.get("start");
+            console.log(referralCode, " referralCode");
+
+            console.log(
+              {
+                ...(referralCode ? { referralCode } : {}),
+              },
+              "hey *"
+            );
 
             await axiosInstance.post("/mainuser/join", {
               ...(referralCode ? { referralCode } : {}),
