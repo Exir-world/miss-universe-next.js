@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import BottomNavbar from "./BottomNavbar";
 import React from "react";
 import { useLoginStoreState } from "@/stores/context";
+import { useRouter } from "@/i18n/navigation";
 
 export default function PageWrapper({
   children,
@@ -12,6 +13,7 @@ export default function PageWrapper({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
   const { getMe, hasGameSecret } = useLoginStoreState();
 
@@ -27,7 +29,7 @@ export default function PageWrapper({
 
   useEffect(() => {
     fetchUserData();
-  }, []);
+  }, [pathname, fetchUserData]);
 
   return (
     <div className="relative min-h-screen bg-zinc-900 text-white">

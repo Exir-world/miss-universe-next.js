@@ -119,15 +119,15 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
     try {
       // const loginStore = useLoginStoreState();
       const answer = get().answers;
-      let answers: { answers: number[] };
+      let answersArray: { answers: number[] };
 
       if (answer.length == 9) {
-        answers = { answers: Array(9).fill(1) };
-        
+        answersArray = { answers: Array(9).fill(1) };
+
         const res = await api.post(
           "/mysteries/check-answer",
           {
-            ...answers,
+            ...answersArray,
           },
           {
             headers: {
