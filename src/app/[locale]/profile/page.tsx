@@ -7,6 +7,8 @@ import ClaimRewardButton from "@/components/profileWinnButton";
 import TransactionDoneModal from "@/components/transactionDone";
 import WithdrawButton from "@/components/withdrawButton";
 import { useApi } from "@/context/api";
+import { useRouter } from "@/i18n/navigation";
+import { useLoginStoreState } from "@/stores/context";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
@@ -41,8 +43,9 @@ function Page() {
   const [walletId, setWalletId] = useState<any>(null);
   const [coinPrice, setCoinPrice] = useState<any>(null);
   const [walletData, setWalletData] = useState<Wallet[]>([]);
-
+  const { userData } = useLoginStoreState();
   const [transactionDone, setTransactionDone] = useState(false);
+  const router = useRouter();
   const getWalletData = async () => {
     try {
       const res = await api.get("/wallets/user/tg");
@@ -84,6 +87,18 @@ function Page() {
     getWalletData();
   }, []);
 
+  const claimReward = async () => {
+    try {
+      const res = await api.post(`winners/claim-reward`);
+      console.log(res.data);
+      if (res.status == 200 || res.status == 201) {
+        toast.success(t("home.success"));
+      }
+    } catch (error) {
+      toast.error(t("errors.unknownError"));
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center gap-2 w-full h-full ">
       <div className="border border-[#C643A8E5] rounded-lg bg-[#7D7D7D4D]/30 px-4 pt-4 pb-6 w-full flex flex-col items-center">
@@ -97,13 +112,13 @@ function Page() {
         <div className="flex w-full flex-col justify-center items-center px-2 pt-7 gap-4 font-[600] text-[14px] tracking-wider">
           <DoneTasks />
         </div>
-        {/* <div>
+        <div>
           <ClaimRewardButton
-            isWinner={true}
-            onClick={""}
+            isWinner={userData.isWinner}
+            onClick={claimReward}
             label={"claim your prize"}
           ></ClaimRewardButton>
-        </div> */}
+        </div>
       </div>
 
       <div className="border border-[#C643A8E5] rounded-lg bg-[#7D7D7D4D]/30 px-4 pt-4 pb-6 w-full flex flex-col items-center">

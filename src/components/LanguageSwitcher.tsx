@@ -61,7 +61,7 @@ export default function LanguageSwitcher() {
               className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#242424]  rounded-xl shadow-xl p-6 w-80 max-h-[80vh] overflow-y-auto z-50"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
+              exit={{ scale: 0.8, opacity: 0 }} 
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
               <div className="p-1 w-full flex justify-end items-center">
