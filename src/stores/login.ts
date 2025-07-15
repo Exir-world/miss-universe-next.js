@@ -197,6 +197,8 @@ export function createLoginStore(api?: AxiosInstance): StoreApi<LoginStore> {
             const urlParams = new URLSearchParams(window.location.search);
             console.log(urlParams, "from store");
 
+            console.log(window.location, "window.location");
+
             const referralCode = urlParams.get("r") || urlParams.get("start");
             console.log(referralCode, " referralCode");
 
