@@ -14,20 +14,28 @@ const domains: Record<string, string> = {
 };
 
 export async function middleware(request: NextRequest) {
-  // const hostname = request.headers.get("host") || "";
-  // const tenant = domains[hostname];
+  const { pathname, search } = request.nextUrl;
+
+  // بررسی اینکه آیا pathname با یکی از locale‌ها شروع می‌شود
+  const hasLocale = routing.locales.some(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  );
+
+  // اگر locale در URL وجود نداشته باشد
+  if (!hasLocale) {
+    const locale = (await getLocale()) || routing.defaultLocale;
+    const newUrl = new URL(`/${locale}${pathname}${search}`, request.url);
+    return NextResponse.redirect(newUrl);
+  }
 
   const response = NextResponse.next();
-  // if (tenant) {
-  //   response.cookies.set("tenant", tenant);
-  // }A
 
-  const locale = (await getLocale()) || "en";
-  const pathname = request.nextUrl.pathname;
+  const locale = (await getLocale()) || routing.defaultLocale;
   const hasGameSecret = request.cookies.get("hasGameSecret")?.value || "";
 
+  // اگر hasGameSecret وجود نداشته باشد
   // if (!hasGameSecret) {
-  //   // Prevent infinite loop: don't redirect if already on /[locale]/intro
+  //   // جلوگیری از لوپ بی‌نهایت: اگر مسیر روی /[locale]/intro باشد، ادامه بده
   //   if (pathname.startsWith(`/${locale}/intro`)) {
   //     return response;
   //   }
