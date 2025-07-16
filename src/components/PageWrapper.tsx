@@ -14,9 +14,8 @@ export default function PageWrapper({
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [loading, setLoading] = useState(true);
-  const { getMe, hasGameSecret, joinGame } = useLoginStoreState();
+  const { getMe, hasGameSecret } = useLoginStoreState();
 
   const fetchUserData = useCallback(async () => {
     try {
@@ -32,12 +31,13 @@ export default function PageWrapper({
     fetchUserData();
   }, [pathname, fetchUserData]);
 
+  const searchParams = useSearchParams();
   useEffect(() => {
-    console.log(searchParams.get("start"), "from wraper");
-    const referralCode = searchParams.get("r");
-    joinGame(referralCode);
-    
-  }, []);
+    const r = searchParams.get("r");
+    if (r) {
+      sessionStorage.setItem("referralCode", r);
+    }
+  }, [searchParams]);
 
   return (
     <div className="relative min-h-screen bg-zinc-900 text-white">

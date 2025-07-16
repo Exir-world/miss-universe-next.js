@@ -2,6 +2,7 @@ import { createStore, StoreApi } from "zustand";
 import { persist } from "zustand/middleware";
 import { AxiosInstance, AxiosError } from "axios";
 import { createAxiosInstance } from "@/lib/axiosInstance";
+import { useRouter } from "@/i18n/navigation";
 
 interface User {
   id: number;
@@ -52,7 +53,7 @@ interface LoginStore {
   setLoginData: (data: Partial<LoginData>) => void;
   login: (countryCode?: string, referralCode?: string) => Promise<boolean>;
   getMe: () => Promise<void>;
-  joinGame: (referralCode: string) => Promise<void>;
+  joinGame: () => Promise<void>;
   normalizePhoneNumber: (input: string) => string | null;
 }
 
@@ -169,12 +170,7 @@ export function createLoginStore(api?: AxiosInstance): StoreApi<LoginStore> {
               // Remove automatic joinGame call to prevent infinite loops
               // const { joinGame } = get();
               const { joinGame } = get();
-              const urlParams = new URLSearchParams(window.location.search).get(
-                "r"
-              );
-              console.log(urlParams, "45");
-
-              await joinGame(urlParams);
+              await joinGame();
             } else {
               console.log("User not authenticated");
               set({ isAuth: false });
@@ -189,7 +185,7 @@ export function createLoginStore(api?: AxiosInstance): StoreApi<LoginStore> {
           }
         },
 
-        joinGame: async (referralCode?: string) => {
+        joinGame: async () => {
           try {
             // Access user data from the store
             const { userData } = get();
@@ -200,21 +196,15 @@ export function createLoginStore(api?: AxiosInstance): StoreApi<LoginStore> {
 
             // Get referral code from URL if available
             const urlParams = new URLSearchParams(window.location.search);
-            console.log(urlParams.get('start'), "from store");
 
-            // console.log(window.location, "window.location");
+            const referralCode =
+              typeof window !== "undefined"
+                ? sessionStorage.getItem("referralCode")
+                : null;
 
-            // const referralCode = urlParams.get("r");
-            // console.log(referralCode, " referralCode");
-
-            console.log(
-              {
-                ...(referralCode ? { referralCode } : {}),
-              },
-              "hey *"
-            );
-            const payload = referralCode ? { referralCode } : {};
-            await axiosInstance.post("/mainuser/join", payload);
+            await axiosInstance.post("/mainuser/join", {
+              ...(referralCode ? { referralCode } : {}),
+            });
           } catch (err: unknown) {
             if ((err as AxiosError).isAxiosError) {
               console.log("joinGame error:", (err as AxiosError).message);
