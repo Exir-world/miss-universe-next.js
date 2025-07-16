@@ -33,10 +33,12 @@ export default function PageWrapper({
 
   const searchParams = useSearchParams();
   useEffect(() => {
-    const r = searchParams.get("r");
+    const r = searchParams.get("start") || searchParams.get("r");
     if (r) {
       sessionStorage.setItem("referralCode", r);
     }
+    console.log(r, "from wrapper");
+    
   }, [searchParams]);
 
   return (

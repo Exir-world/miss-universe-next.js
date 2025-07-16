@@ -13,7 +13,7 @@ export default function ClientWrapper({
     const callMe = async () => {
       await getMe();
     };
-    callMe();
+    // callMe();
     // Optionally, add dependencies if you want to re-run on certain changes
   }, []);
 
