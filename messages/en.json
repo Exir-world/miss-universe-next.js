@@ -97,7 +97,8 @@
     "registering": "Registering",
     "register": "Register",
     "emailPlaceholder": "Enter your email",
-    "registerTitle": "Register"
+    "registerTitle": "Register",
+    "registrationSuccess": "Registration success"
   },
   "withdraw": {
     "amountRequired": "Amount is required.",

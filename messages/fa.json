@@ -97,7 +97,8 @@
     "registering": "در حال ثبت‌نام",
     "register": "ثبت‌نام",
     "emailPlaceholder": "ایمیل خود را وارد کنید",
-    "registerTitle": "ثبت‌نام"
+    "registerTitle": "ثبت‌نام",
+    "registrationSuccess": "ثبت نام با موفقیت انجام شد"
   },
   "withdraw": {
     "amountRequired": "وارد کردن مقدار الزامی است.",
