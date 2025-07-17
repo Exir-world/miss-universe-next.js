@@ -125,19 +125,21 @@ function Page() {
         <div className="w-full flex flex-col items-center justify-between py-4">
           <h3 className="text-center w-full border-b border-[#C643A8E5] pb-2">
             <p>{t("profile.balance")}</p>
-            <p className="font-[500] text-[25px]">
+            <p className="font-[500] text-[23px]">
               {walletData.length > 0
-                ? walletData.map((wallet) => wallet.balance)
+                ? walletData.reduce((sum, wallet) => {
+                    return sum + Number(wallet.balance);
+                  }, 0)
                 : 0}
             </p>
           </h3>
 
-          <div className="flex w-full items-center  gap-2 py-2 ">
+          <div className="flex flex-col justify-center w-full items-center  gap-2 py-2 ">
             {walletData.length > 0 ? (
               <>
                 {walletData.map((wallet, id) => {
                   return (
-                    <div className="w-full flex items-center gap-2" key={id}>
+                    <div className="w-full flex items-center  gap-2 " key={id}>
                       <Image
                         src={(wallet as any).icon}
                         height={30}

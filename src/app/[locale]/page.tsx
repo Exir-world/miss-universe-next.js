@@ -10,6 +10,7 @@ import Image from "next/image";
 import { MdContentCopy } from "react-icons/md";
 import Link from "next/link";
 import { LuCircleHelp } from "react-icons/lu";
+import RegisterModal from "@/components/registerModal";
 
 const IMAGES_BASE_URL = "https://token.ex.pro/cdn";
 
@@ -24,7 +25,6 @@ export default function HomePage() {
   const mystery = userData?.mystery?.mysteryContent;
 
   useEffect(() => {
-
     if (mystery) {
       setSecretToken(mystery);
     }
@@ -90,40 +90,44 @@ export default function HomePage() {
       <div className="flex flex-col items-center justify-center h-screen pb-10 pt-2 text-white text-center ">
         {/* Not Registered Modal */}
         {notRegisteredModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-            <div className="bg-black border border-primary rounded-lg p-6 relative max-w-sm w-full">
-              <button
-                onClick={() => setNotRegisteredModal(false)}
-                className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-              >
-                ✕
-              </button>
-              <div className="mb-4">
-                <svg
-                  className="h-16 w-16 text-yellow-400 mx-auto"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 9v2m0 4h.01M12 2a10 10 0 100 20 10 10 0 000-20z"
-                  />
-                </svg>
-              </div>
-              <p className="text-lg font-medium mb-6">
-                {t("auth.notRegistered")}
-              </p>
-              <button
-                onClick={() => router.push("/profile")}
-                className="w-full bg-primary text-white font-bold py-2 px-4 rounded-full hover:bg-primary-dark border "
-              >
-                {t("auth.button")}
-              </button>
-            </div>
-          </div>
+          // <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          //   <div className="bg-black border border-primary rounded-lg p-6 relative max-w-sm w-full">
+          //     <button
+          //       onClick={() => setNotRegisteredModal(false)}
+          //       className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+          //     >
+          //       ✕
+          //     </button>
+          //     <div className="mb-4">
+          //       <svg
+          //         className="h-16 w-16 text-yellow-400 mx-auto"
+          //         fill="none"
+          //         viewBox="0 0 24 24"
+          //         stroke="currentColor"
+          //       >
+          //         <path
+          //           strokeLinecap="round"
+          //           strokeLinejoin="round"
+          //           strokeWidth={2}
+          //           d="M12 9v2m0 4h.01M12 2a10 10 0 100 20 10 10 0 000-20z"
+          //         />
+          //       </svg>
+          //     </div>
+          //     <p className="text-lg font-medium mb-6">
+          //       {t("auth.notRegistered")}
+          //     </p>
+          //     <button
+          //       onClick={() => router.push("/profile")}
+          //       className="w-full bg-primary text-white font-bold py-2 px-4 rounded-full hover:bg-primary-dark border "
+          //     >
+          //       {t("auth.button")}
+          //     </button>
+          //   </div>
+          // </div>
+          <RegisterModal
+            isOpen={notRegisteredModal}
+            onClose={() => setNotRegisteredModal(false)}
+          />
         )}
 
         {/* Logo + Interactions */}
