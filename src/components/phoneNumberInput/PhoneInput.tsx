@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import countrieCodes from "./countries.json";
 import { motion } from "framer-motion";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
+import { useTranslations } from "next-intl";
 
 interface Country {
   code: string;
@@ -75,7 +76,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
   //     onChange(formattedPhone, selectedCountry.telephoneCode);
   //   }
   // };
-
+  const t = useTranslations();
   return (
     <>
       <div className="relative w-full mx-auto border border-[#FF4ED3] rounded-full">
@@ -83,7 +84,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
           <div className="relative">
             <button
               type="button"
-              className="flex items-center px-3 py-2"
+              className="flex items-start p-2 gap-1"
               onClick={() => setIsOpen(!isOpen)}
               disabled={loading}
             >
@@ -141,8 +142,8 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
             type="tel"
             value={phoneNumber}
             onChange={handlePhoneChange}
-            placeholder="Enter phone number"
-            className="flex-1 px-2 py-1 outline-none"
+            placeholder={t("global.enterPhone")}
+            className="flex-1 px-2 py-1 outline-none placeholder:text-sm ltr:placeholder:text-start rtl:placeholder:text-end  "
             disabled={loading}
           />
         </div>

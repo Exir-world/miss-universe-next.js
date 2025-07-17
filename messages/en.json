@@ -76,7 +76,9 @@
     "back": "Back",
     "noFriends": "You have not add any Friends",
     "transactionDone": "Transaction completed successfully.",
-    "backToTransactions": "View Withdrawal History"
+    "backToTransactions": "View Withdrawal History",
+    "enterPhone": "Enter your phone number",
+    "enterEmail": "Enter your email"
   },
   "home": {
     "success": "Congrats!",
@@ -145,7 +147,8 @@
     "activeTasks": "Active Tasks",
     "noCompletedTasks": "No Completed Tasks",
     "noActiveTasks": "There are no active tasks",
-    "checkBackLater": "Please check back later"
+    "checkBackLater": "Please check back later",
+    "allCorrect": "Congrats, all correct!"
   },
   "transaction": {
     "history": "Withdrawal History",

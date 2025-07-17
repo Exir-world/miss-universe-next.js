@@ -1,6 +1,7 @@
 {
   "global": {
     "startGame": "Iniciar Juego",
+    "unregisteredWithdrawButton": "Registrarse y Retirar",
     "withdrawWarn": "La tarifa de transacción de retiro es de 6.9 Tether.",
     "completeTask": "Completar Tarea",
     "enterUsernameToComplete": "Ingresa tu nombre de usuario para completar esta tarea",
@@ -14,18 +15,18 @@
     "follow": "Seguir",
     "visit": "Visitar",
     "noTransactionsFound": "No se encontraron transacciones.",
-    "transactionHistory": "Historial de Transacciones",
+    "transactionHistory": "Historial de Retiros",
     "amountRequired": "El monto es requerido.",
     "amountInvalid": "Ingresa un número positivo válido.",
     "walletRequired": "La dirección de la billetera es requerida.",
     "walletInvalid": "Ingresa una dirección de Solana válida.",
     "otpRequired": "El código OTP es requerido.",
     "otpInvalid": "El OTP debe tener al menos 3 dígitos.",
-    "otpSendFailed": "Error al enviar el OTP. Por favor, intenta de nuevo.",
+    "otpSendFailed": "No se pudo enviar el OTP. Por favor, intenta de nuevo.",
     "phoneRequired": "El número de teléfono es requerido.",
     "emailRequired": "El correo electrónico es requerido.",
     "registerSuccess": "¡Registro exitoso!",
-    "registerFailed": "Registro fallido.",
+    "registerFailed": "El registro falló.",
     "registering": "Registrando...",
     "register": "Registrar",
     "phoneLabel": "Número de Teléfono",
@@ -49,7 +50,7 @@
     "referralLinkCopied": "¡Enlace de referido copiado al portapapeles!",
     "loadingReferralCode": "Cargando tu código de referido...",
     "codeCopied": "¡Código copiado al portapapeles! 🎉",
-    "failedToCopy": "Error al copiar el código al portapapeles. Por favor, intenta de nuevo.",
+    "failedToCopy": "No se pudo copiar el código al portapapeles. Por favor, intenta de nuevo.",
     "resourceNotFound": "Recurso no encontrado. Por favor, intenta de nuevo más tarde.",
     "authenticationRequired": "Se requiere autenticación. Por favor, inicia sesión nuevamente.",
     "accessDenied": "Acceso denegado. No tienes permiso para realizar esta acción.",
@@ -64,33 +65,37 @@
     "registerNow": "Regístrate Ahora",
     "profile": "Perfil",
     "tasks": "Tareas",
-    "transactionHistoryTitle": "Historial de Transacciones",
+    "transactionHistoryTitle": "Historial de Retiros",
     "tapOnMe": "¡Toca en MÍ!",
     "processing": "Procesando...",
     "pending": "Pendiente",
     "claim": "Reclamar",
     "history": "Historial",
-    "room": "Habitación",
+    "room": "Sala",
     "chair": "Silla",
-    "back": "Volver",
-    "noFriends": "No has añadido amigos",
+    "back": "Atrás",
+    "noFriends": "No has agregado amigos",
     "transactionDone": "Transacción completada con éxito.",
-    "backToTransactions": "Ver Historial de Transacciones"
+    "backToTransactions": "Ver Historial de Retiros"
   },
   "home": {
     "success": "¡Felicidades!",
     "des": "Registra tu código en Exir Info para asegurar tu lugar en la lotería",
-    "button": "Registrar Tu Código",
+    "button": "Registra Tu Código",
     "successCode": "Código copiado",
-    "wrongCode": "Error al copiar el código",
-    "exploreButton": "Explorar Ahora",
-    "claimButton": "Reclamar Tu Premio",
-    "winnerDes": "Ve al perfil para reclamar tu premio o explora tareas para ganar más recompensas.",
+    "wrongCode": "No se pudo copiar el código",
+    "exploreButton": "Explora Ahora",
+    "claimButton": "Reclama Tu Premio",
+    "winnerDes": "Ve a tu perfil para reclamar tu premio o explora tareas para ganar más recompensas.",
     "title": "¡Felicidades! ¡Eres un ganador! 🎉"
   },
   "auth": {
-    "notRegistered": "¡Aún no te has registrado! Ve al perfil y regístrate, por favor",
-    "button": "Ir al perfil"
+    "notRegistered": "¡Aún no te has registrado! Ve a tu perfil y regístrate, por favor",
+    "button": "Ir al perfil",
+    "registering": "Registrando",
+    "register": "Registrar",
+    "emailPlaceholder": "Ingresa tu correo electrónico",
+    "registerTitle": "Registrar"
   },
   "withdraw": {
     "amountRequired": "El monto es requerido.",
@@ -99,11 +104,11 @@
     "walletInvalid": "Ingresa una dirección de Solana válida.",
     "otpRequired": "El código OTP es requerido.",
     "otpInvalid": "El OTP debe tener al menos 3 dígitos.",
-    "otpSendFailed": "Error al enviar el OTP. Por favor, intenta de nuevo.",
+    "otpSendFailed": "No se pudo enviar el OTP. Por favor, intenta de nuevo.",
     "phoneRequired": "El número de teléfono es requerido.",
     "emailRequired": "El correo electrónico es requerido.",
     "registerSuccess": "¡Registro exitoso!",
-    "registerFailed": "Registro fallido.",
+    "registerFailed": "El registro falló.",
     "registering": "Registrando...",
     "register": "Registrar",
     "phoneLabel": "Número de Teléfono",
@@ -112,6 +117,7 @@
     "amountLabel": "Monto",
     "walletLabel": "Dirección de Billetera Solana",
     "otpLabel": "Código OTP",
+    "sending": "Enviando...",
     "send": "Enviar",
     "payWithTon": "Pagar con Ton",
     "withdraw": "Retirar"
@@ -122,7 +128,7 @@
     "linkCopied": "¡Enlace de referido copiado al portapapeles!",
     "loadingCode": "Cargando tu código de referido...",
     "codeCopied": "¡Código copiado al portapapeles! 🎉",
-    "failedToCopy": "Error al copiar el código al portapapeles. Por favor, intenta de nuevo.",
+    "failedToCopy": "No se pudo copiar el código al portapapeles. Por favor, intenta de nuevo.",
     "friends": "Amigos"
   },
   "tasks": {
@@ -137,16 +143,18 @@
     "visit": "Visitar",
     "completeTask": "Tareas Completadas",
     "activeTasks": "Tareas Activas",
-    "noCompletedTasks": "No hay tareas completadas"
+    "noCompletedTasks": "No hay Tareas Completadas",
+    "noActiveTasks": "No hay tareas activas",
+    "checkBackLater": "Por favor, revisa de nuevo más tarde"
   },
   "transaction": {
-    "history": "Historial de Transacciones",
+    "history": "Historial de Retiros",
     "noTransactions": "No se encontraron transacciones.",
-    "title": "Historial de Transacciones"
+    "title": "Historial de Retiros"
   },
   "profile": {
     "profile": "Perfil",
-    "registerNow": "Regístrate Ahora",
+    "register Теперь": "Regístrate Ahora",
     "balance": "Saldo",
     "withdraw": "Retirar",
     "phoneNumber": "Número de teléfono",
@@ -157,7 +165,7 @@
     "payButton": "Pagar con Ton"
   },
   "questions": {
-    "submit": "¡Has ganado!"
+    "submit": "¡Ganaste!"
   },
   "common": {
     "loading": "Cargando...",
@@ -173,7 +181,7 @@
   },
   "intro": {
     "title": "999,999 Ganadores Afortunados",
-    "des": "¡ganarán un tesoro de monedas EX9630!",
+    "des": "¡Ganarán un tesoro de monedas EX9630!",
     "button": "Jugar",
     "button2": "Perfil"
   },
@@ -192,16 +200,16 @@
     "complete": "¡Tarea completada con éxito!"
   },
   "formValidations": {
-    "phoneRequired": "El número de teléfono es obligatorio.",
-    "emailRequired": "El correo electrónico es obligatorio.",
-    "invalidEmail": "Por favor, introduce una dirección de correo electrónico válida.",
-    "typeError": "Dominio de correo electrónico no válido.",
+    "phoneRequired": "El número de teléfono es requerido.",
+    "emailRequired": "El correo electrónico es requerido.",
+    "invalidEmail": "Por favor, ingresa una dirección de correo electrónico válida",
+    "typeError": "Dominio de correo electrónico no válido",
     "otp": "El OTP debe tener al menos 3 dígitos.",
-    "amountRequired": "El monto es obligatorio.",
-    "invalidNumber": "Introduce un número positivo válido.",
-    "otpRequired": "El código OTP es obligatorio.",
-    "invalidAddresss": "Introduce una dirección de Solana válida.",
-    "walletRequired": "La dirección de la billetera es obligatoria.",
+    "amountRequired": "El monto es requerido.",
+    "invalidNumber": "Ingresa un número positivo válido.",
+    "otpRequired": "El código OTP es requerido.",
+    "invalidAddresss": "Ingresa una dirección de Solana válida.",
+    "walletRequired": "La dirección de la billetera es requerida.",
     "otpFailed": "No se pudo enviar el OTP. Por favor, intenta de nuevo."
   }
 }

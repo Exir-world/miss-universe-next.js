@@ -29,7 +29,7 @@ export default function PageWrapper({
 
   useEffect(() => {
     fetchUserData();
-  }, [pathname, fetchUserData]);
+  }, [pathname, fetchUserData, router]);
 
   // const searchParams = useSearchParams();
   // useEffect(() => {
