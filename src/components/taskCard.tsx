@@ -158,7 +158,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({
           ) : task.isPending ? (
             <div className="flex justify-center items-center py-1 px-1.5 bg-purple-500/60 text-white rounded-full text-xs font-medium max-w-[96px]">
               <FaClock className="w-3 h-3 mx-1" />
-              {t("global.pending")}
+              {/* {t("global.pending")} */}Pending
             </div>
           ) : (
             <button
@@ -203,7 +203,8 @@ export const TaskCard: React.FC<TaskCardProps> = ({
                 {loading ? (
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mx-auto " />
                 ) : (
-                  t("global.claim")
+                  // t("global.claim")
+                  "Claim"
                 )}
               </button>
             </div>

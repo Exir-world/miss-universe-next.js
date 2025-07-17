@@ -31,15 +31,15 @@ export default function PageWrapper({
     fetchUserData();
   }, [pathname, fetchUserData]);
 
-  const searchParams = useSearchParams();
-  useEffect(() => {
-    const r = searchParams.get("start") || searchParams.get("r");
-    if (r) {
-      sessionStorage.setItem("referralCode", r);
-    }
-    console.log(r, "from wrapper");
-    
-  }, [searchParams]);
+  // const searchParams = useSearchParams();
+  // useEffect(() => {
+  //   const r = searchParams.get("start") || searchParams.get("r");
+  //   if (r) {
+  //     sessionStorage.setItem("referralCode", r);
+  //   }
+  //   console.log(r, "from wrapper");
+
+  // }, [searchParams]);
 
   return (
     <div className="relative min-h-screen bg-zinc-900 text-white">

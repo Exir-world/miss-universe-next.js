@@ -91,7 +91,11 @@
   },
   "auth": {
     "notRegistered": "You have not registered yet! go to proflile and signup please",
-    "button": "go to profile"
+    "button": "go to profile",
+    "registering": "Registering",
+    "register": "Register",
+    "emailPlaceholder": "Enter your email",
+    "registerTitle": "Register"
   },
   "withdraw": {
     "amountRequired": "Amount is required.",
@@ -139,7 +143,9 @@
     "visit": "Visit",
     "completeTask": "Completed Tasks",
     "activeTasks": "Active Tasks",
-    "noCompletedTasks": "No Completed Tasks"
+    "noCompletedTasks": "No Completed Tasks",
+    "noActiveTasks": "There are no active tasks",
+    "checkBackLater": "Please check back later"
   },
   "transaction": {
     "history": "Withdrawal History",
@@ -205,6 +211,6 @@
     "otpRequired": "OTP code is required.",
     "invalidAddresss": "Enter a valid Solana address.",
     "walletRequired": "Wallet address is required.",
-    "otpFailed":"Failed to send OTP. Please try again."
+    "otpFailed": "Failed to send OTP. Please try again."
   }
 }

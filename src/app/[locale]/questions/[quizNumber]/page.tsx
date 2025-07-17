@@ -37,7 +37,7 @@ function Page() {
   const { api } = useApi();
 
   // Use zustand store
-  const { questions, answers, submitAnswer, fetchQuestions } =
+  const { questions, answers, submitAnswer, fetchQuestions, submitAnswers } =
     useQuestionsStore();
 
   // Fetch questions if empty (for reload)
@@ -89,11 +89,7 @@ function Page() {
           });
           if (allCorrect) {
             try {
-              await api.post("/mysteries/check-answer", {
-                answers: answers.map((a, idx) =>
-                  idx === currentIndex ? optionId : a
-                ),
-              });
+              await submitAnswers(api);
               toast.success(t("success.allCorrect"));
             } catch (e) {
               toast.error(t("error.unknownError"));

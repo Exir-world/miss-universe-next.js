@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { useLoginStoreState } from "./context";
+import { useLoginStore, useLoginStoreState } from "./context";
 import { getQuestionImageUrl, shouldUseLocalImages } from "@/lib/apiUtils";
 
 export interface Option {
@@ -34,7 +34,7 @@ const DEFAULT_ANSWERS = Array(9).fill(-1);
 function saveAnswersToLocalStorage(answers: number[]) {
   if (typeof window !== "undefined") {
     localStorage.setItem(
-      `answers_${process.env.NEXT_GAME_NAME}`,
+      `Game_${process.env.NEXT_GAME_NAME}`,
       JSON.stringify(answers)
     );
   }
@@ -42,7 +42,7 @@ function saveAnswersToLocalStorage(answers: number[]) {
 
 function loadAnswersFromLocalStorage(): number[] {
   if (typeof window === "undefined") return [...DEFAULT_ANSWERS];
-  const stored = localStorage.getItem(`answers_${process.env.NEXT_GAME_NAME}`);
+  const stored = localStorage.getItem(`Game_${process.env.NEXT_GAME_NAME}`);
   return stored ? JSON.parse(stored) : [...DEFAULT_ANSWERS];
 }
 
@@ -121,8 +121,8 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
       const answer = get().answers;
       let answersArray: { answers: number[] };
 
-      if (answer.length == 9) {
-        answersArray = { answers: Array(9).fill(1) };
+      if (answer.length === 9) {
+        answersArray = { answers: [1, 1, 1, 1, 1, 1, 1, 1, 1] };
 
         const res = await api.post(
           "/mysteries/check-answer",
@@ -136,7 +136,7 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
           }
         );
         if (res.status == 200 || res.status == 201) {
-          // await loginStore.getMe();
+          await useLoginStoreState().getMe();
 
           return res;
         }

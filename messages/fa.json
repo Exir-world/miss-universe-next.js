@@ -1,6 +1,7 @@
 {
   "global": {
     "startGame": "شروع بازی",
+    "unregisteredWithdrawButton": "ثبت نام و برداشت",
     "withdrawWarn": "هزینه تراکنش برداشت ۶.۹ تتر است.",
     "completeTask": "تکمیل وظیفه",
     "enterUsernameToComplete": "برای تکمیل این وظیفه، نام کاربری خود را وارد کنید",
