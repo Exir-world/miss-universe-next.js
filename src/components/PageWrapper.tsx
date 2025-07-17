@@ -29,7 +29,7 @@ export default function PageWrapper({
 
   useEffect(() => {
     fetchUserData();
-  }, [pathname, fetchUserData, router]);
+  }, [pathname, fetchUserData, hasGameSecret]);
 
   // const searchParams = useSearchParams();
   // useEffect(() => {

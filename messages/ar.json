@@ -97,7 +97,8 @@
     "registering": "جارٍ التسجيل",
     "register": "تسجيل",
     "emailPlaceholder": "أدخل بريدك الإلكتروني",
-    "registerTitle": "تسجيل"
+    "registerTitle": "تسجيل",
+    "registrationSuccess": "تم التسجيل بنجاح"
   },
   "withdraw": {
     "amountRequired": "المبلغ مطلوب.",

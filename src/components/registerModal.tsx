@@ -27,11 +27,11 @@ const RegisterModal = ({
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerLoading, setRegisterLoading] = useState(false);
   const [registerError, setRegisterError] = useState<string | null>(null);
+  const { getMe } = useLoginStoreState();
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setRegisterError(null);
-    const { getMe } = useLoginStoreState();
     if (!registerPhone) {
       const msg = t("formValidations.phoneRequired");
       setRegisterError(msg);
