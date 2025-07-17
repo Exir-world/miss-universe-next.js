@@ -333,7 +333,7 @@ const WithdrawButton = ({ onTransaction }: any) => {
                     </label>
                     <input
                       type="email"
-                      placeholder="Enter your email"
+                      placeholder={t("global.enterEmail")}
                       value={registerEmail}
                       onChange={(e) => setRegisterEmail(e.target.value)}
                       className="w-full border border-gray-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4ED3]"
@@ -348,7 +348,9 @@ const WithdrawButton = ({ onTransaction }: any) => {
                       type="submit"
                       className="w-full gap-1 py-3 text-sm rounded-full bg-[#50A7EA] text-white flex items-center justify-center"
                     >
-                      {registerLoading ? "Registering..." : "Register"}
+                      {registerLoading
+                        ? t("withdraw.registering")
+                        : t("withdraw.register")}
                     </button>
                   </div>
                 </form>
@@ -426,10 +428,10 @@ const WithdrawButton = ({ onTransaction }: any) => {
                         }`}
                       >
                         {otpLoading
-                          ? "Sending..."
+                          ? t("withdraw.sending")
                           : otpTimer > 0
                           ? `${otpTimer}`
-                          : "Send"}
+                          : t("withdraw.send")}
                       </button>
                     </div>
                     {/* {errors.otp && (

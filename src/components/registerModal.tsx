@@ -1,12 +1,14 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
 import PhoneInput from "./phoneNumberInput/PhoneInput";
 import { useApi } from "@/context/api";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "react-toastify";
 import { IoMdClose } from "react-icons/io";
+import { useLoginStoreState } from "@/stores/context";
+import useDir from "@/hooks/useDir";
 
 const validateEmail = (email: string) =>
   /\S+@\S+\.\S+/.test(email) ? email : null;
@@ -29,7 +31,7 @@ const RegisterModal = ({
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setRegisterError(null);
-
+    const { getMe } = useLoginStoreState();
     if (!registerPhone) {
       const msg = t("formValidations.phoneRequired");
       setRegisterError(msg);
@@ -51,7 +53,7 @@ const RegisterModal = ({
         phoneNumber: registerPhone,
         email: validateEmail(registerEmail),
       });
-
+      await getMe();
       toast.success(
         t("auth.registrationSuccess") || "Registration successful!"
       );
@@ -77,7 +79,6 @@ const RegisterModal = ({
       document.body.style.overflow = "auto";
     };
   }, [isOpen]);
-
   return (
     <AnimatePresence>
       {isOpen && (
@@ -96,7 +97,7 @@ const RegisterModal = ({
           >
             <button
               onClick={onClose}
-              className="absolute top-3 right-3 text-gray-400 hover:text-black text-xl p-1 "
+              className="absolute top-3 right-3 text-gray-400  text-xl p-1 "
             >
               <IoMdClose size={26} />
             </button>
@@ -127,10 +128,10 @@ const RegisterModal = ({
                 </label>
                 <input
                   type="email"
-                  placeholder={t("auth.emailPlaceholder") || "Enter your email"}
+                  placeholder={t("auth.emailPlaceholder")}
                   value={registerEmail}
                   onChange={(e) => setRegisterEmail(e.target.value)}
-                  className="w-full border border-gray-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#50A7EA]"
+                  className="w-full border border-gray-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#50A7EA] "
                   disabled={registerLoading}
                 />
               </div>
