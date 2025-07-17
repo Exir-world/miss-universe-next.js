@@ -49,7 +49,8 @@ export default function HomePage() {
   };
 
   const handleGoToInfo = () => {
-    const hasPId = !!userData.user?.pid;
+    const hasPId = userData.user?.pid;
+
     if (!hasPId) {
       setNotRegisteredModal(true);
     } else {

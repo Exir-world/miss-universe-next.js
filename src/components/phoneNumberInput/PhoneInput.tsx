@@ -111,14 +111,14 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.2 }}
-                className="absolute z-10 w-64 max-h-60 overflow-y-auto bg-white border rounded-md shadow-lg mt-1 text-black"
+                className="absolute  z-10 w-64 max-h-60 overflow-y-auto bg-white border rounded-md shadow-lg mt-1 text-black"
               >
-                <div className="p-0.5">
+                <div className="p-0.5 sticky top-0 z-10">
                   <input
                     placeholder="Search country"
                     type="text"
                     onChange={handleSearchCountry}
-                    className="bg-gray-100 border-b border-gray-400 p-1 w-full"
+                    className="bg-gray-100 border-b border-gray-400 p-1 w-full "
                   />
                 </div>
 
