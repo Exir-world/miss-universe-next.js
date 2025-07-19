@@ -37,7 +37,7 @@ function Page() {
   const { api } = useApi();
 
   // Use zustand store
-  const { questions, answers, submitAnswer, fetchQuestions, submitAnswers } =
+  const { questions, answers, submitAnswer, fetchQuestions } =
     useQuestionsStore();
 
   // Fetch questions if empty (for reload)
@@ -74,11 +74,12 @@ function Page() {
     setIsCorrect(isOptionCorrect);
     setAnimating(true);
     if (isOptionCorrect) {
-      submitAnswer(currentIndex, optionId);
+      // submitAnswer(currentIndex, optionId);
       setTimeout(async () => {
         setAnimating(false);
         // Go to next question or finish
         const nextQuestion = questions[currentIndex + 1];
+
         if (nextQuestion) {
           router.push(`/questions/qNum?id=${nextQuestion.order}`);
         } else {
@@ -87,9 +88,15 @@ function Page() {
             const ansId = idx === currentIndex ? optionId : answers[idx];
             return q.options.find((o) => o.id === ansId)?.isCorrect;
           });
+
+          console.log(allCorrect, "all");
           if (allCorrect) {
             try {
-              await submitAnswers(api);
+              await api.post("/mysteries/check-answer", {
+                answers: answers.map((a, idx) =>
+                  idx === currentIndex ? optionId : a
+                ),
+              });
               toast.success(t("success.allCorrect"));
             } catch (e) {
               toast.error(t("error.unknownError"));
@@ -101,6 +108,51 @@ function Page() {
           }, 1000);
         }
       }, 500);
+    } else {
+      setTimeout(() => {
+        setSelectedAnswer(null);
+        setIsCorrect(null);
+        setAnimating(false);
+      }, 700);
+    }
+  };
+
+  const handleAnswe = async (
+    optionId: number,
+    questionId: number,
+    isCorrect
+  ) => {
+    if (selectedAnswer !== null || animating) return;
+    setSelectedAnswer(optionId);
+    setIsCorrect(isCorrect);
+    setAnimating(true);
+
+    const nextQuestion = questions[currentIndex + 1];
+
+    if (isCorrect) {
+      setAnimating(false);
+      const res = submitAnswer(questionId, optionId, api);
+
+      if (nextQuestion) {
+        router.push(`/questions/qNum?id=${nextQuestion.order}`);
+      } else {
+        const allCorrect = questions.every((q) => q.answered);
+        console.log(allCorrect, "ak");
+
+        if (allCorrect) {
+          try {
+            await api.post("/mysteries/check-answer", {
+              answers: Array(9).fill(1),
+            });
+            toast.success(t("success.allCorrect"));
+          } catch (e) {
+            toast.error(t("error.unknownError"));
+          }
+        }
+        setTimeout(() => {
+          router.push("/questions");
+        }, 1000);
+      }
     } else {
       setTimeout(() => {
         setSelectedAnswer(null);
@@ -163,7 +215,14 @@ function Page() {
               <div key={option.id} className="w-full">
                 <AnswerItem
                   text={option.text}
-                  onClick={() => handleAnswer(option?.id, option?.isCorrect)}
+                  // onClick={() => handleAnswer(option?.id, option?.isCorrect)}
+                  onClick={() =>
+                    handleAnswe(
+                      option?.id,
+                      currentQuestion.id,
+                      option?.isCorrect
+                    )
+                  }
                   state={state}
                 />
               </div>

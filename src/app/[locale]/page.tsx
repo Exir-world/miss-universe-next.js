@@ -77,6 +77,7 @@ export default function HomePage() {
     router.push("/questions");
   };
 
+  
   return (
     <div>
       <div className="w-full  flex justify-end ">

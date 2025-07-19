@@ -1,14 +1,14 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PhoneInput from "./phoneNumberInput/PhoneInput";
 import { useApi } from "@/context/api";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "react-toastify";
 import { IoMdClose } from "react-icons/io";
 import { useLoginStoreState } from "@/stores/context";
-import useDir from "@/hooks/useDir";
+import useClickOutside from "@/hooks/useClickOutside";
 
 const validateEmail = (email: string) =>
   /\S+@\S+\.\S+/.test(email) ? email : null;
@@ -27,6 +27,7 @@ const RegisterModal = ({
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerLoading, setRegisterLoading] = useState(false);
   const [registerError, setRegisterError] = useState<string | null>(null);
+  const [disableBtn, setDisableBtn] = useState(false);
   const { getMe } = useLoginStoreState();
 
   const handleRegister = async (e: React.FormEvent) => {
@@ -49,22 +50,28 @@ const RegisterModal = ({
     setRegisterLoading(true);
 
     try {
+      setDisableBtn(true);
       const res = await api.post("/mainuser/register", {
         phoneNumber: registerPhone,
         email: validateEmail(registerEmail),
       });
+      // if (res.status == 200 || res.status == 201) {
       await getMe();
+      // }
       toast.success(
         t("auth.registrationSuccess") || "Registration successful!"
       );
       // optionally close modal or go to next step
       onClose?.();
     } catch (err: any) {
+      setDisableBtn(false);
+
       const errorMsg = err?.response?.data?.message || "Registration failed.";
       setRegisterError(errorMsg);
       toast.error(errorMsg);
     } finally {
       setRegisterLoading(false);
+      setDisableBtn(false);
     }
   };
 
@@ -79,6 +86,10 @@ const RegisterModal = ({
       document.body.style.overflow = "auto";
     };
   }, [isOpen]);
+
+  const modalRef = useRef(null);
+  useClickOutside(modalRef, onClose);
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -89,11 +100,12 @@ const RegisterModal = ({
           exit={{ opacity: 0 }}
         >
           <motion.div
+            ref={modalRef}
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 50, opacity: 0 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className=" rounded-xl shadow-lg w-full max-w-md p-6 relative bg-black/95"
+            className=" rounded-xl shadow-lg w-[97%] max-w-md p-6 relative bg-black/95"
           >
             <button
               onClick={onClose}
@@ -141,6 +153,7 @@ const RegisterModal = ({
               )}
 
               <button
+                disabled={disableBtn}
                 type="submit"
                 className="w-full py-3 text-sm rounded-full bg-[#50A7EA] text-white flex items-center justify-center"
               >
