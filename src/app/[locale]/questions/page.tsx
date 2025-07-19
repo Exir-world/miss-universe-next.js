@@ -23,6 +23,7 @@ type Question = {
   text: string;
   imageUrl: string;
   order: number;
+  answered: boolean;
   options: Option[];
 };
 
@@ -55,7 +56,7 @@ const QuestionsPage = () => {
     // eslint-disable-next-line
   }, [questions]);
 
-  const allAnswered = answers.filter((a) => a !== -1).length === 9;
+  const allAnswered = questions.every((quiz, ind) => quiz.answered);
 
   const handleSubmit = async () => {
     try {
@@ -108,7 +109,7 @@ const QuestionsPage = () => {
                     priority={index === 0}
                   />
                 </div>
-                {isAnswered && (
+                {question.answered && (
                   <div className="absolute z-50 bg-black/40 flex items-center justify-center rounded-xl left-0 right-0 top-0 bottom-0">
                     <span className="text-green-400 text-3xl font-bold">
                       <MdDone size={30}></MdDone>

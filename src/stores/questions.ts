@@ -15,6 +15,7 @@ export interface Question {
   imageUrl: string;
   order: number;
   options: Option[];
+  answered: boolean;
 }
 
 interface QuestionsState {
@@ -24,7 +25,7 @@ interface QuestionsState {
   error: string | null;
   nextStep: number;
   fetchQuestions: (api: any) => Promise<void>;
-  submitAnswer: (qn: number, answer: number) => void;
+  submitAnswer: (qn: number, answer: number, api: any) => void;
   submitAnswers: (api: any) => Promise<void>;
   reset: () => void;
 }
@@ -105,11 +106,20 @@ export const useQuestionsStore = create<QuestionsState>((set, get) => ({
     }
   },
 
-  submitAnswer: (qn, answer) => {
+  submitAnswer: (questionId, optionId, api) => {
     const answers = [...get().answers];
-    answers[qn] = answer;
+    // answers[qn] = answer;
     set({ answers });
-    saveAnswersToLocalStorage(answers);
+    // saveAnswersToLocalStorage(answers);
+
+    try {
+      const res = api.post(
+        `questions/question/${questionId}/option/${optionId}`
+      );
+    } catch (error) {
+      console.log(error);
+    }
+
     // Update nextStep
     const next = answers.findIndex((a) => a === -1);
     set({ nextStep: next });
