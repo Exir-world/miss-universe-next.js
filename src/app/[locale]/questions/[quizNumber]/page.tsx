@@ -47,6 +47,15 @@ function Page() {
     }
   }, [questions.length, fetchQuestions, api]);
 
+  // Helper function to find next unanswered question
+  const findNextUnansweredQuestion = (currentIndex: number) => {
+    return questions.find((q, index) => {
+      // Skip the current question and find the next unanswered one
+      if (index <= currentIndex) return false;
+      return !q.answered;
+    });
+  };
+
   // Find the current question by order
   const currentQuestion = questions.find(
     (q) => q.order === parseInt(questionNumber || "1")
@@ -54,6 +63,19 @@ function Page() {
   const currentIndex = questions.findIndex(
     (q) => q.order === parseInt(questionNumber || "1")
   );
+
+  // Redirect to next unanswered question if current question is already answered
+  useEffect(() => {
+    if (currentQuestion && currentQuestion.answered) {
+      const nextUnanswered = findNextUnansweredQuestion(currentIndex);
+      if (nextUnanswered) {
+        router.push(`/questions/qNum?id=${nextUnanswered.order}`);
+      } else {
+        // All questions are answered, go back to questions list
+        router.push("/questions");
+      }
+    }
+  }, [currentQuestion, currentIndex, router]);
 
   // Local state for answer feedback
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
@@ -77,20 +99,17 @@ function Page() {
       // submitAnswer(currentIndex, optionId);
       setTimeout(async () => {
         setAnimating(false);
-        // Go to next question or finish
-        const nextQuestion = questions[currentIndex + 1];
+        // Find the next unanswered question
+        const nextUnansweredQuestion = findNextUnansweredQuestion(currentIndex);
 
-        if (nextQuestion) {
-          router.push(`/questions/qNum?id=${nextQuestion.order}`);
+        if (nextUnansweredQuestion) {
+          router.push(`/questions/qNum?id=${nextUnansweredQuestion.order}`);
         } else {
-          // All questions answered, check if all correct
-          const allCorrect = questions.every((q, idx) => {
-            const ansId = idx === currentIndex ? optionId : answers[idx];
-            return q.options.find((o) => o.id === ansId)?.isCorrect;
-          });
-
-          console.log(allCorrect, "all");
-          if (allCorrect) {
+          // Check if all questions are answered
+          const allAnswered = questions.every((q) => q.answered);
+          console.log(allAnswered, "all questions answered");
+          
+          if (allAnswered) {
             try {
               await api.post("/mysteries/check-answer", {
                 answers: answers.map((a, idx) =>
@@ -127,19 +146,21 @@ function Page() {
     setIsCorrect(isCorrect);
     setAnimating(true);
 
-    const nextQuestion = questions[currentIndex + 1];
-
     if (isCorrect) {
       setAnimating(false);
       const res = submitAnswer(questionId, optionId, api);
 
-      if (nextQuestion) {
-        router.push(`/questions/qNum?id=${nextQuestion.order}`);
-      } else {
-        const allCorrect = questions.every((q) => q.answered);
-        console.log(allCorrect, "ak");
+      // Find the next unanswered question
+      const nextUnansweredQuestion = findNextUnansweredQuestion(currentIndex);
 
-        if (allCorrect) {
+      if (nextUnansweredQuestion) {
+        router.push(`/questions/qNum?id=${nextUnansweredQuestion.order}`);
+      } else {
+        // Check if all questions are answered
+        const allAnswered = questions.every((q) => q.answered);
+        console.log(allAnswered, "all questions answered");
+
+        if (allAnswered) {
           try {
             await api.post("/mysteries/check-answer", {
               answers: Array(9).fill(1),

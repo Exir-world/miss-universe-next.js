@@ -54,6 +54,7 @@ const RegisterModal = ({
       const res = await api.post("/mainuser/register", {
         phoneNumber: registerPhone,
         email: validateEmail(registerEmail),
+        nickname: "",
       });
       // if (res.status == 200 || res.status == 201) {
       await getMe();
