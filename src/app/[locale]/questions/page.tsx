@@ -41,6 +41,32 @@ const QuestionsPage = () => {
 
   const t = useTranslations();
 
+  // Helper function to find next unanswered question
+  const findNextUnansweredQuestion = (currentIndex: number) => {
+    return questions.find((q, index) => {
+      // Skip the current question and find the next unanswered one
+      if (index <= currentIndex) return false;
+      return !q.answered;
+    });
+  };
+
+  // Function to handle question click
+  const handleQuestionClick = (question: Question, questionIndex: number) => {
+    if (question.answered) {
+      // If question is already answered, find next unanswered question
+      const nextUnanswered = findNextUnansweredQuestion(questionIndex);
+      if (nextUnanswered) {
+        router.push(`/questions/qNum?id=${nextUnanswered.order}`);
+      } else {
+        // All questions are answered, show message or redirect
+        toast.info(t("questions.allAnswered"));
+      }
+    } else {
+      // If question is not answered, go to it
+      router.push(`/questions/qNum?id=${question.order}`);
+    }
+  };
+
   useEffect(() => {
     fetchQuestions(api);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -92,9 +118,7 @@ const QuestionsPage = () => {
             return (
               <div key={question.id} className="relative w-full ">
                 <div
-                  onClick={() =>
-                    router.push(`/questions/qNum?id=${question.order}`)
-                  }
+                  onClick={() => handleQuestionClick(question, index)}
                   style={{ cursor: "pointer" }}
                 >
                   <Image

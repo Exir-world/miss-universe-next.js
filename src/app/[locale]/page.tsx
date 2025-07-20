@@ -32,7 +32,7 @@ export default function HomePage() {
     if (userData.isWinner) {
       setIsWinner(true);
     }
-  }, [userData]);
+  }, [userData, mystery]);
 
   useEffect(() => {
     WebApp.ready();
@@ -77,7 +77,6 @@ export default function HomePage() {
     router.push("/questions");
   };
 
-  
   return (
     <div>
       <div className="w-full  flex justify-end ">

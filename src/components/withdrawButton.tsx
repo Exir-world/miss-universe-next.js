@@ -188,6 +188,7 @@ const WithdrawButton = ({ onTransaction }: any) => {
       const res = await api.post("/mainuser/register", {
         phoneNumber: registerPhone,
         email: validateEmail(registerEmail),
+        nickname: "",
       });
 
       setRegisterStep("withdraw");
