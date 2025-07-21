@@ -22,6 +22,7 @@ export default function HomePage() {
   const [secretToken, setSecretToken] = useState<string | null>(null);
   const [notRegisteredModal, setNotRegisteredModal] = useState(false);
   const [isWinner, setIsWinner] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
   const mystery = userData?.mystery?.mysteryContent;
 
   useEffect(() => {
@@ -36,7 +37,21 @@ export default function HomePage() {
 
   useEffect(() => {
     WebApp.ready();
+
   }, []);
+
+  useEffect(() => {
+    const refresher = setTimeout(() => {
+      setReloadTrigger((prev) => prev + 1);
+    }, 800);
+
+    return () => clearTimeout(refresher);
+  }, []);
+
+  useEffect(() => {
+    // You can call getMe() or do something else here
+    getMe();
+  }, [reloadTrigger]);
 
   const copyToClipboard = async () => {
     if (!secretToken) return;
