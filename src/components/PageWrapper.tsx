@@ -15,7 +15,7 @@ export default function PageWrapper({
   const pathname = usePathname();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const { getMe, hasGameSecret } = useLoginStoreState();
+  const { getMe, hasGameSecret, userData } = useLoginStoreState();
 
   // const fetchUserData = useCallback(async () => {
   //   try {
@@ -38,8 +38,19 @@ export default function PageWrapper({
   };
 
   useEffect(() => {
+    setLoading(true);
+    const fetchUserData = async () => {
+      try {
+        await getMe();
+      } catch (err) {
+        console.error("Error in PageWrapper:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchUserData();
-  }, [pathname, fetchUserData, hasGameSecret, getMe]);
+  }, [hasGameSecret]);
 
   // const searchParams = useSearchParams();
   // useEffect(() => {
