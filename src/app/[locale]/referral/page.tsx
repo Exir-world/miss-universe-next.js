@@ -87,7 +87,7 @@ Click the link and start earning with me today!
     const imageLink = `${IMAGES_BASE_URL}/${process.env.NEXT_PUBLIC_GAME_NAME}/${process.env.NEXT_PUBLIC_GAME_NAME}.svg`;
     const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(
       getReferralUrl()
-    )}&text=${encodeURIComponent(`${shareText}\n\n${imageLink}`)}`;
+    )}&text=${encodeURIComponent(`${shareText}\n`)}`;
     window.open(telegramUrl, "_blank");
   };
 
