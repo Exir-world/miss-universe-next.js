@@ -79,6 +79,7 @@
   },
   "home": {
     "success": "Tebrikler!",
+    "chooseRoom": "Odanızı seçin",
     "des": "Piyangoda yerinizi garantilemek için kodunuzu Exir Info'da kaydedin",
     "button": "Kodunuzu Kaydedin",
     "successCode": "Kod kopyalandı",

@@ -79,6 +79,7 @@
   },
   "home": {
     "success": "Glückwunsch!",
+    "chooseRoom": "Wähle dein Zimmer",
     "des": "Registrieren Sie Ihren Code bei Exir Info, um Ihren Platz in der Lotterie zu sichern",
     "button": "Code registrieren",
     "successCode": "Code kopiert",

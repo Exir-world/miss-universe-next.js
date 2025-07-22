@@ -79,6 +79,7 @@
   },
   "home": {
     "success": "Félicitations !",
+    "chooseRoom": "Sélectionne ta chambre",
     "des": "Enregistrez votre code sur Exir Info pour sécuriser votre place dans la loterie",
     "button": "Enregistrer votre code",
     "successCode": "Code copié",

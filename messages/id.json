@@ -79,6 +79,7 @@
   },
   "home": {
     "success": "Selamat!",
+    "chooseRoom": "Pilih kamar Anda",
     "des": "Daftarkan kode Anda di Exir Info untuk mengamankan tempat Anda di lotere",
     "button": "Daftarkan Kode Anda",
     "successCode": "Kode disalin",

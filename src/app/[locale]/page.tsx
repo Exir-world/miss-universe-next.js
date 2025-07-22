@@ -37,19 +37,17 @@ export default function HomePage() {
 
   useEffect(() => {
     WebApp.ready();
-
   }, []);
 
   useEffect(() => {
     const refresher = setTimeout(() => {
       setReloadTrigger((prev) => prev + 1);
-    }, 800);
+    }, 400);
 
     return () => clearTimeout(refresher);
   }, []);
 
   useEffect(() => {
-    // You can call getMe() or do something else here
     getMe();
   }, [reloadTrigger]);
 
@@ -191,7 +189,7 @@ export default function HomePage() {
               onClick={handleGoToInfo}
               className="w-full max-w-md mt-4 border-2 border-[#FF4ED3] rounded-full py-3 text-white"
             >
-              {t("home.button")}
+              {t("home.chooseRoom")}
             </button>
           </>
         ) : (
