@@ -82,6 +82,7 @@
   },
   "home": {
     "success": "مبروك!",
+    "chooseRoom": "اختر غرفتك",
     "des": "سجل رمزك على Exir Info لتأمين مكانك في السحب",
     "button": "تسجيل رمزك",
     "successCode": "تم نسخ الرمز",

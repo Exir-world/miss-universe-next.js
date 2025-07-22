@@ -79,6 +79,7 @@
   },
   "home": {
     "success": "축하합니다!",
+    "chooseRoom": "방을 선택하세요",
     "des": "Exir Info에 코드를 등록하여 추첨 자격을 확보하세요!",
     "button": "코드 등록하기",
     "successCode": "코드가 복사되었습니다!",

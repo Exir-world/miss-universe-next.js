@@ -80,6 +80,7 @@
   },
   "home": {
     "success": "¡Felicidades!",
+    "chooseRoom": "Selecciona tu habitación",
     "des": "Registra tu código en Exir Info para asegurar tu lugar en la lotería",
     "button": "Registra Tu Código",
     "successCode": "Código copiado",

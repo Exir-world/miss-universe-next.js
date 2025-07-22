@@ -17,7 +17,7 @@ const availableLocales = [
   { code: "id", name: "Bahasa Indonesia", icon: "id" },
   { code: "ja", name: "日本語", icon: "jp" },
   { code: "ko", name: "한국어", icon: "kr" },
-  { code: "ps", name: "پښتو", icon: "af" },
+  { code: "ps", name: "پشتو", icon: "af" },
   { code: "ru", name: "Русский", icon: "ru" },
   { code: "tr", name: "Türkçe", icon: "tr" },
   { code: "zh", name: "中文", icon: "cn" },
@@ -79,7 +79,7 @@ export default function LanguageSwitcher() {
                 {filteredLocales.map((l) => (
                   <button
                     key={l.code}
-                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 hover:text-black transition-colors duration-200 text-white"
+                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-600 hover:text-black transition-colors duration-200 text-white"
                     onClick={() => switchLocale(l.code)}
                   >
                     <span

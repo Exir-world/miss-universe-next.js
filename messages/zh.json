@@ -79,6 +79,7 @@
   },
   "home": {
     "success": "恭喜！",
+    "chooseRoom": "选择您的房间",
     "des": "在Exir Info上注册您的代码以确保您在抽奖中的名额",
     "button": "注册您的代码",
     "successCode": "代码已复制",

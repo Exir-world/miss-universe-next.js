@@ -83,7 +83,8 @@
   "home": {
     "success": "Congrats!",
     "des": "Register your code on Exir Info to secure your spot in the lottery",
-    "button": "Register You Code",
+    "button": "Register Your Code",
+    "chooseRoom": "Select your room",
     "successCode": "Code copied",
     "wrongCode": "Failed to copy code",
     "exploreButton": " Explore Now",
