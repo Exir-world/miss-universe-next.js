@@ -27,12 +27,12 @@ pipeline {
             script {
                 def apps = [
                     [name: 'dubaieid',   gameName: 'Dubaieid',   referralUrl: 'https://t.me/dubaieid_ex_pro_bot?start='],
-                    // [name: 'atossa',     gameName: 'Atossa',     referralUrl: 'https://t.me/atossa_expro_bot?start='],
-                    // [name: 'santa',      gameName: 'Santa',      referralUrl: 'https://t.me/santamessenger_expro_bot?start='],
-                    // [name: 'mevlana',    gameName: 'Oros',       referralUrl: 'https://t.me/molanaeros_expro_bot?start='],
-                    // [name: 'satoshi',    gameName: 'Satoshi',    referralUrl: 'https://t.me/satoshi_expro_bot?start='],
-                    // [name: 'churchill',  gameName: 'Churchill',  referralUrl: 'https://t.me/churchill_expro_bot?start='],
-                    // [name: 'tesla',      gameName: 'Tesla',      referralUrl: 'https://t.me/tesla_expro_bot?start=']
+                    [name: 'atossa',     gameName: 'Atossa',     referralUrl: 'https://t.me/atossa_expro_bot?start='],
+                    [name: 'santa',      gameName: 'Santa',      referralUrl: 'https://t.me/santamessenger_expro_bot?start='],
+                    [name: 'mevlana',    gameName: 'Oros',       referralUrl: 'https://t.me/molanaeros_expro_bot?start='],
+                    [name: 'satoshi',    gameName: 'Satoshi',    referralUrl: 'https://t.me/satoshi_expro_bot?start='],
+                    [name: 'churchill',  gameName: 'Churchill',  referralUrl: 'https://t.me/churchill_expro_bot?start='],
+                    [name: 'tesla',      gameName: 'Tesla',      referralUrl: 'https://t.me/tesla_expro_bot?start=']
                 ]
     
                 withCredentials([usernamePassword(credentialsId: 'DOCKER_REGISTRY_CREDENTIALS_ID', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
