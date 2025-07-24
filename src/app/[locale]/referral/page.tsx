@@ -135,7 +135,7 @@ Click the link and start earning with me today!
           friends.map((friend: Friend, index: number) => (
             <li key={index} className="mt-4">
               {index + 1}. {friend.referral.nickname}
-              <p className="font-thin text-xs">10000 EX9630</p>
+              <p className="font-thin text-xs">6000000 EX9630</p>
             </li>
           ))
         )}

@@ -18,12 +18,12 @@ export default function HomePage() {
   const t = useTranslations();
   const { hasGameSecret, userData, getMe } = useLoginStoreState();
   const router = useRouter();
-
   const [secretToken, setSecretToken] = useState<string | null>(null);
   const [notRegisteredModal, setNotRegisteredModal] = useState(false);
   const [isWinner, setIsWinner] = useState(false);
   const [reloadTrigger, setReloadTrigger] = useState(0);
   const mystery = userData?.mystery?.mysteryContent;
+  const hasRoom = userData?.mystery?.room;
 
   useEffect(() => {
     if (mystery) {
@@ -176,7 +176,7 @@ export default function HomePage() {
             <span className="text-green-400 text-2xl font-bold mt-2">
               {t("home.success")}
             </span>
-            <p className="mt-4">{t("home.des")}</p>
+            {!hasRoom && <p className="mt-4">{t("home.des")}</p>}
 
             <div className="flex p-2.5 mt-6 bg-white/20 border border-primary rounded-lg backdrop-blur-sm w-full max-w-md justify-between items-center">
               <span className="truncate">{secretToken}</span>
@@ -186,8 +186,9 @@ export default function HomePage() {
             </div>
 
             <button
+              disabled={!!hasRoom}
               onClick={handleGoToInfo}
-              className="w-full max-w-md mt-4 border-2 border-[#FF4ED3] rounded-full py-3 text-white"
+              className="w-full max-w-md mt-4 border-2 border-[#FF4ED3] rounded-full py-3 text-white disabled:opacity-30"
             >
               {t("home.chooseRoom")}
             </button>
