@@ -37,6 +37,7 @@ const QuestionsPage = () => {
   const { api } = useApi();
   const { questions, loading, fetchQuestions, answers, submitAnswers } =
     useQuestionsStore();
+  const { getMe } = useLoginStoreState();
   const [allQuestions, setAllQuestions] = useState<Question[]>([]);
 
   const t = useTranslations();
@@ -87,7 +88,7 @@ const QuestionsPage = () => {
   const handleSubmit = async () => {
     try {
       await submitAnswers(api);
-
+      await getMe();
       router.push("/");
 
       // toast.success(t("success.allCorrect"));
