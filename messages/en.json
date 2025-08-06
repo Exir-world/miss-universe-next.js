@@ -1,5 +1,7 @@
 {
   "global": {
+    "help": "Help",
+    "game": "Game",
     "startGame": "Start Game",
     "unregisteredWithdrawButton": "Register and Withdraw",
     "withdrawWarn": "The withdrawal transaction fee is 6.9 Tether.",

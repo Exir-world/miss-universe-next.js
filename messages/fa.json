@@ -1,5 +1,7 @@
 {
   "global": {
+    "help": "کمک",
+    "game": "بازی",
     "startGame": "شروع بازی",
     "unregisteredWithdrawButton": "ثبت‌نام و برداشت",
     "withdrawWarn": "کارمزد تراکنش برداشت ۶.۹ تِتر است.",

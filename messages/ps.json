@@ -1,5 +1,7 @@
 {
   "global": {
+    "help": "مرسته",
+    "game": "لوبه",
     "startGame": "لوبه پیل کړئ",
     "withdrawWarn": "د راکړې ورکړې فیس ۶.۹ تتر دی.",
     "completeTask": "دنده بشپړه کړئ",

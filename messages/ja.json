@@ -1,6 +1,9 @@
 {
   "global": {
+    "help": "ヘルプ",
+    "game": "ゲーム",
     "startGame": "ゲームを開始",
+    "unregisteredWithdrawButton": "登録して出金",
     "withdrawWarn": "出金手数料は6.9テザーです。",
     "completeTask": "タスクを完了",
     "enterUsernameToComplete": "タスクを完了するにはユーザー名を入力してください",

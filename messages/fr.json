@@ -1,5 +1,7 @@
 {
   "global": {
+    "help": "Aide",
+    "game": "Jeu",
     "startGame": "Démarrer le jeu",
     "withdrawWarn": "Les frais de transaction de retrait sont de 6,9 Tether.",
     "completeTask": "Terminer la tâche",

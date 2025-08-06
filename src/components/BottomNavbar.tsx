@@ -4,31 +4,33 @@ import { FaUser, FaListUl } from "react-icons/fa";
 import { IoGameControllerSharp } from "react-icons/io5";
 import { Link, usePathname } from "@/i18n/navigation";
 import { IoIosPersonAdd } from "react-icons/io";
+import { useTranslations } from "next-intl";
 
 export default function BottomNavbar({
   hasGameSecret,
 }: {
   hasGameSecret?: boolean;
 }) {
+  const t = useTranslations();
   const pages = [
     {
       link: "/",
-      label: "game",
+      label: t("global.game"),
       icon: <IoGameControllerSharp />,
     },
     {
       link: "/tasks",
-      label: "tasks",
+      label: t("global.tasks"),
       icon: <FaListUl />,
     },
     {
       link: "/referral",
-      label: "Friends",
+      label: t("global.friends"),
       icon: <IoIosPersonAdd />,
     },
     {
       link: "/profile",
-      label: "profile",
+      label: t("global.profile"),
       icon: <FaUser />,
     },
   ];

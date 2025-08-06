@@ -1,5 +1,7 @@
 {
   "global": {
+    "help": "Помощь",
+    "game": "Игра",
     "startGame": "Начать игру",
     "withdrawWarn": "Комиссия за вывод составляет 6,9 Tether.",
     "completeTask": "Выполнить задание",

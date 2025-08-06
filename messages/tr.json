@@ -1,5 +1,7 @@
 {
   "global": {
+    "help": "Yardım",
+    "game": "Oyun",
     "startGame": "Oyunu Başlat",
     "withdrawWarn": "Para çekme işlem ücreti 6,9 Tether'dir.",
     "completeTask": "Görevi Tamamla",

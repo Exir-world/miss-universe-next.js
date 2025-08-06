@@ -1,5 +1,7 @@
 {
   "global": {
+    "help": "Ayuda",
+    "game": "Juego",
     "startGame": "Iniciar Juego",
     "unregisteredWithdrawButton": "Registrarse y Retirar",
     "withdrawWarn": "La tarifa de transacción de retiro es de 6.9 Tether.",
