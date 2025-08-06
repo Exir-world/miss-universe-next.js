@@ -1,5 +1,7 @@
 {
   "global": {
+    "help": "도움말",
+    "game": "게임",
     "startGame": "게임 시작",
     "withdrawWarn": "출금 수수료는 6.9 테더입니다.",
     "completeTask": "태스크 완료",

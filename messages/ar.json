@@ -1,5 +1,7 @@
 {
   "global": {
+    "help": "مساعدة",
+    "game": "لعبة",
     "startGame": "بدء اللعبة",
     "unregisteredWithdrawButton": "التسجيل والسحب",
     "withdrawWarn": "رسوم معاملة السحب هي 6.9 تيثر.",

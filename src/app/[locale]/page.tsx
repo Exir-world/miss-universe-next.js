@@ -96,9 +96,10 @@ export default function HomePage() {
         <Link
           href={"https://cicada1919.ex.pro"}
           target="_blank"
-          className="p-1.5 "
+          className="border border-none rounded-md text-[14px]  flex justify-center items-center px-3 py-1"
         >
-          <LuCircleHelp size={24} />
+          {t("global.help")}
+          {/* <LuCircleHelp size={24} /> */}
         </Link>
       </div>
       <div className="flex flex-col items-center justify-center h-screen pb-10 pt-2 text-white text-center ">

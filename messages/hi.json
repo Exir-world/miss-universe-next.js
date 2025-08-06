@@ -1,5 +1,7 @@
 {
   "global": {
+    "help": "मदद",
+    "game": "खेल",
     "startGame": "खेल शुरू करें",
     "withdrawWarn": "वापसी लेनदेन शुल्क 6.9 टेथर है।",
     "completeTask": "कार्य पूरा करें",

@@ -1,5 +1,7 @@
 {
   "global": {
+    "help": "Hilfe",
+    "game": "Spiel",
     "startGame": "Spiel starten",
     "withdrawWarn": "Die Transaktionsgebühr für Abhebungen beträgt 6,9 Tether.",
     "completeTask": "Aufgabe abschließen",

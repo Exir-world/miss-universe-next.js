@@ -1,5 +1,7 @@
 {
   "global": {
+    "help": "帮助",
+    "game": "游戏",
     "startGame": "开始游戏",
     "withdrawWarn": "提现手续费为6.9泰达币。",
     "completeTask": "完成任务",
