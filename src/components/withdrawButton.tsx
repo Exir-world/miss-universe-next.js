@@ -277,7 +277,8 @@ const WithdrawButton = ({ onTransaction }: any) => {
           setShowModal(true);
           setErrors({});
         }}
-        className="px-5 py-2 w-full bg-transparent rounded-full shadow-md border-2 border-[#FF4ED3] text-white"
+        disabled={Boolean(hasRegisterPId)}
+        className={`px-5 py-2 w-full bg-transparent rounded-full shadow-md border-2 border-[#FF4ED3] text-white ${hasRegisterPId ? "opacity-50" : ""}`}
       >
         {hasRegisterPId
           ? t("profile.withdraw")
@@ -369,9 +370,8 @@ const WithdrawButton = ({ onTransaction }: any) => {
                     <input
                       value={amount}
                       onChange={(e) => setAmount(e.target.value)}
-                      className={`w-full border ${
-                        errors.amount ? "border-red-500" : "border-gray-300"
-                      } rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4ED3]`}
+                      className={`w-full border ${errors.amount ? "border-red-500" : "border-gray-300"
+                        } rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4ED3]`}
                     />
                     {errors.amount && (
                       <p className="text-red-500 text-xs mt-1">
@@ -388,9 +388,8 @@ const WithdrawButton = ({ onTransaction }: any) => {
                       type="text"
                       value={wallet}
                       onChange={(e) => setWallet(e.target.value)}
-                      className={`w-full border ${
-                        errors.wallet ? "border-red-500" : "border-gray-300"
-                      } rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4ED3]`}
+                      className={`w-full border ${errors.wallet ? "border-red-500" : "border-gray-300"
+                        } rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4ED3]`}
                     />
                     {errors.wallet && (
                       <p className="text-red-500 text-xs mt-1">
@@ -414,25 +413,23 @@ const WithdrawButton = ({ onTransaction }: any) => {
                         type="text"
                         value={otp}
                         onChange={(e) => setOtp(e.target.value)}
-                        className={`flex-1 border ${
-                          errors.otp ? "border-red-500" : "border-gray-300"
-                        } rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4ED3]`}
+                        className={`flex-1 border ${errors.otp ? "border-red-500" : "border-gray-300"
+                          } rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4ED3]`}
                       />
                       <button
                         type="button"
                         onClick={handleOtpClick}
                         disabled={otpTimer > 0 || otpLoading}
-                        className={`text-xs rounded-full ${
-                          otpTimer > 0 || otpLoading
-                            ? "text-[#FF4ED3] cursor-not-allowed"
-                            : "bg-transparent text-[#FF4ED3]"
-                        }`}
+                        className={`text-xs rounded-full ${otpTimer > 0 || otpLoading
+                          ? "text-[#FF4ED3] cursor-not-allowed"
+                          : "bg-transparent text-[#FF4ED3]"
+                          }`}
                       >
                         {otpLoading
                           ? t("withdraw.sending")
                           : otpTimer > 0
-                          ? `${otpTimer}`
-                          : t("withdraw.send")}
+                            ? `${otpTimer}`
+                            : t("withdraw.send")}
                       </button>
                     </div>
                     {/* {errors.otp && (

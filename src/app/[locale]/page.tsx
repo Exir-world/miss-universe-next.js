@@ -187,7 +187,7 @@ export default function HomePage() {
             </div>
 
             <button
-              disabled={true}
+              disabled={!!hasRoom}
               onClick={handleGoToInfo}
               className="w-full max-w-md mt-4 border-2 border-[#FF4ED3] rounded-full py-3 text-white disabled:opacity-30"
             >
