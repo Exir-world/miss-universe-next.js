@@ -32,10 +32,10 @@ export function ApiProvider({ children }: { children: React.ReactNode }) {
 
   const locale = useLocale();
 
-  // const initData =
-  //   "query_id=AAE-nkBjAwAAAD6eQGNyuith&user=%7B%22id%22%3A8107630142%2C%22first_name%22%3A%22Exirgec%22%2C%22last_name%22%3A%22Matik%22%2C%22username%22%3A%22matik1999%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FAQDD4nj43TOOafYj3NKKxtdCLkQkjGNODLgeLJucGUv9U3559dQKbVUVt3Jwb0R-.svg%22%7D&auth_date=1753080039&signature=YFdmXpZbftR7IoyCBIneRNGHypIu_lH7a5t59RvJguo-o8H2ee_-h3v44UrUjJ3e5Pyby3g6TwHHDZEDmJpOBg&hash=4ac4bbdc33f2e20bd3e874522b5f3ccb161e0e2683aea0c8f205160dbf3d9ad5";
+  const initData =
+    "query_id=AAE-nkBjAwAAAD6eQGNyuith&user=%7B%22id%22%3A8107630142%2C%22first_name%22%3A%22Exirgec%22%2C%22last_name%22%3A%22Matik%22%2C%22username%22%3A%22matik1999%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FAQDD4nj43TOOafYj3NKKxtdCLkQkjGNODLgeLJucGUv9U3559dQKbVUVt3Jwb0R-.svg%22%7D&auth_date=1753080039&signature=YFdmXpZbftR7IoyCBIneRNGHypIu_lH7a5t59RvJguo-o8H2ee_-h3v44UrUjJ3e5Pyby3g6TwHHDZEDmJpOBg&hash=4ac4bbdc33f2e20bd3e874522b5f3ccb161e0e2683aea0c8f205160dbf3d9ad5";
 
-  const initData = typeof window !== "undefined" ? WebApp?.initData : "";
+  // const initData = typeof window !== "undefined" ? WebApp?.initData : "";
 
   // Use the shared axios instance
   const apiInstance = useMemo(
